@@ -1,0 +1,16 @@
+.large-background {
+  display: block;
+  background-image: url("../../../assets/images/backgrounds/affinity.jpeg");
+  height: 600px;
+}
+.text-region{
+  width: 80%;
+  padding-top: 100px;
+  margin: auto;
+}
+.logo-image{
+  width: 50%;
+}
+.background-text{
+  margin: 2rem;
+}

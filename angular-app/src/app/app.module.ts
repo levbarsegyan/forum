@@ -2,7 +2,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatExpansionModule } from '@angular/material';
+import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatExpansionModule, MatTabsModule } from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
@@ -14,7 +14,26 @@ import { NewsUpdateComponent } from './news/news-update/news-update.component';
 import { BackgroundComponent } from './news/background/background.component';
 import { NewsComponent } from './news/news.component';
 import { InfoComponent } from './info/info.component';
-import { appRoutes } from "./routerConfig";
+import { VoteComponent } from './vote/vote.component';
+import { PostVoteComponent } from './posts/post-vote/post-vote.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+const appRoutes: Routes = [
+  {
+    path: '',
+    component: NewsComponent,
+  },
+  {
+    path: 'info',
+    component: InfoComponent,
+  },
+  {
+    path: 'vote',
+    component: VoteComponent,
+  },
+  {
+    path: '**', component: PageNotFoundComponent,
+  },
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +46,9 @@ import { appRoutes } from "./routerConfig";
     BackgroundComponent,
     NewsComponent,
     InfoComponent,
+    VoteComponent,
+    PostVoteComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +59,7 @@ import { appRoutes } from "./routerConfig";
     MatButtonModule,
     MatToolbarModule,
     MatExpansionModule,
+    MatTabsModule,
     RouterModule.forRoot(appRoutes),
   ],
   providers: [],

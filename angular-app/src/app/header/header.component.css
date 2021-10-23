@@ -1,0 +1,15 @@
+.header-link {
+  color: white;
+  font-size: 16px;
+}
+.navigation-bar-left{
+  margin-left: 10%;
+  margin-right: auto;
+}
+.navigation-bar-right{
+  margin-left: auto;
+  margin-right: 10%;
+}
+.logo{
+  height: 2em;
+}
