@@ -1,7 +1,6 @@
 .large-background {
   display: block;
-  background-image: url("../../../assets/images/backgrounds/affinity.jpeg");
-  height: 600px;
+  height: 400px;
 }
 .text-region{
   width: 80%;

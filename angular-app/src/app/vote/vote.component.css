@@ -1,0 +1,11 @@
+:host {
+  display: block;
+  width: 70%;
+  margin: auto;
+}
+mat-card{
+  margin: 2rem auto;
+}
+.voter-image {
+  width: 96%;
+}

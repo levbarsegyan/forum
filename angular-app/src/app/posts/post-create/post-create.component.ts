@@ -8,8 +8,8 @@ import { format } from 'url';
   styleUrls: ['./post-create.component.css']
 })
 export class PostCreateComponent {
-  title = "";
-  description = "";
+  title = '';
+  description = '';
   constructor(public postService: PostService) { }
   onAddPost(form: NgForm) {
     if (form.invalid) {

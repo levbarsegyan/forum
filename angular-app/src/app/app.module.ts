@@ -2,7 +2,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatExpansionModule, MatTabsModule } from '@angular/material';
+import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatExpansionModule, MatTabsModule, MatGridListModule } from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
@@ -60,6 +60,7 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatExpansionModule,
     MatTabsModule,
+    MatGridListModule,
     RouterModule.forRoot(appRoutes),
   ],
   providers: [],
