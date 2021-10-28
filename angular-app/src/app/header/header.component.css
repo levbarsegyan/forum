@@ -1,11 +1,11 @@
 .header-link {
-  color: white;
-  font-size: 16px;
+  color: black;
+  font-size: 18px;
 }
 mat-toolbar {
   height: 4em;
   backdrop-filter: blur(20px) contrast(.8);
-  background-color: rgba(151, 151, 151, 0.3);
+  background-color: rgba(250, 250, 250, 0.25);
 }
 .navigation-bar-left{
   margin-left: 10%;

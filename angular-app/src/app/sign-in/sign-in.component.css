@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  width: 30%;
+  margin: 2rem auto;
+}
+.sign-in-form {
+  margin: auto;
+}
+.sign-in-field {
+  display: inline;
+  margin: auto;
+}

@@ -1,3 +1,28 @@
-<p>
-  news-create works!
-</p>
+<mat-card>
+  <mat-card-header>Create post for the front page</mat-card-header>
+    <form class="news-create-form" (submit)="onSubmit(newsForm)" #newsForm="ngForm">
+        <mat-form-field>
+          <input matInput
+            placeholder="Title"
+            name="enteredTitle"
+            ngModel
+            required
+            minlength="3"
+            #title="ngModel">
+          <mat-error *ngIf="title.invalid">Please enter a post title.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea matInput rows="4"
+          name="enteredDescription"
+          placeholder="Post"
+          ngModel
+          required
+          #content="ngModel"></textarea>
+          <mat-error *ngIf="content.invalid">Please enter post content.</mat-error>
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          type=submit>Publish</button>
+      </form>
+</mat-card>

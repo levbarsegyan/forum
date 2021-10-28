@@ -3,3 +3,8 @@
   width: 70%;
   margin: 20rem auto;
 }
+.centre-block{
+  display: block;
+  width: 27%;
+  margin: auto;
+}

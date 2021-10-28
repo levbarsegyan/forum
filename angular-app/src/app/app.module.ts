@@ -2,8 +2,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatExpansionModule, MatTabsModule, MatGridListModule } from '@angular/material';
+import {
+  MatInputModule, MatCardModule,
+  MatButtonModule, MatToolbarModule,
+  MatExpansionModule, MatTabsModule,
+  MatGridListModule
+} from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { HeaderComponent } from './header/header.component';
@@ -17,6 +23,8 @@ import { InfoComponent } from './info/info.component';
 import { VoteComponent } from './vote/vote.component';
 import { PostVoteComponent } from './posts/post-vote/post-vote.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { SignUpComponent } from './sign-in/sign-up/sign-up.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -29,6 +37,18 @@ const appRoutes: Routes = [
   {
     path: 'vote',
     component: VoteComponent,
+  },
+  {
+    path: 'news',
+    component: NewsComponent,
+  },
+  {
+    path: 'sign-in',
+    component: SignInComponent,
+  },
+  {
+    path: 'create-news',
+    component: NewsCreateComponent,
   },
   {
     path: '**', component: PageNotFoundComponent,
@@ -49,6 +69,8 @@ const appRoutes: Routes = [
     VoteComponent,
     PostVoteComponent,
     PageNotFoundComponent,
+    SignInComponent,
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +83,7 @@ const appRoutes: Routes = [
     MatExpansionModule,
     MatTabsModule,
     MatGridListModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes),
   ],
   providers: [],
