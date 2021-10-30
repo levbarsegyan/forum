@@ -1,20 +1,27 @@
+body {
+  margin: 0;
+}
 .header-link {
   color: black;
   font-size: 18px;
 }
 mat-toolbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
   height: 4em;
-  backdrop-filter: blur(20px) contrast(.8);
   background-color: rgba(250, 250, 250, 0.25);
+  margin: 0%;
 }
-.navigation-bar-left{
-  margin-left: 10%;
+.navigation-bar-left {
+  margin-left: auto;
   margin-right: auto;
 }
-.navigation-bar-right{
+.navigation-bar-right {
   margin-left: auto;
-  margin-right: 10%;
+  margin-right: auto;
 }
-.logo{
-  height: 2em;
+.logo {
+  height: 3em;
+  margin: auto;
 }
