@@ -4,6 +4,8 @@
   width: 70%;
 }
 mat-form-field {
-  width: 100%;
+  display: block;
+  width: 95%;
   margin: auto;
+  padding: auto;
 }

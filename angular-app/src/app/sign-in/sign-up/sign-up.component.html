@@ -4,6 +4,13 @@
   <form class="sign-up-form" (submit)="onSubmit(signUpForm)" #signUpForm="ngForm">
     <mat-form-field class="sign-up-field">
       <input matInput ngModel
+      type="name"
+      name="enteredUsername"
+      required
+      placeholder="Minecraft Username">
+    </mat-form-field>
+    <mat-form-field class="sign-up-field">
+      <input matInput ngModel
       type="email"
       name="enteredEmail"
       required

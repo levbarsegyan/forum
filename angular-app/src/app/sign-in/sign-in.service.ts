@@ -1,27 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../models/user.model';
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-};
 @Injectable({
   providedIn: 'root'
 })
 export class SignInService {
   signInUrl = 'http:
   registerUrl = 'http:
-  user = {};
   constructor(private http: HttpClient) { }
-  sendRequest(email: string, password: string): Observable<User> {
-    this.user = {
-      email,
-      password
-    };
-    return this.http.post<User>(this.signInUrl, this.user, httpOptions);
+  loginRequest(user): Observable<any> {
+    return this.http.post<any>(this.signInUrl, user, {
+      observe: 'body',
+      withCredentials: true,
+      headers: new HttpHeaders().append(
+        'Content-Type', 'application/json'
+      )
+    });
   }
-  registerRequest(username: string, email: string, password: string) {
+  registerRequest(body): Observable<any> {
+    return this.http.post<any>(this.registerUrl, body, {
+      observe: 'body',
+      headers: new HttpHeaders().append(
+        'Content-Type', 'application/json'
+      )
+    });
   }
 }

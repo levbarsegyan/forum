@@ -17,11 +17,15 @@ export class NewsCreateComponent implements OnInit {
     this.newsPost = {
       title: form.value.enteredTitle,
       content: form.value.enteredContent,
-      author: 'Author Name in News-Create',
-      date: new Date(),
+      author: this.getAuthor(),
+      date: this.getDate(),
     };
     this.newsService.saveNews(this.newsPost);
   }
-  getAuthorOfNews() {
+  getAuthor() {
+    return "Admin";
+  }
+  getDate() {
+    return new Date();
   }
 }
