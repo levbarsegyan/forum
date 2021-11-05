@@ -23,8 +23,9 @@ import { InfoComponent } from './info/info.component';
 import { VoteComponent } from './vote/vote.component';
 import { PostVoteComponent } from './posts/post-vote/post-vote.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-in/sign-up/sign-up.component';
+import { SignInComponent } from './user-session/sign-in/sign-in.component';
+import { SignUpComponent } from './user-session/sign-up/sign-up.component';
+import { LogoutComponent } from './user-session/logout/logout.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -45,6 +46,10 @@ const appRoutes: Routes = [
   {
     path: 'sign-in',
     component: SignInComponent,
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent,
   },
   {
     path: 'create-news',
@@ -71,6 +76,7 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     SignInComponent,
     SignUpComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { SignInService } from '../sign-in.service';
-import { User } from 'src/app/models/user.model';
+import { UserSessionService } from '../user-session.service';
+import { User } from '../../models/user.model';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-  constructor(private signinService: SignInService) { }
+  constructor(private userSessionService: UserSessionService) { }
   username: string;
   email: string;
   password: string;
@@ -29,7 +29,7 @@ export class SignUpComponent implements OnInit {
     if (!form.valid || this.password !== this.confirmPassword) {
       return;
     }
-    this.signinService.registerRequest(this.user).subscribe(
+    this.userSessionService.registerRequest(this.user).subscribe(
       data => {
         console.log(data);
       },

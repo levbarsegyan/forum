@@ -30,10 +30,6 @@ app.use(passport.session());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/api/users', usersRoute);
-app.use(express.static(path.join(__dirname + '/../angular-app/dist/angular-app')));
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/../angular-app/dist/angular-app/index.html'));
-});
 app.get('/api', (req, res) => {
 });
 app.listen(8000, () => {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SignInService } from './sign-in.service';
+import { UserSessionService } from '../user-session.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 @Component({
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
-  constructor(private routerMove: Router, private signInService: SignInService) { }
+  constructor(private routerMove: Router, private userSessionService: UserSessionService) { }
   user = {};
   ngOnInit() {
   }
@@ -20,9 +20,20 @@ export class SignInComponent implements OnInit {
       email: form.value.enteredEmail,
       password: form.value.enteredPassword,
     };
-    this.signInService.loginRequest(this.user).subscribe(
+    this.userSessionService.loginRequest(this.user).subscribe(
       data => { console.log(data); this.routerMove.navigate(['/']); },
       error => { console.error(error); this.routerMove.navigate(['/sign-in']); }
+    );
+  }
+  logout() {
+    this.userSessionService.logout().subscribe(
+      data => {
+        console.log(data);
+        this.routerMove.navigate(['/thispagedoesnotexist']);
+      },
+      error => {
+        console.error(error);
+      }
     );
   }
 }

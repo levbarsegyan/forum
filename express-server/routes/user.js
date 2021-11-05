@@ -29,4 +29,17 @@ router.post('/login', function (req, res, next) {
         });
     })(req, res, next);
 });
+router.get('/user', isUserValid, function (req, res, next) {
+    return res.status(200).json(req.user);
+});
+router.get('/logout', isUserValid, function (req, res, next) {
+    req.logout();
+    return res.status(200).json({ message: 'Logout Success' });
+})
+function isUserValid(req, res, next) {
+    if (req.isAuthenticated())
+        next();
+    else
+        return res.status(401).json({ message: 'Unauthorized Request' });
+}
 module.exports = router;
