@@ -10,3 +10,11 @@
   display: inline;
   margin: auto;
 }
+.inline-region {
+  display: inline;
+}
+.warning{
+  float: right;
+  text-align: right;
+  color: red;
+}

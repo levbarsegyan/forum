@@ -10,6 +10,7 @@ export class LogoutComponent implements OnInit {
   username = '';
   constructor(private router: Router, private userSession: UserSessionService) { }
   ngOnInit() {
+    this.getUser();
   }
   getUser() {
     this.userSession.checkUser().subscribe(
@@ -26,7 +27,7 @@ export class LogoutComponent implements OnInit {
     this.userSession.logout().subscribe(
       data => {
         console.log(data);
-        this.router.navigate(['/thispagedoesnotexist']);
+        this.router.navigate(['/']);
       },
       error => {
         console.log(error);

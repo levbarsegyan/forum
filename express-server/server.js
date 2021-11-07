@@ -1,19 +1,19 @@
 const express = require('express');
 const app = express();
-const jwt = require('jsonwebtoken');
 const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const passport = require('passport');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const usersRoute = require('./routes/user');
 app.use(cors({
     origin: ['http:
     credentials: true,
 }));
 mongoose.connect('mongodb:
-const passport = require('passport');
-const session = require('express-session');
 app.use(session({
     name: 'decaform.sid',
     resave: false,
@@ -22,7 +22,8 @@ app.use(session({
     cookie: {
         httpOnly: false,
         secure: false
-    }
+    },
+    store: new MongoStore({mongooseConnection: mongoose.connection })
 }));
 require('./passport-config');
 app.use(passport.initialize());

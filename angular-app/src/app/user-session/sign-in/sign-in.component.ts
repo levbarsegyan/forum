@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class SignInComponent implements OnInit {
   constructor(private routerMove: Router, private userSessionService: UserSessionService) { }
   user = {};
+  warning = '';
   ngOnInit() {
   }
   onSubmit(form: NgForm) {
@@ -21,15 +22,21 @@ export class SignInComponent implements OnInit {
       password: form.value.enteredPassword,
     };
     this.userSessionService.loginRequest(this.user).subscribe(
-      data => { console.log(data); this.routerMove.navigate(['/']); },
-      error => { console.error(error); this.routerMove.navigate(['/sign-in']); }
+      data => {
+        console.log(data);
+        this.routerMove.navigate(['/']);
+      },
+      error => {
+        console.error(error.error);
+        this.warning = error.error;
+      }
     );
   }
   logout() {
     this.userSessionService.logout().subscribe(
       data => {
         console.log(data);
-        this.routerMove.navigate(['/thispagedoesnotexist']);
+        this.routerMove.navigate(['/']);
       },
       error => {
         console.error(error);

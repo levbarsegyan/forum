@@ -17,10 +17,13 @@
       required
       placeholder="Password"/>
     </mat-form-field>
-    <button
-    mat-raised-button
-    color="primary"
-    type=submit>SIGN IN</button>
+    <div class="inline-region">
+      <button
+      mat-raised-button
+      color="primary"
+      type=submit>SIGN IN</button>
+      <span class="warning">{{ warning }}</span>
+    </div>
   </form>
 </mat-card>
 <app-sign-up></app-sign-up>

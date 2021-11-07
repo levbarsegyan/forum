@@ -8,6 +8,7 @@ export class UserSessionService {
   signInUrl = 'http:
   registerUrl = 'http:
   userUrl = 'http:
+  logoutUrl = 'http:
   constructor(private http: HttpClient) { }
   loginRequest(user): Observable<any> {
     return this.http.post<any>(this.signInUrl, user, {
@@ -31,7 +32,7 @@ export class UserSessionService {
     });
   }
   logout() {
-    return this.http.get('http:
+    return this.http.get(this.logoutUrl, {
       observe: 'body',
       withCredentials: true,
       headers: new HttpHeaders().append( 'Content-Type', 'application/json')
