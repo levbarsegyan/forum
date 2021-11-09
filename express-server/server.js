@@ -3,7 +3,6 @@ const app = express();
 const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const session = require('express-session');
@@ -13,6 +12,9 @@ app.use(cors({
     origin: ['http:
     credentials: true,
 }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 mongoose.connect('mongodb:
 app.use(session({
     name: 'decaform.sid',
@@ -28,11 +30,9 @@ app.use(session({
 require('./passport-config');
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use('/api/users', usersRoute);
 app.get('/api', (req, res) => {
 });
 app.listen(8000, () => {
-    console.log('Server started!')
+    console.log('Server started!');
 })

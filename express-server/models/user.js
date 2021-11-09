@@ -5,7 +5,9 @@ var schema = new Schema({
     email: { type: String, require: true },
     username: { type: String, require: true },
     password: { type: String, require: true },
-    creation_date: { type: String, require: true }
+    creation_date: { type: String, require: true },
+    confirmed: { type: Boolean, required: true},
+    role: {type: String, required: false}
 });
 schema.statics.hashPassword = function hashPassword(password) {
     return bcrypt.hashSync(password, 12);

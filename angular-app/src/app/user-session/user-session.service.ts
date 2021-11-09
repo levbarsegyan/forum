@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
 @Injectable({
   providedIn: 'root'
 })
 export class UserSessionService {
+  user: User = {
+    email: '',
+    username: '',
+    confirmed: '',
+    creation_date: '',
+  };
   signInUrl = 'http:
   registerUrl = 'http:
   userUrl = 'http:
@@ -18,7 +25,7 @@ export class UserSessionService {
     });
   }
   registerRequest(body): Observable<any> {
-    return this.http.post<any>(this.registerUrl, body, {
+    return this.http.post(this.registerUrl, body, {
       observe: 'body',
       withCredentials: true,
       headers: new HttpHeaders().append( 'Content-Type', 'application/json')
@@ -31,7 +38,7 @@ export class UserSessionService {
       headers: new HttpHeaders().append( 'Content-Type', 'application/json')
     });
   }
-  logout() {
+  logout(): Observable<any> {
     return this.http.get(this.logoutUrl, {
       observe: 'body',
       withCredentials: true,

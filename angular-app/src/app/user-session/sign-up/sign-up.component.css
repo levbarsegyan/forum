@@ -1,5 +1,7 @@
 mat-card {
-  margin: 2rem auto;
+  float: left;
+  width: 43%;
+  padding: 1rem;
 }
 .sign-up-form {
   margin: auto;

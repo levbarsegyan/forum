@@ -1,23 +1,36 @@
 import { Component } from '@angular/core';
 import { UserSessionService } from '../user-session/user-session.service';
 import { Router } from '@angular/router';
+import { User } from '../models/user.model';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  username = '';
-  constructor(private user: UserSessionService, private router: Router) {
-    this.user.checkUser()
+  username = 'spidername';
+  user: User = {
+    email: '',
+    username: '',
+    confirmed: '',
+    creation_date: '',
+  };
+  constructor(private userSession: UserSessionService, private router: Router) {
+    this.userSession.checkUser()
       .subscribe(
         data => {
-          this.addName(data); console.log(this.username);
+          this.addUser(data);
+          console.log('Imagine if this worked');
         },
-        error => this.router.navigate(['/sign-in'])
+        error => {
+          console.log(error);
+        }
       );
   }
-  addName(data) {
-    this.username = data.username;
+  addUser(data) {
+    this.user.username = data.username;
+    this.user.email = data.email;
+    this.user.confirmed = data.confirmed;
+    this.user.creation_date = data.creation_date;
   }
 }

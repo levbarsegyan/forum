@@ -1,7 +1,11 @@
 :host {
   display: block;
-  width: 30%;
+  width: 40%;
   margin: 2rem auto;
+}
+.form-container{
+  width: 100%;
+  display: block;
 }
 .sign-in-form {
   margin: auto;
@@ -12,6 +16,11 @@
 }
 .inline-region {
   display: inline;
+}
+mat-card {
+  float: right;
+  width: 43%;
+  padding: 1rem;
 }
 .warning{
   float: right;

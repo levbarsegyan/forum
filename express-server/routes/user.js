@@ -10,8 +10,11 @@ async function addToDatebase(req, res) {
         email: req.body.email,
         username: req.body.username,
         password: User.hashPassword(req.body.password),
-        creation_date: Date.now()
+        creation_date: Date.now(),
+        confirmed: false,
+        role: "none",
     });
+    console.log("Please work");
     try {
         doc = await user.save();
         return res.status(201).json(doc);

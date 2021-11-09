@@ -7,6 +7,6 @@ mat-card{
   margin: 1rem auto;
 }
 .voter-image {
-  margin: auto;
+  margin: auto .5rem auto;
   width: 100%;
 }
