@@ -1,19 +1,21 @@
-  <mat-toolbar fullscreen>
+<mat-sidenav-container fullscreen>
+  <mat-toolbar>
     <div class="navigation-bar-left">
       <a routerLink="/" routerLinkActive="active">
         <img class="logo" src="../../assets/images/logos/PlayDecaBannerPNG_decagon.png" alt="PlayDeca logo">
       </a>
     </div>
+    <div class="heading">
+      <h1>Admin Page</h1>
+    </div>
     <nav class="navigation-bar-right">
       <a routerLink="/" routerLinkActive="active"> <button mat-button class="header-link">Home</button></a>
+      <a routerLink="/news" routerLinkActive="inactive"><button mat-button class="header-link">News</button></a>
       <a routerLink="/info" routerLinkActive="inactive"><button mat-button class="header-link">Information</button></a>
-      <a routerLink="/vote" routerLinkActive="active"><button mat-button class="header-link">Vote</button></a>
       <a routerLink="/vote" routerLinkActive="active"><button mat-button class="header-link">Forum</button></a>
-      <a routerLink="/sign-in" routerLinkActive="active"><button mat-button class="header-link">Sign In</button></a>
-      <a routerLink="/logout" routerLinkActive="active"><button mat-button class="header-link">Logout</button></a>
+      <a routerLink="/" routerLinkActive="active"><button mat-button class="header-link">Logout</button></a>
       <a routerLink="/ranks" routerLinkActive="active"><button mat-button class="header-link">Ranks</button></a>
-      <a routerLink="/resouces" routerLinkActive="active"><button mat-button class="header-link">Resources</button></a>
-      <a routerLink="/dynmap" routerLinkActive="active"><button mat-button class="header-link">Dynmap</button></a>
       <a routerLink="/donate" routerLinkActive="active"><button mat-button class="header-link">Donate</button></a>
     </nav>
   </mat-toolbar>
+</mat-sidenav-container>

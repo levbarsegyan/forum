@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+}
+.header-link {
+  color: white;
+  font-size: 18px;
+}
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  height: 4em;
+  background-color: black;
+  margin: 0%;
+}
+.navigation-bar-left {
+  margin-left: auto;
+  margin-right: auto;
+}
+.navigation-bar-right {
+  margin-left: auto;
+  margin-right: auto;
+}
+.logo {
+  height: 3em;
+  margin: auto;
+}

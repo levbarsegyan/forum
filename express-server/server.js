@@ -8,6 +8,7 @@ const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const usersRoute = require('./routes/user');
+const adminRoute = require('./routes/admin');
 app.use(cors({
     origin: ['http:
     credentials: true,
@@ -31,6 +32,7 @@ require('./passport-config');
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api/users', usersRoute);
+app.use('/api/admin', adminRoute);
 app.get('/api', (req, res) => {
 });
 app.listen(8000, () => {
