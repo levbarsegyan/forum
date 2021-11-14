@@ -3,9 +3,9 @@ const router = express.Router();
 const User = require('../models/user');
 const passport = require('passport');
 router.post('/register', function (req, res, next) {
-    addToDatebase(req, res);
+    addToDatabase(req, res);
 });
-async function addToDatebase(req, res) {
+async function addToDatabase(req, res) {
     var user = new User({
         email: req.body.email,
         username: req.body.username,

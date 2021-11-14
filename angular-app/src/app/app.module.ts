@@ -90,7 +90,6 @@ const appRoutes: Routes = [
     MatTabsModule,
     MatGridListModule,
     MatSnackBarModule,
-    MatSidenavModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
   ],

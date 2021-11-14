@@ -9,6 +9,7 @@ export class SessionService {
   signInUrl = 'http:
   signOutUrl = 'http:
   userUrl = 'http:
+  registerUrl = 'http:
   signIn(user): Observable<any> {
     return this.http.post<any>(this.signInUrl, user, {
       observe: 'body',
@@ -18,6 +19,13 @@ export class SessionService {
   }
   signOut() {
     return this.http.get(this.signOutUrl, {
+      observe: 'body',
+      withCredentials: true,
+      headers: new HttpHeaders().append( 'Content-Type', 'application/json')
+    });
+  }
+  register(): Observable<any> {
+    return this.http.get<any>(this.registerUrl, {
       observe: 'body',
       withCredentials: true,
       headers: new HttpHeaders().append( 'Content-Type', 'application/json')

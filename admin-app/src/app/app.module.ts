@@ -4,12 +4,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {
-  MatToolbarModule,
-  MatCardModule,
-  MatButtonModule,
-  MatCheckboxModule,
-  MatSidenavModule,
-  MatFormFieldModule,
+  MatToolbarModule, MatCardModule,
+  MatButtonModule, MatCheckboxModule,
+  MatSidenavModule, MatFormFieldModule,
+  MatInputModule,
 } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,6 +33,7 @@ import { SignOutComponent } from './session/sign-out/sign-out.component';
     MatCheckboxModule,
     MatSidenavModule,
     MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

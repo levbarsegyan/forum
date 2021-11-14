@@ -5,16 +5,16 @@ import { SignOutComponent } from './session/sign-out/sign-out.component';
 const routes: Routes = [
   {
     path: 'sign-in',
-    component: SignInComponent
+    component: SignInComponent,
   },
   {
     path: 'sign-out',
-    component: SignOutComponent
+    component: SignOutComponent,
   },
   {
     path: '',
-    component: SignInComponent
-  }
+    component: SignInComponent,
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

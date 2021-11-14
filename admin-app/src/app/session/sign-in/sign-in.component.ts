@@ -32,4 +32,10 @@ export class SignInComponent implements OnInit {
       }
     );
   }
+  testClick() {
+    this.sessionService.register().subscribe(
+      data => console.log(data),
+      error => console.log(error)
+    );
+  }
 }

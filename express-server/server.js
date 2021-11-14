@@ -10,7 +10,11 @@ const MongoStore = require('connect-mongo')(session);
 const usersRoute = require('./routes/user');
 const adminRoute = require('./routes/admin');
 app.use(cors({
-    origin: ['http:
+    origin: [
+        'http:
+        'http:
+        'http:
+    ],
     credentials: true,
 }));
 app.use(express.json());

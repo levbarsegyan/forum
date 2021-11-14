@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  width: 50%;
+  margin: 1rem auto;
+}
+mat-card {
+  display: block;
+  margin: 1em;
+  width: 100%;
+  min-width: 25rem;
+}
+.sign-in-field {
+  display: inline;
+  margin: auto;
+}
+.inline-region {
+  display: inline;
+}
+.warning{
+  text-align: right;
+  color: red;
+}
