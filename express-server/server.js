@@ -3,7 +3,6 @@ const app = express();
 const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
@@ -19,13 +18,12 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 mongoose.connect('mongodb:
 app.use(session({
     name: 'decaform.sid',
     resave: false,
     saveUninitialized: false,
-    secret: 'somethingsecret',
+    secret: "somethingsecret",
     cookie: {
         httpOnly: false,
         secure: false

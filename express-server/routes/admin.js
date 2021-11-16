@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const Admin = require('../models/admin');
 router.post('/login', function (req, res, next) {
-    passport.authenticate('local', function (err, user, info) {
+    passport.authenticate('admin-local', function (err, user, info) {
         if (err) { return res.status(401).json('Error, try again. :('); }
         if (!user) {
             return res.status(401).json('Incorrect username or password.');

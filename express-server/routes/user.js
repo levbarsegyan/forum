@@ -22,7 +22,7 @@ async function addToDatabase(req, res) {
     }
 }
 router.post('/login', function (req, res, next) {
-    passport.authenticate('local', function (err, user, info) {
+    passport.authenticate('user-local', function (err, user, info) {
         if (err) { return res.status(401).json('Error, try again. :('); }
         if (!user) { return res.status(401).json('Incorrect email or password.'); }
         req.logIn(user, function (err) {
