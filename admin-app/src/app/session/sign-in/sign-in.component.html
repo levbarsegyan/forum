@@ -5,7 +5,7 @@
       <input matInput
       ngModel
       type="email"
-      name="enteredEmail"
+      name="enteredUsername"
       required
       placeholder="Minecraft Email" value="">
     </mat-form-field>
@@ -29,4 +29,7 @@
       mat-raised-button
       color="primary"
       (click)="testClick()">Register Default User</button>
+</mat-card>
+<mat-card>
+  <h1>{{ username }}</h1>
 </mat-card>

@@ -4,7 +4,7 @@
   margin: 1rem auto;
 }
 mat-card {
-  display: block;
+  display: inline-block;
   margin: 1em;
   width: 100%;
   min-width: 25rem;

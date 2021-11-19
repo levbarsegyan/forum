@@ -6,10 +6,13 @@ router.post('/login', function (req, res, next) {
     passport.authenticate('admin-local', function (err, user, info) {
         if (err) { return res.status(401).json('Error, try again. :('); }
         if (!user) {
+            console.log(req.body.username + " " + req.body.password);
             return res.status(401).json('Incorrect username or password.');
         }
-        req.login(user, function (err) {
-            if (err) { return res.status(401).json('Incorrect password for this account.'); }
+        req.logIn(user, function (err) {
+            if (err) {
+                return res.status(401).json('Incorrect password for this account.');
+            }
             return res.status(200).json('Login Success');
         });
     })(req, res, next);
@@ -19,8 +22,8 @@ router.get('/register', function (req, res, next) {
 });
 async function addToDatabase(req, res) {
     var user = new Admin({
-        username: "DecaAdmin",
-        password: Admin.hashPassword('sometihng'),
+        username: 'hello',
+        password: Admin.hashPassword('hello'),
     });
     try {
         doc = await user.save();

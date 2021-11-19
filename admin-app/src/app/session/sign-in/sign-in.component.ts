@@ -14,6 +14,7 @@ export class SignInComponent implements OnInit {
     password: '',
   };
   warning = '';
+  username = '';
   ngOnInit() {
   }
   onSubmit(form: NgForm) {
@@ -24,6 +25,7 @@ export class SignInComponent implements OnInit {
     this.sessionService.signIn(this.user).subscribe(
       data => {
         console.log(data);
+        this.checkUsername();
         this.routerMove.navigate(['/']);
       },
       error => {
@@ -36,6 +38,18 @@ export class SignInComponent implements OnInit {
     this.sessionService.register().subscribe(
       data => console.log(data),
       error => console.log(error)
+    );
+  }
+  checkUsername() {
+    this.sessionService.checkUser().subscribe(
+      data => {
+        this.username = data.username;
+        console.log(this.username);
+      },
+      error => {
+        this.username = error.error;
+        console.log(this.username);
+      }
     );
   }
 }

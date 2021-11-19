@@ -29,7 +29,7 @@ passport.use('admin-local', new LocalStrategy({
       if (!admin) {
         return done(null, false, { message: 'Admin is not registered with this username.' });
       }
-      if (!user.isValid(password)) {
+      if (!admin.isValid(password)) {
         return done(null, false, { message: 'Incorrect password.' });
       }
       return done(null, admin);
