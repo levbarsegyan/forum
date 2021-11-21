@@ -6,7 +6,6 @@ router.post('/login', function (req, res, next) {
     passport.authenticate('admin-local', function (err, user, info) {
         if (err) { return res.status(401).json('Error, try again. :('); }
         if (!user) {
-            console.log(req.body.username + " " + req.body.password);
             return res.status(401).json('Incorrect username or password.');
         }
         req.logIn(user, function (err) {
