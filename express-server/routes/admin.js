@@ -33,7 +33,11 @@ async function addToDatabase(req, res) {
     }
 }
 router.get('/user', isValid, function (req, res, next) {
-    return res.status(200).json(req.user);
+    user = {
+        username: req.user.username,
+        authenticate: true,
+    }
+    return res.status(200).json(user);
 });
 router.get('/logout', isValid, function (req, res, next) {
     req.logout();

@@ -10,6 +10,7 @@ export class SessionService {
   signOutUrl = 'http:
   userUrl = 'http:
   registerUrl = 'http:
+  private loggedIn: boolean;
   signIn(user): Observable<any> {
     return this.http.post<any>(this.signInUrl, user, {
       observe: 'body',
@@ -37,5 +38,11 @@ export class SessionService {
       withCredentials: true,
       headers: new HttpHeaders().append( 'Content-Type', 'application/json')
     });
+  }
+  setLoggedInState(state: boolean) {
+    this.loggedIn = state;
+  }
+  getLoggedInState(): boolean {
+    return this.loggedIn;
   }
 }

@@ -33,8 +33,8 @@ app.use(session({
 require('./passport-config');
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/api/users', usersRoute);
 app.use('/api/admin', adminRoute);
+app.use('/api/users', usersRoute);
 app.get('/api', (req, res) => {
 });
 app.listen(8000, () => {

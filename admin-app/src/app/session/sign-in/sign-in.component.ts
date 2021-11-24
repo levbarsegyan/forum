@@ -44,6 +44,7 @@ export class SignInComponent implements OnInit {
     this.sessionService.checkUser().subscribe(
       data => {
         this.username = data.username;
+        this.sessionService.setLoggedInState(data.authenticated);
         console.log(this.username);
       },
       error => {
