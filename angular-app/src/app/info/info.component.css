@@ -1,8 +1,8 @@
 .tabpage {
   margin: 1rem;
 }
-:host {
+mat-card {
   display: block;
-  width: 70%;
+  width: 65%;
   margin: 1rem auto;
 }

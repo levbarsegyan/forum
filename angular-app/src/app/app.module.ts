@@ -11,21 +11,22 @@ import {
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { HeaderComponent } from './header/header.component';
-import { PostListComponent } from './posts/post-list/post-list.component';
-import { NewsCreateComponent } from './news/news-create/news-create.component';
+import { NewsCreateComponent } from './admin/news/news-create/news-create.component';
 import { NewsListComponent } from './news/news-list/news-list.component';
-import { NewsUpdateComponent } from './news/news-update/news-update.component';
+import { NewsUpdateComponent } from './admin/news/news-update/news-update.component';
 import { BackgroundComponent } from './news/background/background.component';
 import { NewsComponent } from './news/news.component';
 import { InfoComponent } from './info/info.component';
 import { VoteComponent } from './vote/vote.component';
-import { PostVoteComponent } from './posts/post-vote/post-vote.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SignInComponent } from './user-session/sign-in/sign-in.component';
 import { SignUpComponent } from './user-session/sign-up/sign-up.component';
 import { LogoutComponent } from './user-session/logout/logout.component';
+import { AdminHeaderComponent } from './admin/header/header.component';
+import { AdminSignInComponent } from './admin/admin-session/sign-in/admin-sign-in.component';
+import { AdminSignOutComponent } from './admin/admin-session/sign-out/admin-sign-out.component';
+import { HomeComponent } from './admin/home/home.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -52,6 +53,10 @@ const appRoutes: Routes = [
     component: LogoutComponent,
   },
   {
+    path: 'admin-sign-in',
+    component: AdminSignInComponent,
+  },
+  {
     path: 'create-news',
     component: NewsCreateComponent,
   },
@@ -62,9 +67,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    PostCreateComponent,
     HeaderComponent,
-    PostListComponent,
     NewsCreateComponent,
     NewsListComponent,
     NewsUpdateComponent,
@@ -72,11 +75,14 @@ const appRoutes: Routes = [
     NewsComponent,
     InfoComponent,
     VoteComponent,
-    PostVoteComponent,
     PageNotFoundComponent,
     SignInComponent,
     SignUpComponent,
     LogoutComponent,
+    AdminHeaderComponent,
+    AdminSignInComponent,
+    AdminSignOutComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

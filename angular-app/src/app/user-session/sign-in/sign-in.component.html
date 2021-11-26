@@ -1,30 +1,37 @@
-<mat-card>
-  <mat-card-title>Sign In</mat-card-title>
-  <mat-card-subtitle>Already signed up? Sign in below!</mat-card-subtitle>
-  <form class="sign-in-form" (submit)="onSubmit(signInForm)" #signInForm="ngForm">
-    <mat-form-field class="sign-in-field">
-      <input matInput
-      ngModel
-      type="email"
-      name="enteredEmail"
-      required
-      placeholder="Minecraft Email" value="">
-    </mat-form-field>
-    <mat-form-field class="sign-in-field">
-      <input matInput
-      ngModel
-      type="password"
-      name="enteredPassword"
-      required
-      placeholder="Password"/>
-    </mat-form-field>
-    <div class="inline-region">
-      <button
-      mat-raised-button
-      color="primary"
-      type=submit>SIGN IN</button>
-      <span class="warning">{{ warning }}</span>
-    </div>
-  </form>
-</mat-card>
-<app-sign-up></app-sign-up>
+<app-header></app-header>
+<div class="containers">
+  <div class="left-container">
+  <mat-card>
+    <mat-card-title>Sign In</mat-card-title>
+    <mat-card-subtitle>Already signed up? Sign in below!</mat-card-subtitle>
+    <form class="sign-in-form" (submit)="onSubmit(signInForm)" #signInForm="ngForm">
+      <mat-form-field class="sign-in-field">
+        <input matInput
+        ngModel
+        type="email"
+        name="enteredEmail"
+        required
+        placeholder="Minecraft Email" value="">
+      </mat-form-field>
+      <mat-form-field class="sign-in-field">
+        <input matInput
+        ngModel
+        type="password"
+        name="enteredPassword"
+        required
+        placeholder="Password"/>
+      </mat-form-field>
+      <div class="inline-region">
+        <button
+        mat-raised-button
+        color="primary"
+        type=submit>SIGN IN</button>
+        <span class="warning">{{ warning }}</span>
+      </div>
+    </form>
+  </mat-card>
+  </div>
+  <div class="right-container">
+  <app-sign-up></app-sign-up>
+  </div>
+</div>

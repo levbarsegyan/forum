@@ -1,7 +1,12 @@
 body {
-  background-image: url("./assets/images/backgrounds/banner.jpg");
+  background-image: url("./assets/images/backgrounds/affinity.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
+}
+mat-card{
+  display: block;
+  width: 60%;
+  margin: 1rem auto;
 }

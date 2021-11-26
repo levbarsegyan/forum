@@ -1,13 +1,19 @@
-:host {
-  display: block;
+.containers {
+  display: flex;
   width: 50%;
   margin: 1rem auto;
 }
 mat-card {
   display: block;
-  margin: 1em;
   width: 100%;
-  min-width: 25rem;
+}
+.left-container {
+  flex: 0 0 40%;
+  margin: 0 auto;
+}
+.right-container {
+  flex: 1;
+  margin: 0 auto;
 }
 .sign-in-field {
   display: inline;
