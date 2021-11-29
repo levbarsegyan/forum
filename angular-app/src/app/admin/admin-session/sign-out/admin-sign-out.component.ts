@@ -12,10 +12,10 @@ export class AdminSignOutComponent implements OnInit {
   signOut() {
     return this.sessionService.signOut().subscribe(
       data => {
-        console.log(data);
+        console.log('User signed out');
       },
       error => {
-        console.log(error);
+        console.log('Error on user sign out');
       }
     );
   }

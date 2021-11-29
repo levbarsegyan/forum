@@ -27,6 +27,7 @@ import { AdminHeaderComponent } from './admin/header/header.component';
 import { AdminSignInComponent } from './admin/admin-session/sign-in/admin-sign-in.component';
 import { AdminSignOutComponent } from './admin/admin-session/sign-out/admin-sign-out.component';
 import { HomeComponent } from './admin/home/home.component';
+import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -53,7 +54,11 @@ const appRoutes: Routes = [
     component: LogoutComponent,
   },
   {
-    path: 'admin-sign-in',
+    path: 'admin',
+    component: AdminHomeComponent,
+  },
+  {
+    path: 'admin/sign-in',
     component: AdminSignInComponent,
   },
   {
@@ -83,6 +88,7 @@ const appRoutes: Routes = [
     AdminSignInComponent,
     AdminSignOutComponent,
     HomeComponent,
+    AdminHomeComponent,
   ],
   imports: [
     BrowserModule,
