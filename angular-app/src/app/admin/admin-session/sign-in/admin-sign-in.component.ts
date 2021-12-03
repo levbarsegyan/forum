@@ -26,7 +26,7 @@ export class AdminSignInComponent implements OnInit {
       data => {
         console.log(data);
         this.checkUsername();
-        this.routerMove.navigate(['/']);
+        this.routerMove.navigate(['/admin']);
       },
       error => {
         console.error(error.error);
@@ -44,7 +44,6 @@ export class AdminSignInComponent implements OnInit {
     this.sessionService.checkUser().subscribe(
       data => {
         this.username = data.username;
-        this.sessionService.setLoggedInState(data.authenticated);
         console.log(this.username);
       },
       error => {

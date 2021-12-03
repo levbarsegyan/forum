@@ -9,6 +9,7 @@ export class AdminSessionService {
   signInUrl = 'http:
   signOutUrl = 'http:
   userUrl = 'http:
+  loggedInUrl = 'http:
   registerUrl = 'http:
   private loggedIn: boolean;
   signIn(user): Observable<any> {
@@ -39,10 +40,11 @@ export class AdminSessionService {
       headers: new HttpHeaders().append( 'Content-Type', 'application/json')
     });
   }
-  setLoggedInState(state: boolean) {
-    this.loggedIn = state;
-  }
-  getLoggedInState(): boolean {
-    return this.loggedIn;
+  loginStatus(): Observable<boolean> {
+    return this.http.get<boolean>(this.loggedInUrl, {
+      observe: 'body',
+      withCredentials: true,
+      headers: new HttpHeaders().append( 'Content-Type', 'application/json')
+    });
   }
 }

@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 mongoose.connect('mongodb:
 app.use(session({
     name: 'decaform.sid',
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     secret: "somethingsecret",
     cookie: {

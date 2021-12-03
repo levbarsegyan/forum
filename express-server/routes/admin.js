@@ -35,9 +35,15 @@ async function addToDatabase(req, res) {
 router.get('/user', isValid, function (req, res, next) {
     user = {
         username: req.user.username,
-        authenticate: true,
+        authenticated: true,
     }
     return res.status(200).json(user);
+});
+router.get('/check', function (req, res, next) {
+    if (req.isAuthenticated())
+        return res.json(true);
+    else
+        return res.json(false);
 });
 router.get('/logout', isValid, function (req, res, next) {
     req.logout();

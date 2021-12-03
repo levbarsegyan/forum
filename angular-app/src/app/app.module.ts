@@ -26,8 +26,8 @@ import { LogoutComponent } from './user-session/logout/logout.component';
 import { AdminHeaderComponent } from './admin/header/header.component';
 import { AdminSignInComponent } from './admin/admin-session/sign-in/admin-sign-in.component';
 import { AdminSignOutComponent } from './admin/admin-session/sign-out/admin-sign-out.component';
-import { HomeComponent } from './admin/home/home.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
+import { AdminGuardGuard } from './admin/admin-guard.guard';
 const appRoutes: Routes = [
   {
     path: '',
@@ -56,9 +56,16 @@ const appRoutes: Routes = [
   {
     path: 'admin',
     component: AdminHomeComponent,
+    canActivate: [AdminGuardGuard],
+    children: [
+      {
+        path: 'sign-out',
+        component: AdminSignOutComponent,
+      },
+    ]
   },
   {
-    path: 'admin/sign-in',
+    path: 'admin-sign-in',
     component: AdminSignInComponent,
   },
   {
@@ -87,7 +94,6 @@ const appRoutes: Routes = [
     AdminHeaderComponent,
     AdminSignInComponent,
     AdminSignOutComponent,
-    HomeComponent,
     AdminHomeComponent,
   ],
   imports: [
