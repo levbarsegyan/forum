@@ -26,7 +26,6 @@ export class AdminSignInComponent implements OnInit {
       data => {
         console.log(data);
         this.checkUsername();
-        this.routerMove.navigate(['/admin']);
       },
       error => {
         console.error(error.error);
@@ -45,6 +44,7 @@ export class AdminSignInComponent implements OnInit {
       data => {
         this.username = data.username;
         console.log(this.username);
+        this.routerMove.navigate(['admin']);
       },
       error => {
         this.username = error.error;

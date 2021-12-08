@@ -20,7 +20,6 @@ export class HeaderComponent {
       .subscribe(
         data => {
           this.addUser(data);
-          console.log('Imagine if this worked');
         },
         error => {
           console.log(error);

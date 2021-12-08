@@ -29,6 +29,7 @@ export class LogoutComponent implements OnInit {
     this.userSession.logout().subscribe(
       data => {
         console.log(data);
+        this.router.navigate(['/']);
       },
       error => {
         console.log(error);

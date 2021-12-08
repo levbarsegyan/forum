@@ -4,6 +4,7 @@ const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const cookieparser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const usersRoute = require('./routes/user');
@@ -21,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 mongoose.connect('mongodb:
 app.use(session({
     name: 'decaform.sid',
-    resave: true,
+    resave: false,
     saveUninitialized: false,
     secret: "somethingsecret",
     cookie: {
@@ -30,13 +31,13 @@ app.use(session({
     },
     store: new MongoStore({mongooseConnection: mongoose.connection })
 }));
+app.get('/api', (req, res) => {
+});
 require('./passport-config');
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api/admin', adminRoute);
 app.use('/api/users', usersRoute);
-app.get('/api', (req, res) => {
-});
 app.listen(8000, () => {
     console.log('Server started!');
 })

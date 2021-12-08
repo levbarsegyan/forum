@@ -50,7 +50,7 @@ passport.serializeUser(function(user, done) {
     else if (userPrototype === Admin.prototype) {
         userType = "admin";
     }
-    var userInfo = new userInformation(user._id, userType, '');
+    var userInfo = new userInformation(user.id, userType, '');
     done(null, userInfo)
 });
 passport.deserializeUser(function (userInfo, done) {
