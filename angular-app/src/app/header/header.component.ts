@@ -8,7 +8,6 @@ import { User } from '../models/user.model';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  username = 'spidername';
   user: User = {
     email: '',
     username: '',
