@@ -28,6 +28,11 @@ import { AdminSignInComponent } from './admin/admin-session/sign-in/admin-sign-i
 import { AdminSignOutComponent } from './admin/admin-session/sign-out/admin-sign-out.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { AdminGuardGuard } from './admin/admin-guard.guard';
+import { ForumComponent } from './forum/forum.component';
+import { CreatePostComponent } from './forum/create-post/create-post.component';
+import { ListPostsComponent } from './forum/list-posts/list-posts.component';
+import { EditPostComponent } from './forum/edit-post/edit-post.component';
+import { ShowPostComponent } from './forum/show-post/show-post.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -95,6 +100,11 @@ const appRoutes: Routes = [
     AdminSignInComponent,
     AdminSignOutComponent,
     AdminHomeComponent,
+    ForumComponent,
+    CreatePostComponent,
+    ListPostsComponent,
+    EditPostComponent,
+    ShowPostComponent,
   ],
   imports: [
     BrowserModule,
