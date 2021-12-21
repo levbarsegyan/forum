@@ -1,3 +1,7 @@
-<p>
-  create-post works!
-</p>
+<mat-card>
+  <mat-card-header>
+    <h4>Make a new forum post</h4>
+  </mat-card-header>
+  <form (submit)="submitPost(forumForm)" #forumForm="ngForm">
+  </form>
+</mat-card>

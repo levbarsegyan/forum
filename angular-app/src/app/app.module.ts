@@ -7,7 +7,7 @@ import {
   MatButtonModule, MatToolbarModule,
   MatExpansionModule, MatTabsModule,
   MatGridListModule, MatSnackBarModule,
-  } from '@angular/material';
+} from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
@@ -59,6 +59,24 @@ const appRoutes: Routes = [
     component: LogoutComponent,
   },
   {
+    path: 'forums',
+    component: ForumComponent,
+    children: [
+      {
+        path: 'show',
+        component: ListPostsComponent,
+      },
+      {
+        path: 'edit',
+        component: EditPostComponent,
+      },
+    ]
+  },
+  {
+    path: 'create',
+    component: CreatePostComponent,
+  },
+  {
     path: 'admin',
     component: AdminHomeComponent,
     canActivate: [AdminGuardGuard],
@@ -67,15 +85,15 @@ const appRoutes: Routes = [
         path: 'sign-out',
         component: AdminSignOutComponent,
       },
+      {
+        path: 'create-news',
+        component: NewsCreateComponent,
+      },
     ]
   },
   {
     path: 'admin-sign-in',
     component: AdminSignInComponent,
-  },
-  {
-    path: 'create-news',
-    component: NewsCreateComponent,
   },
   {
     path: '**', component: PageNotFoundComponent,
