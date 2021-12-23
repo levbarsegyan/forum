@@ -22,7 +22,7 @@ export class NewsCreateComponent implements OnInit {
     this.newsService.saveNews(this.newsPost);
   }
   getAuthor() {
-    return "Admin";
+    return 'Admin';
   }
   getDate() {
     return new Date();
