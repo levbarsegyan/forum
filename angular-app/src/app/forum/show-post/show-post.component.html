@@ -1,3 +1,19 @@
-<p>
-  show-post works!
-</p>
+<mat-card>
+  <div class="post">
+    <mat-card-title>
+      <h3 [innerText]="this.title"></h3>
+    </mat-card-title>
+    <mat-card-content [innerHTML]="this.content">
+    </mat-card-content>
+  </div>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-card>
+        Hello one
+      </mat-card>
+      <mat-card>
+        Hello everyone Hello
+      </mat-card>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-card>

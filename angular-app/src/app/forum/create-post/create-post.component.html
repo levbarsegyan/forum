@@ -18,19 +18,19 @@
       <mat-error *ngIf="content.invalid">Please enter content.</mat-error>
     </mat-form-field>
     <br>
-    <button mat-raised-button color="primary" type="submit" [disabled]="!forumForm.form.valid" >Publish</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!forumForm.form.valid">Publish</button>
   </form>
 </mat-card>
 <mat-card>
   <mat-card-header>
     <mat-card-title>
-      <div [innerText]="fulltitle"> </div>
+      <div [innerText]="fullTitle"> </div>
     </mat-card-title>
     <mat-card-subtitle>
       Vote Up / Vote Down
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p [innerHTML]="text"></p>
+    <p [innerHTML]="contentHtml"></p>
   </mat-card-content>
 </mat-card>

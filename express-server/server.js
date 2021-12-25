@@ -29,7 +29,7 @@ app.use(session({
         httpOnly: false,
         secure: false
     },
-    store: new MongoStore({mongooseConnection: mongoose.connection })
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 app.get('/api', (req, res) => {
 });
@@ -38,6 +38,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api/admin', adminRoute);
 app.use('/api/users', usersRoute);
+app.use('/api/forum', forumRoute);
 app.listen(8000, () => {
     console.log('Server started!');
 })

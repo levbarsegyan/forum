@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowPostComponent implements OnInit {
   constructor() { }
+  title = '';
+  content = '';
   ngOnInit() {
   }
 }

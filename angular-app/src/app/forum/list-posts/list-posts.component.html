@@ -1,3 +1,8 @@
-<p>
-  list-posts works!
-</p>
+<mat-card *ngFor="let post of posts">
+  <mat-card-header>
+    <h3 [innerText]="this.title"></h3>
+  </mat-card-header>
+  <mat-card-content>
+    <p [innerHTML]="this.content"></p>
+  </mat-card-content>
+</mat-card>

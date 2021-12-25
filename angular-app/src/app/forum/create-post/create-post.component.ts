@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ForumService } from '../forum.service';
 import { NgForm } from '@angular/forms';
+import { ForumPost } from 'src/app/models/forum.model';
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
@@ -8,14 +9,34 @@ import { NgForm } from '@angular/forms';
 })
 export class CreatePostComponent implements OnInit {
   constructor(private forumService: ForumService) { }
-  text = '';
-  fulltitle = '';
+  newPost: ForumPost;
+  contentHtml = '';
+  fullTitle = '';
+  successfullyPosted: boolean;
   ngOnInit() {
   }
   submitPost(form: NgForm) {
-    const input: string = form.value.enteredContent;
+    const ContentInput: string = form.value.enteredContent;
     const replaceNewLineWithBR: RegExp = /\n/g;
-    this.text = input.replace(replaceNewLineWithBR, '<br />');
-    this.fulltitle = form.value.enteredTitle;
+    this.contentHtml = ContentInput.replace(replaceNewLineWithBR, '<br />');
+    this.fullTitle = form.value.enteredTitle;
+    this.newPost = {
+      author: 'Person',
+      title: this.fullTitle,
+      content: this.contentHtml,
+      date_published: Date.now(),
+    };
+    this.forumService.addNewForumPost(this.newPost).subscribe(
+      data => {
+        this.successfullyPosted = true;
+        this.sendMessageForSuccessOrFailure(data);
+      },
+      error => {
+        this.successfullyPosted = false;
+        this.sendMessageForSuccessOrFailure(error);
+      }
+    );
+  }
+  sendMessageForSuccessOrFailure(message) {
   }
 }
