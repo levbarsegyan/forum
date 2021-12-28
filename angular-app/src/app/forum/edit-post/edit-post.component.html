@@ -1,3 +1,18 @@
-<p>
-  edit-post works!
-</p>
+<app-header></app-header>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Editing:
+      <div [innerText]="fullTitle"> </div>
+    </mat-card-title>
+  </mat-card-header>
+  <form class="news-edit-form" (ngSubmit)="publishNewInformation(forumForm)" #forumForm="ngForm">
+    <mat-form-field>
+      <textarea matInput rows="6" name="enteredContent" [defaultValue]="contentHtml" ngModel required
+        #content="ngModel"></textarea>
+      <mat-error *ngIf="content.invalid">Please enter content.</mat-error>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!forumForm.form.valid">Publish</button>
+  </form>
+</mat-card>

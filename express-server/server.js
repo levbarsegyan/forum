@@ -9,9 +9,9 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const usersRoute = require('./routes/user');
 const adminRoute = require('./routes/admin');
+const forumRoute = require('./routes/forum');
 app.use(cors({
     origin: [
-        'http:
         'http:
         'http:
     ],

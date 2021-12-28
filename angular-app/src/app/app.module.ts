@@ -60,7 +60,6 @@ const appRoutes: Routes = [
   },
   {
     path: 'forums',
-    component: ForumComponent,
     children: [
       {
         path: 'show',

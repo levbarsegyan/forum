@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class ForumService {
+  private currentInterestedPost = '';
   private newPostUrl = 'http:
   private deletePostUrl = 'http:
   private listPostUrl = 'http:
@@ -79,18 +80,21 @@ export class ForumService {
     return this.listSomeForumPosts(100);
   }
   listSomeForumPosts(amountToList): Observable<any> {
-    return this.http.get(this.listPostUrl, {
+    return this.http.get<any>(this.listPostUrl, {
       observe: 'body',
       withCredentials: true,
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
-  showForumPost() {
-    const postId = 1;
-    return this.http.get(this.showForumPost + '/' + postId, {
+  showForumPost(): Observable<ForumPost> {
+    const postId = this.setInterestedPost;
+    return this.http.post<ForumPost>(this.showPostUrl, postId, {
       observe: 'body',
       withCredentials: true,
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
+  }
+  setInterestedPost(id: string) {
+    this.currentInterestedPost = id;
   }
 }

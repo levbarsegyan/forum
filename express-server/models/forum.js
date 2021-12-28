@@ -6,6 +6,5 @@ var schema = new Schema({
     content: { type: String, require: true },
     author: { type: String, require: true },
     creation_date: { type: String, required: true },
-    replies: { type: Forum, required: false }
 });
 module.exports = mongoose.model('Forum', schema);

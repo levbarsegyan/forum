@@ -1,8 +1,11 @@
-<mat-card *ngFor="let post of posts">
+<app-header></app-header>
+<mat-card *ngFor="let post of posts" (click)="redirectToPost(post.title);">
   <mat-card-header>
-    <h3 [innerText]="this.title"></h3>
+    <h3 [innerText]="post.title"></h3>
   </mat-card-header>
   <mat-card-content>
-    <p [innerHTML]="this.content"></p>
+    <p [innerHTML]="post.content"></p>
+    <hr />
+    <h6 [innerText]="post.author"></h6>
   </mat-card-content>
 </mat-card>

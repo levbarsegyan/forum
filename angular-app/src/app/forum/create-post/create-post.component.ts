@@ -24,7 +24,7 @@ export class CreatePostComponent implements OnInit {
       author: 'Person',
       title: this.fullTitle,
       content: this.contentHtml,
-      date_published: Date.now(),
+      date_published: Date.now().toString(),
     };
     this.forumService.addNewForumPost(this.newPost).subscribe(
       data => {
@@ -38,5 +38,6 @@ export class CreatePostComponent implements OnInit {
     );
   }
   sendMessageForSuccessOrFailure(message) {
+    console.log(message.message);
   }
 }

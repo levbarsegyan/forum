@@ -22,4 +22,7 @@ export class ListPostsComponent implements OnInit {
       }
     )
   }
+  redirectToPost(id: string) {
+    this.forumService.setInterestedPost(id);
+  }
 }
