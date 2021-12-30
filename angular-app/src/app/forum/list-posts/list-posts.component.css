@@ -1,0 +1,22 @@
+h4 {
+ float: right;
+}
+.links{
+  display: inline-block
+}
+mat-card {
+  display: block;
+  margin: 2rem auto;
+  width: 60%;
+}
+h3{
+  width: 100%; margin: 4px; padding: 0;
+}
+mat-card-title {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: #555;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bold;
+}

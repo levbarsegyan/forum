@@ -63,6 +63,10 @@ const appRoutes: Routes = [
     children: [
       {
         path: 'show',
+        component: ShowPostComponent,
+      },
+      {
+        path: 'list',
         component: ListPostsComponent,
       },
       {

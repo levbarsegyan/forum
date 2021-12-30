@@ -1,11 +1,15 @@
 <app-header></app-header>
-<mat-card *ngFor="let post of posts" (click)="redirectToPost(post.title);">
-  <mat-card-header>
+<mat-card *ngFor="let post of posts" (click)="makePostInterested(post)">
+  <mat-card-title>
     <h3 [innerText]="post.title"></h3>
-  </mat-card-header>
+  </mat-card-title>
   <mat-card-content>
     <p [innerHTML]="post.content"></p>
     <hr />
-    <h6 [innerText]="post.author"></h6>
+    <h4 [innerText]="post.author"></h4>
+    <div class="links">
+      <a routerLink="/forums/edit" (click)="makePostInterested(post)" routerLinkActive="active"><button mat-button class="header-link">Forum Edit</button></a>
+      <a routerLink="/forums/show" (click)="makePostInterested(post)" routerLinkActive="active"><button mat-button class="header-link">Forum Show</button></a>
+    </div>
   </mat-card-content>
 </mat-card>

@@ -25,7 +25,6 @@ router.post('/edit-post', function (req, res, next) {
 router.get('/list', function (req, res, next) {
     ForumData.find()
         .then(function (doc) {
-            console.log('Sent { posts: doc }');
             res.json( doc);
         });
 });

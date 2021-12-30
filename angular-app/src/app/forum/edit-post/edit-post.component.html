@@ -2,14 +2,19 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>
-      Editing:
-      <div [innerText]="fullTitle"> </div>
+      <b>Editing: </b>
+      <u>
+        <span [innerText]="forumPost.title"></span>
+      </u> by
+      <em>
+        <span [innerText]="forumPost.author"></span>
+      </em>
     </mat-card-title>
   </mat-card-header>
   <form class="news-edit-form" (ngSubmit)="publishNewInformation(forumForm)" #forumForm="ngForm">
     <mat-form-field>
-      <textarea matInput rows="6" name="enteredContent" [defaultValue]="contentHtml" ngModel required
-        #content="ngModel"></textarea>
+      <textarea matInput rows="6" name="enteredContent" [(ngModel)]="contentHtml" #content="ngModel"  required
+      ></textarea>
       <mat-error *ngIf="content.invalid">Please enter content.</mat-error>
     </mat-form-field>
     <br>

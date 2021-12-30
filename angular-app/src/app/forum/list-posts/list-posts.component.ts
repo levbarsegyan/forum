@@ -20,9 +20,9 @@ export class ListPostsComponent implements OnInit {
       error => {
         console.log(error.error);
       }
-    )
+    );
   }
-  redirectToPost(id: string) {
-    this.forumService.setInterestedPost(id);
+  makePostInterested(post: ForumPost) {
+    this.forumService.setInterestedPost(post);
   }
 }

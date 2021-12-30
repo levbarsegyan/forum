@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ForumService } from "../forum.service";
-import { ForumPost } from "../../models/forum.model";
-import { NgForm } from "@angular/forms";
+import { ForumService } from '../forum.service';
+import { ForumPost } from '../../models/forum.model';
+import { NgForm } from '@angular/forms';
+import { format } from 'util';
 @Component({
   selector: 'app-edit-post',
   templateUrl: './edit-post.component.html',
@@ -13,16 +14,10 @@ export class EditPostComponent implements OnInit {
   contentHtml = '';
   forumPost: ForumPost;
   newPost: ForumPost;
+  something = 'something something something something';
   message: string;
   ngOnInit() {
-    this.forumService.showForumPost().subscribe(
-      data => {
-        this.forumPost = data;
-      },
-      error => {
-        console.log(error.error);
-      }
-    );
+    this.forumPost = this.forumService.showForumPost();
     this.contentHtml = this.forumPost.content;
   }
   publishNewInformation(form: NgForm) {

@@ -1,18 +1,20 @@
+<app-header></app-header>
 <mat-card>
   <div class="post">
     <mat-card-title>
-      <h3 [innerText]="this.title"></h3>
+      <h3 [innerText]="this.forumPost.title"></h3>
     </mat-card-title>
-    <mat-card-content [innerHTML]="this.content">
+    <mat-card-content [innerHTML]="this.forumPost.content">
     </mat-card-content>
+    <h5 [innerText]="this.forumPost.author"></h5>
   </div>
   <mat-accordion>
     <mat-expansion-panel>
       <mat-card>
-        Hello one
+        Example reply for display
       </mat-card>
       <mat-card>
-        Hello everyone Hello
+        Second example reply for display
       </mat-card>
     </mat-expansion-panel>
   </mat-accordion>

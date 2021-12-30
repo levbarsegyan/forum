@@ -7,7 +7,12 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class ForumService {
-  private currentInterestedPost = '';
+  private currentInterestedPost: ForumPost = {
+    title: 'some title for an unset post',
+    author: 'some author for an unset post',
+    content: 'some content for an unset post',
+    date_published: 'Posted years ago',
+  };
   private newPostUrl = 'http:
   private deletePostUrl = 'http:
   private listPostUrl = 'http:
@@ -86,15 +91,11 @@ export class ForumService {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
-  showForumPost(): Observable<ForumPost> {
-    const postId = this.setInterestedPost;
-    return this.http.post<ForumPost>(this.showPostUrl, postId, {
-      observe: 'body',
-      withCredentials: true,
-      headers: new HttpHeaders().append('Content-Type', 'application/json')
-    });
+  showForumPost(): ForumPost {
+    return this.currentInterestedPost;
   }
-  setInterestedPost(id: string) {
-    this.currentInterestedPost = id;
+  setInterestedPost(post: ForumPost) {
+    console.log('Setting ' + post.title + ' as interesting');
+    this.currentInterestedPost = post;
   }
 }
