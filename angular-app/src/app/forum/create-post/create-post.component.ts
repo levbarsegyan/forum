@@ -9,16 +9,15 @@ import { ForumPost } from 'src/app/models/forum.model';
 })
 export class CreatePostComponent implements OnInit {
   constructor(private forumService: ForumService) { }
-  newPost: ForumPost;
+  newPost;
   contentHtml = '';
   fullTitle = '';
   successfullyPosted: boolean;
   ngOnInit() {
   }
   submitPost(form: NgForm) {
-    const ContentInput: string = form.value.enteredContent;
-    const replaceNewLineWithBR: RegExp = /\n/g;
-    this.contentHtml = ContentInput.replace(replaceNewLineWithBR, '<br />');
+    const contentInput: string = form.value.enteredContent;
+    this.contentHtml = contentInput.replace(/\n/g, '<br />');
     this.fullTitle = form.value.enteredTitle;
     this.newPost = {
       author: 'Person',

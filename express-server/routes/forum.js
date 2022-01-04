@@ -21,10 +21,15 @@ router.post('/create', function (req, res, next) {
 router.post('/delete-post', function (req, res, next) {
 });
 router.post('/edit-post', function (req, res, next) {
+    ForumData.findByIdAndUpdate(req.body)
+        .then(function (doc) {
+            res.json({ message: "Post updated!"} );
+        });
 });
 router.get('/list', function (req, res, next) {
     ForumData.find()
         .then(function (doc) {
+            console.log(doc);
             res.json( doc);
         });
 });
@@ -38,6 +43,13 @@ router.post('/add-reply', function (req, res, next) {
 });
 router.get('/get-reply', function (req, res, next) {
 });
-router.get('/get-post', function (req, res, next) {
+router.post('/get-post', function (req, res, next) {
+    console.log("This was the request " + req.body);
+    ForumData.findOne(req.body)
+        .then(function (doc) {
+            console.log("This was the doc " + doc);
+            res.json(doc);
+            next();
+        });
 });
 module.exports = router;

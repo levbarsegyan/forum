@@ -13,7 +13,15 @@ export class ShowPostComponent implements OnInit {
   content = '';
   forumPost: ForumPost;
   ngOnInit() {
-    this.forumPost = this.forumService.showForumPost();
+    this.forumService.showForumPost().subscribe(
+      data => {
+        this.forumPost = data;
+      },
+      error => {
+        console.log('There was an error getting the post');
+        console.log(error);
+      }
+    );
   }
   submitComment(form: NgForm) {
   }

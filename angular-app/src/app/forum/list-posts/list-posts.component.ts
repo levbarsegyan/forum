@@ -18,11 +18,11 @@ export class ListPostsComponent implements OnInit {
         this.posts = data;
       },
       error => {
-        console.log(error.error);
+        console.log(error);
       }
     );
   }
-  makePostInterested(post: ForumPost) {
-    this.forumService.setInterestedPost(post);
+  makePostInterested(id: number) {
+    this.forumService.setInterestedPost(id);
   }
 }

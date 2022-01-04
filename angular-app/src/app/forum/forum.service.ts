@@ -7,12 +7,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class ForumService {
-  private currentInterestedPost: ForumPost = {
-    title: 'some title for an unset post',
-    author: 'some author for an unset post',
-    content: 'some content for an unset post',
-    date_published: 'Posted years ago',
-  };
+  private currentInterestedPost: number;
   private newPostUrl = 'http:
   private deletePostUrl = 'http:
   private listPostUrl = 'http:
@@ -91,11 +86,16 @@ export class ForumService {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
-  showForumPost(): ForumPost {
-    return this.currentInterestedPost;
+  showForumPost(): Observable<ForumPost> {
+    const postId = this.currentInterestedPost;
+    console.log('Trying to get ' + postId + ' from server');
+    return this.http.post<ForumPost>(this.showPostUrl, { _id: postId }, {
+      observe: 'body',
+      withCredentials: true,
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    });
   }
-  setInterestedPost(post: ForumPost) {
-    console.log('Setting ' + post.title + ' as interesting');
-    this.currentInterestedPost = post;
+  setInterestedPost(id: number) {
+    this.currentInterestedPost = id;
   }
 }

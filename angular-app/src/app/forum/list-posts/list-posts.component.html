@@ -8,8 +8,8 @@
     <hr />
     <h4 [innerText]="post.author"></h4>
     <div class="links">
-      <a routerLink="/forums/edit" (click)="makePostInterested(post)" routerLinkActive="active"><button mat-button class="header-link">Forum Edit</button></a>
-      <a routerLink="/forums/show" (click)="makePostInterested(post)" routerLinkActive="active"><button mat-button class="header-link">Forum Show</button></a>
+      <a routerLink="/forums/edit" (click)="makePostInterested(post._id)" routerLinkActive="active"><button mat-button class="header-link">Forum Edit</button></a>
+      <a routerLink="/forums/show" (click)="makePostInterested(post._id)" routerLinkActive="active"><button mat-button class="header-link">Forum Show</button></a>
     </div>
   </mat-card-content>
 </mat-card>
