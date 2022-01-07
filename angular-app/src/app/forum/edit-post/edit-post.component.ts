@@ -20,7 +20,7 @@ export class EditPostComponent implements OnInit {
     this.forumService.showForumPost().subscribe(
       data => {
         this.forumPost = data;
-        this.contentHtml = this.forumPost.content.replace(/<br \/>/gi, "\n");
+        this.contentHtml = this.forumPost.content.replace(/<br \/>/gi, '\n');
       },
       error => {
         console.log('There was an error getting the post');
@@ -29,11 +29,11 @@ export class EditPostComponent implements OnInit {
     );
   }
   publishNewInformation(form: NgForm) {
+    const contentInput: string = form.value.enteredContent;
+    const inputAsHtml: string = contentInput.replace(/\n/g, '<br />');
     this.newPost = {
-      author: 'Person',
-      title: form.value.title,
-      content: form.value.content.replace(/\n/g, '<br />'),
-      date_published: Date.now().toString(),
+      _id: this.forumPost._id,
+      content: inputAsHtml,
     };
     this.forumService.editForumPost(this.newPost).subscribe(
       data => {
@@ -43,5 +43,6 @@ export class EditPostComponent implements OnInit {
         this.message = error.message;
       }
     );
+    console.log('Message from the edit server request ' + this.message);
   }
 }

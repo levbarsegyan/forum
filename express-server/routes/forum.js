@@ -21,8 +21,10 @@ router.post('/create', function (req, res, next) {
 router.post('/delete-post', function (req, res, next) {
 });
 router.post('/edit-post', function (req, res, next) {
-    ForumData.findByIdAndUpdate(req.body)
-        .then(function (doc) {
+    console.log("ID Check " + req.body._id);
+    console.log("content " + req.body.content);
+    ForumData.findByIdAndUpdate(req.body._id, { content: req.body.content })
+        .then(function ( doc) {
             res.json({ message: "Post updated!"} );
         });
 });
@@ -44,10 +46,8 @@ router.post('/add-reply', function (req, res, next) {
 router.get('/get-reply', function (req, res, next) {
 });
 router.post('/get-post', function (req, res, next) {
-    console.log("This was the request " + req.body);
     ForumData.findOne(req.body)
         .then(function (doc) {
-            console.log("This was the doc " + doc);
             res.json(doc);
             next();
         });

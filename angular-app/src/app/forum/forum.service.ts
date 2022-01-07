@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class ForumService {
   private currentInterestedPost: number;
   private newPostUrl = 'http:
+  private editPostUrl = 'http:
   private deletePostUrl = 'http:
   private listPostUrl = 'http:
   private deletePostReplyUrl = 'http:
@@ -49,7 +50,7 @@ export class ForumService {
     });
   }
   editForumPost(forumPost: ForumPost): Observable<any> {
-    return this.http.put(this.newPostUrl, forumPost, {
+    return this.http.post(this.editPostUrl, forumPost, {
       observe: 'body',
       withCredentials: true,
       headers: new HttpHeaders().append('Content-Type', 'application/json')

@@ -1,4 +1,3 @@
-import { HexBase64BinaryEncoding } from 'crypto';
 export interface ForumPost {
     _id: number;
     title: string;
