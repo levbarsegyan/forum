@@ -96,6 +96,9 @@ export class ForumService {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
+  getInterestedPost() {
+    return this.currentInterestedPost;
+  }
   setInterestedPost(id: number) {
     this.currentInterestedPost = id;
   }

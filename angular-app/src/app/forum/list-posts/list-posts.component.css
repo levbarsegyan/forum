@@ -20,3 +20,10 @@ mat-card-title {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-weight: bold;
 }
+.spacer {
+}
+.buttons {
+  display: inline;
+  margin: auto;
+  padding: 0;
+}
