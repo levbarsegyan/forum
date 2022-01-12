@@ -3,18 +3,18 @@ import { ForumService } from '../forum.service';
 import { ForumPost } from '../../models/forum.model';
 import { NgForm } from '@angular/forms';
 import { format } from 'util';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-edit-post',
   templateUrl: './edit-post.component.html',
   styleUrls: ['./edit-post.component.css']
 })
 export class EditPostComponent implements OnInit {
-  constructor(private forumService: ForumService) { }
+  constructor(private forumService: ForumService, private router: Router) { }
   fullTitle = '';
   contentHtml = '';
   forumPost: ForumPost;
   newPost;
-  something = 'something something something something';
   message: string;
   ngOnInit() {
     this.forumService.showForumPost().subscribe(
@@ -38,6 +38,7 @@ export class EditPostComponent implements OnInit {
     this.forumService.editForumPost(this.newPost).subscribe(
       data => {
         this.message = data.message;
+        this.router.navigate(['/forums/list']);
       },
       error => {
         this.message = error.message;

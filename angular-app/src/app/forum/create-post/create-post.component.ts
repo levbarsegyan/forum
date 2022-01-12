@@ -19,11 +19,12 @@ export class CreatePostComponent implements OnInit {
     const contentInput: string = form.value.enteredContent;
     this.contentHtml = contentInput.replace(/\n/g, '<br />');
     this.fullTitle = form.value.enteredTitle;
+    const currentDate = Date();
     this.newPost = {
-      author: 'Person',
+      author: this.getCurrentUsername(),
       title: this.fullTitle,
       content: this.contentHtml,
-      date_published: Date.now().toString(),
+      date_published: currentDate.toString(),
     };
     this.forumService.addNewForumPost(this.newPost).subscribe(
       data => {
@@ -38,5 +39,8 @@ export class CreatePostComponent implements OnInit {
   }
   sendMessageForSuccessOrFailure(message) {
     console.log(message.message);
+  }
+  getCurrentUsername(): string {
+    return 'Person';
   }
 }

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ShowPostComponent implements OnInit {
   constructor(private forumService: ForumService, private router: Router) { }
+  wasDeleted = false;
   forumPost: ForumPost;
   ngOnInit() {
     if (this.forumService.getInterestedPost()) {
@@ -25,5 +26,22 @@ export class ShowPostComponent implements OnInit {
     }
   }
   submitComment(form: NgForm) {
+  }
+  deletePost(id: number, post: ForumPost) {
+    this.forumService.deleteForumPost(id).subscribe(
+      data => {
+        this.message = data.message;
+        this.wasDeleted = true;
+        post.title = 'Deleted';
+        post.content = 'Deleted';
+      },
+      error => {
+        this.message = error.message;
+      }
+    );
+    this.router.navigate(['/forums/list']);
+  }
+  makePostInterested(id: number) {
+    this.forumService.setInterestedPost(id);
   }
 }

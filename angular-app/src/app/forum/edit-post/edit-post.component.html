@@ -11,10 +11,10 @@
       </em>
     </mat-card-title>
   </mat-card-header>
-  <form class="news-edit-form" (ngSubmit)="publishNewInformation(editForm)" #editForm="ngForm">
+  <form class="edit-form" (ngSubmit)="publishNewInformation(editForm)" #editForm="ngForm">
     <mat-form-field>
-      <textarea matInput rows="6" name="enteredContent" [(ngModel)]="contentHtml" #content="ngModel"  required
-      ></textarea>
+      <textarea matInput rows="12" name="enteredContent" [(ngModel)]="contentHtml" #content="ngModel"
+        required></textarea>
       <mat-error *ngIf="content.invalid">Please enter content.</mat-error>
     </mat-form-field>
     <br>

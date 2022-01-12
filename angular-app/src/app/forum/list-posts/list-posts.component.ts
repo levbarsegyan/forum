@@ -10,8 +10,8 @@ import { ForumPost } from 'src/app/models/forum.model';
 export class ListPostsComponent implements OnInit {
   constructor(private forumService: ForumService, private router: Router) { }
   posts: ForumPost[];
-  title = 'hello';
-  content = 'content';
+  message: string;
+  wasDeleted = false;
   ngOnInit() {
     this.forumService.listAllForumPost().subscribe(
       data => {

@@ -4,19 +4,28 @@
     <div class="post">
       <mat-card-title>
         <h3 [innerText]="this.forumPost.title"></h3>
-      </mat-card-title><hr>
-      <mat-card-content class="content" >
+      </mat-card-title>
+      <hr>
+      <mat-card-content class="content">
         <p class="post-content" [innerHTML]="this.forumPost.content"></p>
         <p class="post-content" [innerHTML]="this.forumPost._id"></p>
         <div class="post-footer">
           <hr>
-          <span class="date-published footer-item" >
-          Published on <span [innerText]="this.forumPost.author"></span>
+          <span class="date-published footer-item">
+            Published on <span [innerText]="this.forumPost.date_published"></span>
           </span>
           <span class="flex footer-item"></span>
           <span class="author footer-item">By
             <span [innerText]="this.forumPost.author"></span>
           </span>
+        </div>
+        <hr>
+        <div class="links">
+          <a routerLink="/forums/edit" (click)="makePostInterested(forumPost._id)" routerLinkActive="active"><button
+              mat-button class="header-link">Forum Edit</button></a>
+          <a (click)="deletePost(forumPost._id, forumPost)" routerLinkActive="active"><button mat-button
+              class="header-link">Forum
+              Delete</button></a>
         </div>
       </mat-card-content>
     </div>
@@ -30,8 +39,8 @@
             This is a comment on a post for someone to read. This is just an example.
           </div>
           <div class="reply-footer">
-            <span class="date-published footer-item" >
-            Published on <span [innerText]="this.forumPost.date_published"></span>
+            <span class="date-published footer-item">
+              Published on <span [innerText]="this.forumPost.date_published"></span>
             </span>
             <span class="flex footer-item"></span>
             <span class="author footer-item">By
@@ -41,33 +50,33 @@
         </div>
         <hr>
         <div class="comment">
-            <div class="reply-content">
-              This is a comment on a post for someone to read. This is just an example.
-              <br>
-              <br>
-              Something else to add. thanks
-            </div>
-            <div class="reply-footer">
-              <span class="date-published footer-item" >
-              Published on <span [innerText]="this.forumPost.author"></span>
-              </span>
-              <span class="flex footer-item"></span>
-              <span class="author footer-item">By
-                <span [innerText]="this.forumPost.author"></span>
-              </span>
-            </div>
+          <div class="reply-content">
+            This is a comment on a post for someone to read. This is just an example.
+            <br>
+            <br>
+            Something else to add. thanks
           </div>
+          <div class="reply-footer">
+            <span class="date-published footer-item">
+              Published on <span [innerText]="this.forumPost.author"></span>
+            </span>
+            <span class="flex footer-item"></span>
+            <span class="author footer-item">By
+              <span [innerText]="this.forumPost.author"></span>
+            </span>
+          </div>
+        </div>
       </mat-expansion-panel>
     </mat-accordion>
   </mat-card>
   <mat-card>
-      <form class="news-create-form" (ngSubmit)="submitComment(commentForm)" #commentForm="ngForm">
-        <mat-form-field>
-          <textarea matInput rows="3" name="enteredContent" placeholder="Add a comment..." ngModel required
-            #content="ngModel"></textarea>
-          <mat-error *ngIf="content.invalid">Please enter content.</mat-error>
-        </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" [disabled]="!commentForm.form.valid">Comment</button>
-      </form>
+    <form class="news-create-form" (ngSubmit)="submitComment(commentForm)" #commentForm="ngForm">
+      <mat-form-field>
+        <textarea matInput rows="3" name="enteredContent" placeholder="Add a comment..." ngModel required
+          #content="ngModel"></textarea>
+        <mat-error *ngIf="content.invalid">Please enter content.</mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!commentForm.form.valid">Comment</button>
+    </form>
   </mat-card>
 </div>

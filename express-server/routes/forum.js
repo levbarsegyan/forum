@@ -12,27 +12,29 @@ let forumDataSchema = new Schema({
 });
 var ForumData = mongoose.model('ForumData', forumDataSchema);
 router.post('/create', function (req, res, next) {
-    console.log("1 In create " + req.body);
-    console.log("3 In create " + req.body.title);
     let postInformation = new ForumData(req.body)
-    console.log("2 In create " + postInformation);
     postInformation.save();
 });
 router.post('/delete-post', function (req, res, next) {
+    ForumData.findByIdAndDelete(req.body._id)
+        .then(function (doc, err) {
+            if (err) {
+                res.json({ message: err })
+            }
+            res.json({ message: "Post deleted" });
+        })
 });
 router.post('/edit-post', function (req, res, next) {
-    console.log("ID Check " + req.body._id);
-    console.log("content " + req.body.content);
     ForumData.findByIdAndUpdate(req.body._id, { content: req.body.content })
-        .then(function ( doc) {
-            res.json({ message: "Post updated!"} );
+        .then(function (doc) {
+            res.json({ message: "Post updated!" });
         });
 });
 router.get('/list', function (req, res, next) {
     ForumData.find()
         .then(function (doc) {
             console.log(doc);
-            res.json( doc);
+            res.json(doc);
         });
 });
 router.post('/delete-reply', function (req, res, next) {

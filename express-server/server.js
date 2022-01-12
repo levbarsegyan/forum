@@ -37,8 +37,8 @@ require('./passport-config');
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api/admin', adminRoute);
-app.use('/api/users', usersRoute);
 app.use('/api/forum', forumRoute);
+app.use('/api/users', usersRoute);
 app.listen(8000, () => {
     console.log('Server started!');
 })

@@ -42,8 +42,8 @@ export class ForumService {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
-  deleteForumPost(id: string) {
-    return this.http.delete(this.deletePostUrl, {
+  deleteForumPost(id: number): Observable<any> {
+    return this.http.post<any>(this.deletePostUrl, { _id: id }, {
       observe: 'body',
       withCredentials: true,
       headers: new HttpHeaders().append('Content-Type', 'application/json')
