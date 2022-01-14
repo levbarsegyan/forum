@@ -3,6 +3,7 @@ import { ForumPost } from 'src/app/models/forum.model';
 import { ForumService } from '../forum.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ForumComment } from '../../models/comment.model';
 @Component({
   selector: 'app-show-post',
   templateUrl: './show-post.component.html',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class ShowPostComponent implements OnInit {
   constructor(private forumService: ForumService, private router: Router) { }
+  message: string;
   wasDeleted = false;
   forumPost: ForumPost;
   ngOnInit() {
@@ -25,15 +27,12 @@ export class ShowPostComponent implements OnInit {
       this.router.navigate(['/']);
     }
   }
-  submitComment(form: NgForm) {
-  }
   deletePost(id: number, post: ForumPost) {
     this.forumService.deleteForumPost(id).subscribe(
       data => {
-        this.message = data.message;
         this.wasDeleted = true;
         post.title = 'Deleted';
-        post.content = 'Deleted';
+        post.content = data.message;
       },
       error => {
         this.message = error.message;
@@ -43,5 +42,23 @@ export class ShowPostComponent implements OnInit {
   }
   makePostInterested(id: number) {
     this.forumService.setInterestedPost(id);
+  }
+  createComment(postId: number, form: NgForm ) {
+    const currentDate = Date();
+    const commentItem = {
+      comment: form.value.enteredComment,
+      author: 'Author',
+      date_published: currentDate.toString(),
+    };
+    this.forumService.addReplyToForumPost(postId, commentItem).subscribe(
+      data => {
+      },
+      error => {
+      }
+    );
+  }
+  listComment() {
+  }
+  editComment() {
   }
 }

@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ForumService } from '../forum.service';
 import { NgForm } from '@angular/forms';
 import { ForumPost } from 'src/app/models/forum.model';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.css']
 })
 export class CreatePostComponent implements OnInit {
-  constructor(private forumService: ForumService) { }
+  constructor(private forumService: ForumService, private router: Router) { }
   newPost;
   contentHtml = '';
   fullTitle = '';
@@ -36,11 +37,18 @@ export class CreatePostComponent implements OnInit {
         this.sendMessageForSuccessOrFailure(error);
       }
     );
+    this.redirectUserToList();
   }
   sendMessageForSuccessOrFailure(message) {
     console.log(message.message);
   }
   getCurrentUsername(): string {
     return 'Person';
+  }
+  redirectUserToList() {
+    console.log('Waiting');
+    setTimeout(() => {
+      this.router.navigate(['/forums/list']);
+    }, 2000);
   }
 }

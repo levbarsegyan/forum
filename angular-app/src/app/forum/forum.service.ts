@@ -56,8 +56,8 @@ export class ForumService {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
-  addReplyToForumPost(postId: string) {
-    return this.http.put(this.addReplyUrl, postId, {
+  addReplyToForumPost(postId: number, comment: any) {
+    return this.http.put(this.addReplyUrl, {_id: postId, comment}, {
       observe: 'body',
       withCredentials: true,
       headers: new HttpHeaders().append('Content-Type', 'application/json')

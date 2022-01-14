@@ -4,12 +4,19 @@ const passport = require('passport');
 const Admin = require('../models/admin');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+let commentDataSchema = new Schema({
+    content: { type: String, required: true },
+    author: { type: String, required: true },
+    date_published: { type: String, required: true },
+})
 let forumDataSchema = new Schema({
     title: { type: String, required: true },
     content: { type: String, required: true },
     author: { type: String, required: true },
     date_published: { type: String, required: true },
+    comment: [{ type: mongoose.Schema.Types.ObjectId, ref: 'CommentData' }],
 });
+var CommentData = mongoose.model('CommentData', commentDataSchema);
 var ForumData = mongoose.model('ForumData', forumDataSchema);
 router.post('/create', function (req, res, next) {
     let postInformation = new ForumData(req.body)
@@ -44,6 +51,10 @@ router.put('/vote-up', function (req, res, next) {
 router.put('/vote-down', function (req, res, next) {
 });
 router.post('/add-reply', function (req, res, next) {
+    let postId = req.body._id;
+    let commentPost = req.body.comment;
+    let commentInformation = new CommentData(commentPost)
+    commentInformation.save();
 });
 router.get('/get-reply', function (req, res, next) {
 });

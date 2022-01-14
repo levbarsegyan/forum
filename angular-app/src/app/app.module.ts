@@ -33,6 +33,7 @@ import { CreatePostComponent } from './forum/create-post/create-post.component';
 import { ListPostsComponent } from './forum/list-posts/list-posts.component';
 import { EditPostComponent } from './forum/edit-post/edit-post.component';
 import { ShowPostComponent } from './forum/show-post/show-post.component';
+import { CreateCommentComponent } from './forum/create-comment/create-comment.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -126,6 +127,7 @@ const appRoutes: Routes = [
     ListPostsComponent,
     EditPostComponent,
     ShowPostComponent,
+    CreateCommentComponent,
   ],
   imports: [
     BrowserModule,
