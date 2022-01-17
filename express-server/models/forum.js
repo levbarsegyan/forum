@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const bcrypt = require('bcrypt');
-var schema = new Schema({
-    title: { type: String, require: true },
-    content: { type: String, require: true },
-    author: { type: String, require: true },
-    creation_date: { type: String, required: true },
+var forumDataSchema = new Schema({
+    title: { type: String, required: true },
+    content: { type: String, required: true },
+    author: { type: String, required: true },
+    date_published: { type: String, required: true },
+    comment: [{ type: mongoose.Schema.Types.ObjectId, ref: 'CommentData' }],
 });
-module.exports = mongoose.model('Forum', schema);
+module.exports = mongoose.model('ForumData', forumDataSchema);

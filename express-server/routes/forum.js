@@ -3,22 +3,10 @@ const router = express.Router();
 const passport = require('passport');
 const Admin = require('../models/admin');
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-let commentDataSchema = new Schema({
-    content: { type: String, required: true },
-    author: { type: String, required: true },
-    date_published: { type: String, required: true },
-})
-let forumDataSchema = new Schema({
-    title: { type: String, required: true },
-    content: { type: String, required: true },
-    author: { type: String, required: true },
-    date_published: { type: String, required: true },
-    comment: [{ type: mongoose.Schema.Types.ObjectId, ref: 'CommentData' }],
-});
-var CommentData = mongoose.model('CommentData', commentDataSchema);
-var ForumData = mongoose.model('ForumData', forumDataSchema);
+const CommentData = require('../models/comments');
+const ForumData = require('../models/forum');
 router.post('/create', function (req, res, next) {
+    console.log(req.body)
     let postInformation = new ForumData(req.body)
     postInformation.save();
 });
@@ -53,8 +41,16 @@ router.put('/vote-down', function (req, res, next) {
 router.post('/add-reply', function (req, res, next) {
     let postId = req.body._id;
     let commentPost = req.body.comment;
-    let commentInformation = new CommentData(commentPost)
-    commentInformation.save();
+    let commentInformation = new CommentData(commentPost);
+    commentInformation.save().then(c => (
+        ForumData.findByIdAndUpdate(postId, { '$push': { 'comment': c._id } })
+            .catch(() => {
+                console.log("Error on saving comment");
+                res.json({ message: "Error on saving comment" });
+            })
+    ));
+    console.log("Might have worked");
+    res.json({ message: "Might have worked" });
 });
 router.get('/get-reply', function (req, res, next) {
 });

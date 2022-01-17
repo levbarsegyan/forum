@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ForumService } from '../forum.service';
 import { ForumPost } from '../../models/forum.model';
 import { NgForm } from '@angular/forms';
-import { format } from 'util';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-edit-post',

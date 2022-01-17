@@ -57,7 +57,7 @@ export class ForumService {
     });
   }
   addReplyToForumPost(postId: number, comment: any) {
-    return this.http.put(this.addReplyUrl, {_id: postId, comment}, {
+    return this.http.post(this.addReplyUrl, { _id: postId, comment }, {
       observe: 'body',
       withCredentials: true,
       headers: new HttpHeaders().append('Content-Type', 'application/json')

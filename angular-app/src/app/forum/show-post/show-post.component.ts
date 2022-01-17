@@ -43,7 +43,7 @@ export class ShowPostComponent implements OnInit {
   makePostInterested(id: number) {
     this.forumService.setInterestedPost(id);
   }
-  createComment(postId: number, form: NgForm ) {
+  createComment(postId: number, form: NgForm) {
     const currentDate = Date();
     const commentItem = {
       comment: form.value.enteredComment,
@@ -52,8 +52,10 @@ export class ShowPostComponent implements OnInit {
     };
     this.forumService.addReplyToForumPost(postId, commentItem).subscribe(
       data => {
+        console.log(data);
       },
       error => {
+        console.log(error.message);
       }
     );
   }
