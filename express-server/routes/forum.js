@@ -28,7 +28,6 @@ router.post('/edit-post', function (req, res, next) {
 router.get('/list', function (req, res, next) {
     ForumData.find()
         .then(function (doc) {
-            console.log(doc);
             res.json(doc);
         });
 });
@@ -52,7 +51,11 @@ router.post('/add-reply', function (req, res, next) {
     console.log("Might have worked");
     res.json({ message: "Might have worked" });
 });
-router.get('/get-reply', function (req, res, next) {
+router.post('/get-reply', function (req, res, next) {
+    CommentData.findById(req.body._id).then(function (document) {
+        console.log("Getting: " + document);
+        res.json(document);
+    });
 });
 router.post('/get-post', function (req, res, next) {
     ForumData.findOne(req.body)

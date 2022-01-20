@@ -4,4 +4,5 @@ export interface ForumPost {
     content: string;
     author: string;
     date_published: string;
+    comment: [number];
 }

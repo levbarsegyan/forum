@@ -12,6 +12,7 @@ export class ForumService {
   private editPostUrl = 'http:
   private deletePostUrl = 'http:
   private listPostUrl = 'http:
+  private listCommentsUrl = 'http:
   private deletePostReplyUrl = 'http:
   private increaseVoteUrl = 'http:
   private decreaseVoteUrl = 'http:
@@ -77,6 +78,13 @@ export class ForumService {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
+  listAllComments(commentId): Observable<any> {
+    return this.http.post<any>(this.listCommentsUrl, { _id: commentId }, {
+      observe: 'body',
+      withCredentials: true,
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    });
+  }
   listAllForumPost(): Observable<any> {
     return this.listSomeForumPosts(100);
   }
@@ -89,7 +97,6 @@ export class ForumService {
   }
   showForumPost(): Observable<ForumPost> {
     const postId = this.currentInterestedPost;
-    console.log('Trying to get ' + postId + ' from server');
     return this.http.post<ForumPost>(this.showPostUrl, { _id: postId }, {
       observe: 'body',
       withCredentials: true,

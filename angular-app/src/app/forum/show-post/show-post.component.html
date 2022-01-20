@@ -22,25 +22,23 @@
         <div class="links">
           <a routerLink="/forums/edit" (click)="makePostInterested(forumPost._id)" routerLinkActive="active"><button
               mat-button class="header-link">Forum Edit</button></a>
-          <a (click)="deletePost(forumPost._id, forumPost)" routerLinkActive="active"><button mat-button
-              class="header-link">Forum
-              Delete</button></a>
+          <a (click)="deletePost(this.forumPost)" routerLinkActive="active"><button mat-button
+              class="header-link">Forum Delete</button></a>
         </div>
       </mat-card-content>
     </div>
   </mat-card>
-  <mat-card class="comment">
-    <div class="reply-content">
-      This is a comment on a post for someone to read. This is just an example.
+  <mat-card class="comment" *ngFor="let comments of this.forumComments">      
+    <div class="reply-content" [innerText]="comments.content">
     </div>
     <hr>
     <div class="reply-footer">
       <span class="date-published footer-item">
-        Published on <span [innerText]="this.forumPost.date_published"></span>
+        Published on <span [innerText]="comments.date_published"></span>
       </span>
       <span class="flex footer-item"></span>
       <span class="author footer-item">By
-        <span [innerText]="this.forumPost.author"></span>
+        <span [innerText]="comments.author"></span>
       </span>
     </div>
   </mat-card>
