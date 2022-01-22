@@ -6,18 +6,38 @@ const mongoose = require('mongoose');
 const CommentData = require('../models/comments');
 const ForumData = require('../models/forum');
 router.post('/create', function (req, res, next) {
-    console.log(req.body)
-    let postInformation = new ForumData(req.body)
+    console.log(req.body);
+    let postInformation = new ForumData(req.body);
     postInformation.save();
 });
 router.post('/delete-post', function (req, res, next) {
-    ForumData.findByIdAndDelete(req.body._id)
-        .then(function (doc, err) {
+    ForumData.findById(req.body._id).then(
+        function (doc, err) {
+            if (err) {
+                res.json({ message: err }).catch();
+            }
+            doc.comment.forEach(comId => {
+                CommentData.findByIdAndDelete(comId).then(
+                    function (doc, err) {
+                        if (err) {
+                            res.json({ CommentMessage: err });
+                        }
+                        res.json({ CommentMessage: "Deleted comment" + doc.comment });
+                    }
+                ).catch(rejection => {
+                    console.log(rejection);
+                });
+            });
+        }
+    );
+    ForumData.findByIdAndDelete(req.body._id).then(
+        function (doc, err) {
             if (err) {
                 res.json({ message: err })
             }
             res.json({ message: "Post deleted" });
-        })
+        }
+    );
 });
 router.post('/edit-post', function (req, res, next) {
     ForumData.findByIdAndUpdate(req.body._id, { content: req.body.content })
@@ -42,7 +62,7 @@ router.post('/add-reply', function (req, res, next) {
     let commentPost = req.body.comment;
     let commentInformation = new CommentData(commentPost);
     commentInformation.save().then(c => (
-        ForumData.findByIdAndUpdate(postId, { '$push': { 'comment': c._id } })
+        ForumData.findByIdAndUpdate(postId, { '$push': { 'comment': c._id }})
             .catch(() => {
                 console.log("Error on saving comment");
                 res.json({ message: "Error on saving comment" });
@@ -52,16 +72,18 @@ router.post('/add-reply', function (req, res, next) {
     res.json({ message: "Might have worked" });
 });
 router.post('/get-reply', function (req, res, next) {
-    CommentData.findById(req.body._id).then(function (document) {
-        console.log("Getting: " + document);
-        res.json(document);
-    });
+    CommentData.findById(req.body._id).then(
+        function (document) {
+            res.json(document);
+        }
+    );
 });
 router.post('/get-post', function (req, res, next) {
-    ForumData.findOne(req.body)
-        .then(function (doc) {
+    ForumData.findOne(req.body).then(
+        function (doc) {
             res.json(doc);
             next();
-        });
+        }
+    );
 });
 module.exports = router;

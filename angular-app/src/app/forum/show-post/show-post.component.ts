@@ -57,6 +57,7 @@ export class ShowPostComponent implements OnInit {
     this.forumService.addReplyToForumPost(postId, commentItem).subscribe(
       data => {
         console.log(data);
+        this.router.navigate(['/forums/show']);
       },
       error => {
         console.log(error.message);
@@ -68,7 +69,7 @@ export class ShowPostComponent implements OnInit {
       this.forumService.listAllComments(commentId).subscribe(
         data => {
           const comment: ForumComment = {
-            _id: data._id,
+            _id: data.id,
             content: data.comment,
             author: data.author,
             date_published: data.date_published,
