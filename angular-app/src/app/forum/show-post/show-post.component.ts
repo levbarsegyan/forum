@@ -17,16 +17,7 @@ export class ShowPostComponent implements OnInit {
   forumComments: ForumComment[] = [];
   ngOnInit() {
     if (this.forumService.getInterestedPost()) {
-      this.forumService.showForumPost().subscribe(
-        data => {
-          this.forumPost = data;
-          this.listComment(this.forumPost.comment);
-        },
-        error => {
-          console.log('There was an error getting the post');
-          console.log(error);
-        }
-      );
+      this.getPost();
     } else {
       this.router.navigate(['/']);
     }
@@ -50,17 +41,28 @@ export class ShowPostComponent implements OnInit {
   createComment(postId: number, form: NgForm) {
     const currentDate = Date();
     const commentItem = {
-      comment: form.value.enteredComment,
+      content: form.value.enteredComment,
       author: 'Author',
       date_published: currentDate.toString(),
     };
     this.forumService.addReplyToForumPost(postId, commentItem).subscribe(
       data => {
         console.log(data);
-        this.router.navigate(['/forums/show']);
       },
       error => {
         console.log(error.message);
+      }
+    );
+  }
+  getPost() {
+    this.forumService.showForumPost().subscribe(
+      data => {
+        this.forumPost = data;
+        this.listComment(this.forumPost.comment);
+      },
+      error => {
+        console.log('There was an error getting the post');
+        console.log(error);
       }
     );
   }
@@ -69,8 +71,8 @@ export class ShowPostComponent implements OnInit {
       this.forumService.listAllComments(commentId).subscribe(
         data => {
           const comment: ForumComment = {
-            _id: data.id,
-            content: data.comment,
+            _id: data._id,
+            content: data.content,
             author: data.author,
             date_published: data.date_published,
           };
@@ -84,5 +86,15 @@ export class ShowPostComponent implements OnInit {
     });
   }
   editComment() {
+  }
+  deleteComment(commentId) {
+    this.forumService.removeReplyFromForumPost(this.forumPost._id, commentId).subscribe(
+      data => {
+        console.log(data.message);
+      },
+      error => {
+        console.log(error.message);
+      }
+    );
   }
 }

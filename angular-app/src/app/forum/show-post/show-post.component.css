@@ -33,15 +33,15 @@ mat-expansion-panel {
   padding: 0;
 }
 .flex{
-  width: 40%;
+  width: 30%;
 }
 .date-published {
-  width: 30%;
+  width: 35%;
   font-family: monospace;
   font-size: 9pt;
 }
 .author {
-  width: 30%;
+  width: 70%;
   font-family: monospace;
   font-size: 9pt;
   text-align: end;

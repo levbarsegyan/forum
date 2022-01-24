@@ -10,35 +10,36 @@
         <p class="post-content" [innerHTML]="this.forumPost.content"></p>
         <div class="post-footer">
           <hr>
-          <span class="date-published footer-item">
-            Published on <span [innerText]="this.forumPost.date_published"></span>
-          </span>
-          <span class="flex footer-item"></span>
-          <span class="author footer-item">By
-            <span [innerText]="this.forumPost.author"></span>
-          </span>
-        </div>
-        <hr>
+          <span class="flex footer-item">
         <div class="links">
           <a routerLink="/forums/edit" (click)="makePostInterested(forumPost._id)" routerLinkActive="active"><button
               mat-button class="header-link">Forum Edit</button></a>
           <a (click)="deletePost(this.forumPost)" routerLinkActive="active"><button mat-button
               class="header-link">Forum Delete</button></a>
         </div>
+          </span>
+          <span class="author footer-item">By
+            <span [innerText]="this.forumPost.author"></span>
+            Published on <span [innerText]="this.forumPost.date_published"></span>
+          </span>
+        </div>
       </mat-card-content>
     </div>
   </mat-card>
-  <mat-card class="comment" *ngFor="let comments of this.forumComments">      
-    <div class="reply-content" [innerText]="comments.content">
+  <mat-card class="comment" *ngFor="let comment of this.forumComments">      
+    <div class="reply-content" [innerText]="comment.content">
     </div>
     <hr>
     <div class="reply-footer">
-      <span class="date-published footer-item">
-        Published on <span [innerText]="comments.date_published"></span>
-      </span>
-      <span class="flex footer-item"></span>
+        <div class="flex footer-item links">
+          <a routerLink="/forums/edit" (click)="makePostInterested(forumPost._id)" routerLinkActive="active"><button
+              mat-button class="header-link">Forum Edit</button></a>
+          <a (click)="deleteComment(comment._id)" routerLinkActive="active"><button mat-button
+              class="header-link">Forum Delete</button></a>
+        </div>
       <span class="author footer-item">By
-        <span [innerText]="comments.author"></span>
+        <span [innerText]="comment.author"></span>
+        at <span [innerText]="comment.date_published"></span>
       </span>
     </div>
   </mat-card>

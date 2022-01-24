@@ -46,30 +46,51 @@ router.post('/edit-post', function (req, res, next) {
         });
 });
 router.get('/list', function (req, res, next) {
-    ForumData.find()
-        .then(function (doc) {
+    ForumData.find().then(
+        function (doc) {
             res.json(doc);
-        });
+        }
+    );
 });
 router.post('/delete-reply', function (req, res, next) {
+    console.log(req.body.commentId);
+    CommentData.findByIdAndDelete(req.body.commentId).then(
+        function (doc, err) {
+            if (err) {
+                res.json({ message: "Error deleting comment -- " + err });
+            }
+            console.log("Deleted: " + doc);
+        }
+    ).then(
+        ForumData.findByIdAndUpdate(req.body.postId, { '$pull': { 'comment': req.body.commentId } }).then(
+            function (doc, err) {
+                if (err) {
+                    res.json({ message: "Error updating forum post comments -- " + err})
+                }
+                console.log("Updated for comment removal " + doc)
+                res.json({ message: "Comment/Reply was deleted" });
+            }
+        )
+    );
 });
 router.put('/vote-up', function (req, res, next) {
 });
 router.put('/vote-down', function (req, res, next) {
 });
 router.post('/add-reply', function (req, res, next) {
-    let postId = req.body._id;
+    let postId = req.body.postId;
     let commentPost = req.body.comment;
     let commentInformation = new CommentData(commentPost);
-    commentInformation.save().then(c => (
-        ForumData.findByIdAndUpdate(postId, { '$push': { 'comment': c._id }})
-            .catch(() => {
-                console.log("Error on saving comment");
-                res.json({ message: "Error on saving comment" });
-            })
-    ));
-    console.log("Might have worked");
-    res.json({ message: "Might have worked" });
+    commentInformation.save().then(
+        com => {
+            return (ForumData.findByIdAndUpdate(postId, { '$push': { 'comment': com._id } })
+                .catch(() => {
+                    console.log("Error on saving comment");
+                    res.json({ message: "Error on saving comment" });
+                }));
+        }
+    );
+    res.json({ message: "Comment added" });
 });
 router.post('/get-reply', function (req, res, next) {
     CommentData.findById(req.body._id).then(

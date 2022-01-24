@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ForumPost } from '../models/forum.model';
+import { ForumComment } from '../models/comment.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -57,22 +58,22 @@ export class ForumService {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
-  addReplyToForumPost(postId: number, comment: any) {
-    return this.http.post(this.addReplyUrl, { _id: postId, comment }, {
+  addReplyToForumPost(postId: number, comment): Observable<any> {
+    return this.http.post(this.addReplyUrl, { postId, comment }, {
       observe: 'body',
       withCredentials: true,
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
-  removeReplyFromForumPost(forumPost: ForumPost) {
-    return this.http.delete(this.deletePostReplyUrl, {
+  removeReplyFromForumPost(postId, commentId) {
+    return this.http.post(this.deletePostReplyUrl, { postId, commentId }, {
       observe: 'body',
       withCredentials: true,
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
-  editReplyOfForumPost(): Observable<any> {
-    return this.http.get(this.showReplyUrl, {
+  editReplyOfForumPost(comment: ForumComment): Observable<any> {
+    return this.http.post(this.showReplyUrl, { comment }, {
       observe: 'body',
       withCredentials: true,
       headers: new HttpHeaders().append('Content-Type', 'application/json')
