@@ -90,7 +90,7 @@ export class ShowPostComponent implements OnInit {
   deleteComment(commentId) {
     this.forumService.removeReplyFromForumPost(this.forumPost._id, commentId).subscribe(
       data => {
-        console.log(data.message);
+        console.log(data);
       },
       error => {
         console.log(error.message);

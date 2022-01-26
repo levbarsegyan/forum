@@ -22,7 +22,7 @@ router.post('/delete-post', function (req, res, next) {
                         if (err) {
                             res.json({ CommentMessage: err });
                         }
-                        res.json({ CommentMessage: "Deleted comment" + doc.comment });
+                        res.json({ CommentMessage: "Deleted comment" });
                     }
                 ).catch(rejection => {
                     console.log(rejection);
