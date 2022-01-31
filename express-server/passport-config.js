@@ -1,5 +1,8 @@
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
+const passportJWT = require('passport-jwt')
+const JwtStrategy = passportJWT.Strategy;
+const ExtractJwt = passportJWT.ExtractJwt;
 const User = require('./models/user');
 const Admin = require('./models/admin');
 passport.use('user-local', new LocalStrategy({
