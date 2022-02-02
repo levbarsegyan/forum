@@ -1,4 +1,6 @@
 const express = require('express');
+const dotenv = require('dotenv');
+dotenv.config();
 const app = express();
 const path = require('path');
 const cors = require('cors');
@@ -10,6 +12,8 @@ const MongoStore = require('connect-mongo')(session);
 const usersRoute = require('./routes/user');
 const adminRoute = require('./routes/admin');
 const forumRoute = require('./routes/forum');
+const port = process.env.PORT || 8000;
+const requireAuth = passport.authenticate('jwt', { session: false });
 app.use(cors({
     origin: [
         'http:
@@ -24,7 +28,7 @@ app.use(session({
     name: 'decaform.sid',
     resave: false,
     saveUninitialized: false,
-    secret: "somethingsecret",
+    secret: process.env.SECRET,
     cookie: {
         httpOnly: false,
         secure: false
@@ -39,6 +43,9 @@ app.use(passport.session());
 app.use('/api/admin', adminRoute);
 app.use('/api/forum', forumRoute);
 app.use('/api/users', usersRoute);
-app.listen(8000, () => {
+app.post('/protected', requireAuth, function (req, res) {
+    res.send("Welcome to this protected route, you may continue")
+})
+app.listen(port, () => {
     console.log('Server started!');
 })
