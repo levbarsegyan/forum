@@ -7,7 +7,7 @@
     </h2>
   </div>
 </mat-card>
-<mat-card *ngFor="let post of posts" routerLink="/forums/show" (click)="makePostInterested(post)">
+<mat-card *ngFor="let post of posts" routerLink="/forums/show/{{post._id}}" (click)="makePostInterested(post)">
   <mat-card-title>
     <h3 [innerText]="post.title"></h3>
   </mat-card-title>

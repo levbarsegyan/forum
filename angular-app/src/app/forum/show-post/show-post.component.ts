@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ForumPost } from 'src/app/models/forum.model';
 import { ForumService } from '../forum.service';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ForumComment } from '../../models/comment.model';
 @Component({
   selector: 'app-show-post',
@@ -10,17 +10,15 @@ import { ForumComment } from '../../models/comment.model';
   styleUrls: ['./show-post.component.css']
 })
 export class ShowPostComponent implements OnInit {
-  constructor(private forumService: ForumService, private router: Router) { }
+  constructor(private forumService: ForumService, private router: Router, private activatedRoute: ActivatedRoute) { }
   message: string;
   wasDeleted = false;
   forumPost: ForumPost;
   forumComments: ForumComment[] = [];
   ngOnInit() {
-    if (this.forumService.getInterestedPost()) {
-      this.getPost();
-    } else {
-      this.router.navigate(['/']);
-    }
+    this.activatedRoute.params.subscribe(params => {
+      this.getPost(params.id);
+    });
   }
   deletePost(post: ForumPost) {
     this.forumService.deleteForumPost(post._id).subscribe(
@@ -34,9 +32,6 @@ export class ShowPostComponent implements OnInit {
       }
     );
     this.router.navigate(['/forums/list']);
-  }
-  makePostInterested(id: number) {
-    this.forumService.setInterestedPost(id);
   }
   createComment(postId: number, form: NgForm) {
     const currentDate = Date();
@@ -54,8 +49,11 @@ export class ShowPostComponent implements OnInit {
       }
     );
   }
-  getPost() {
-    this.forumService.showForumPost().subscribe(
+  editComment(id) {
+    this.forumService.setInterestedPost(id);
+  }
+  getPost(idOfThePost) {
+    this.forumService.showForumPost(idOfThePost).subscribe(
       data => {
         this.forumPost = data;
         this.listComment(this.forumPost.comment);
@@ -84,8 +82,6 @@ export class ShowPostComponent implements OnInit {
         }
       );
     });
-  }
-  editComment() {
   }
   deleteComment(commentId) {
     this.forumService.removeReplyFromForumPost(this.forumPost._id, commentId).subscribe(

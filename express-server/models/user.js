@@ -7,7 +7,9 @@ var schema = new Schema({
     password: { type: String, require: true },
     creation_date: { type: String, require: true },
     confirmed: { type: Boolean, required: true },
-    role: { type: String, required: false }
+    role: {
+        type: String, required: false, default: 'user'
+    }
 });
 schema.statics.hashPassword = function hashPassword(password) {
     return bcrypt.hashSync(password, 12);

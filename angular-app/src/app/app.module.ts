@@ -62,7 +62,7 @@ const appRoutes: Routes = [
     path: 'forums',
     children: [
       {
-        path: 'show',
+        path: 'show/:id',
         component: ShowPostComponent,
       },
       {

@@ -6,11 +6,9 @@ const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const cookieparser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const usersRoute = require('./routes/user');
-const adminRoute = require('./routes/admin');
 const forumRoute = require('./routes/forum');
 const port = process.env.PORT || 8000;
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -40,7 +38,6 @@ app.get('/api', (req, res) => {
 require('./passport-config');
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/api/admin', adminRoute);
 app.use('/api/forum', forumRoute);
 app.use('/api/users', usersRoute);
 app.post('/protected', requireAuth, function (req, res) {

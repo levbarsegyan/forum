@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const Admin = require('../models/admin');
 const mongoose = require('mongoose');
 const CommentData = require('../models/comments');
 const ForumData = require('../models/forum');

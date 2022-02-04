@@ -96,8 +96,7 @@ export class ForumService {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
-  showForumPost(): Observable<ForumPost> {
-    const postId = this.currentInterestedPost;
+  showForumPost(postId): Observable<ForumPost> {
     return this.http.post<ForumPost>(this.showPostUrl, { _id: postId }, {
       observe: 'body',
       withCredentials: true,
