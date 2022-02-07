@@ -52,25 +52,23 @@ router.get('/list', function (req, res, next) {
     );
 });
 router.post('/delete-reply', function (req, res, next) {
-    console.log(req.body.commentId);
     CommentData.findByIdAndDelete(req.body.commentId).then(
         function (doc, err) {
             if (err) {
                 res.json({ message: "Error deleting comment -- " + err });
             }
-            console.log("Deleted: " + doc);
         }
     ).then(
         ForumData.findByIdAndUpdate(req.body.postId, { '$pull': { 'comment': req.body.commentId } }).then(
             function (doc, err) {
                 if (err) {
-                    res.json({ message: "Error updating forum post comments -- " + err})
+                    res.json({ message: "Error updating forum post comments -- " + err })
                 }
-                console.log("Updated for comment removal " + doc)
-                res.json({ message: "Comment/Reply was deleted" });
             }
         )
     );
+    res.json("Comment/Reply was deleted");
+    next();
 });
 router.put('/vote-up', function (req, res, next) {
 });

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ForumPost } from 'src/app/models/forum.model';
 import { ForumService } from '../forum.service';
 import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ForumComment } from '../../models/comment.model';
 @Component({
@@ -10,7 +11,13 @@ import { ForumComment } from '../../models/comment.model';
   styleUrls: ['./show-post.component.css']
 })
 export class ShowPostComponent implements OnInit {
-  constructor(private forumService: ForumService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private forumService: ForumService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar,
+  ) { }
+  commentButtonClicked = false;
   message: string;
   wasDeleted = false;
   forumPost: ForumPost;
@@ -34,6 +41,7 @@ export class ShowPostComponent implements OnInit {
     this.router.navigate(['/forums/list']);
   }
   createComment(postId: number, form: NgForm) {
+    this.commentButtonClicked = true;
     const currentDate = Date();
     const commentItem = {
       content: form.value.enteredComment,
@@ -42,10 +50,10 @@ export class ShowPostComponent implements OnInit {
     };
     this.forumService.addReplyToForumPost(postId, commentItem).subscribe(
       data => {
-        console.log(data);
+        this.openSnackBar(data.message, 'Close');
       },
       error => {
-        console.log(error.message);
+        this.openSnackBar(error.message, 'Close');
       }
     );
   }
@@ -86,11 +94,18 @@ export class ShowPostComponent implements OnInit {
   deleteComment(commentId) {
     this.forumService.removeReplyFromForumPost(this.forumPost._id, commentId).subscribe(
       data => {
-        console.log(data);
+        let messageFromTheServer = '';
+        messageFromTheServer =  data.toString();
+        this.openSnackBar(messageFromTheServer, 'Close');
       },
       error => {
-        console.log(error.message);
+        this.openSnackBar(error.message, 'Close');
       }
     );
+  }
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 }

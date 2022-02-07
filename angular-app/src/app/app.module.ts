@@ -60,17 +60,18 @@ const appRoutes: Routes = [
   },
   {
     path: 'forums',
+    component: ForumComponent,
     children: [
       {
-        path: 'show/:id',
-        component: ShowPostComponent,
-      },
-      {
-        path: 'list',
+        path: '',
         component: ListPostsComponent,
       },
       {
-        path: 'edit',
+        path: ':id',
+        component: ShowPostComponent,
+      },
+      {
+        path: 'edit/:id',
         component: EditPostComponent,
       },
     ]
