@@ -22,7 +22,4 @@ export class ListPostsComponent implements OnInit {
       }
     );
   }
-  makePostInterested(id: number) {
-    this.forumService.setInterestedPost(id);
-  }
 }

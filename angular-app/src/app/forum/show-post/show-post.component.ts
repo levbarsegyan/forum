@@ -21,7 +21,6 @@ export class ShowPostComponent implements OnInit {
   message: string;
   wasDeleted = false;
   forumPost: ForumPost;
-  forumComments: ForumComment[] = [];
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.getPost(params.id);
@@ -57,49 +56,15 @@ export class ShowPostComponent implements OnInit {
       }
     );
   }
-  editComment(id) {
-    this.forumService.setInterestedPost(id);
-  }
   getPost(idOfThePost) {
     this.forumService.showForumPost(idOfThePost).subscribe(
       data => {
-        this.forumPost = data;
-        this.listComment(this.forumPost.comment);
+        this.forumService.setInterestedPost(data);
+        this.forumPost = this.forumService.getInterestedPost();
       },
       error => {
         console.log('There was an error getting the post');
         console.log(error);
-      }
-    );
-  }
-  listComment(comments) {
-    comments.forEach(commentId => {
-      this.forumService.listAllComments(commentId).subscribe(
-        data => {
-          const comment: ForumComment = {
-            _id: data._id,
-            content: data.content,
-            author: data.author,
-            date_published: data.date_published,
-          };
-          console.log(comment);
-          this.forumComments.push(comment);
-        },
-        error => {
-          console.log('Failed to load comments!');
-        }
-      );
-    });
-  }
-  deleteComment(commentId) {
-    this.forumService.removeReplyFromForumPost(this.forumPost._id, commentId).subscribe(
-      data => {
-        let messageFromTheServer = '';
-        messageFromTheServer =  data.toString();
-        this.openSnackBar(messageFromTheServer, 'Close');
-      },
-      error => {
-        this.openSnackBar(error.message, 'Close');
       }
     );
   }

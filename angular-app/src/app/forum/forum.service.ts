@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class ForumService {
-  private currentInterestedPost: number;
+  private forumPost: ForumPost;
   private newPostUrl = 'http:
   private editPostUrl = 'http:
   private deletePostUrl = 'http:
@@ -104,9 +104,9 @@ export class ForumService {
     });
   }
   getInterestedPost() {
-    return this.currentInterestedPost;
+    return this.forumPost;
   }
-  setInterestedPost(id: number) {
-    this.currentInterestedPost = id;
+  setInterestedPost(post: ForumPost) {
+    this.forumPost = post;
   }
 }

@@ -26,23 +26,7 @@
       </mat-card-content>
     </div>
   </mat-card>
-  <mat-card class="comment" *ngFor="let comment of this.forumComments">      
-    <div class="reply-content" [innerText]="comment.content">
-    </div>
-    <hr>
-    <div class="reply-footer">
-        <div class="flex footer-item links">
-          <a routerLink="/forums/edit/{{this.comment._id}}"  routerLinkActive="active"><button
-              mat-button class="header-link">Forum Edit</button></a>
-          <a (click)="deleteComment(comment._id)" routerLinkActive="active"><button mat-button
-              class="header-link">Forum Delete</button></a>
-        </div>
-      <span class="author footer-item">By
-        <span [innerText]="comment.author"></span>
-        at <span [innerText]="comment.date_published"></span>
-      </span>
-    </div>
-  </mat-card>
+  <app-comment ></app-comment>
   <mat-card>
     <form class="" (ngSubmit)="createComment(this.forumPost._id, commentForm)" #commentForm="ngForm">
       <mat-form-field>

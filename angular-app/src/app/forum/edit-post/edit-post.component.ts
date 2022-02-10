@@ -43,7 +43,7 @@ export class EditPostComponent implements OnInit {
     this.forumService.editForumPost(this.newPost).subscribe(
       data => {
         this.message = data.message;
-        this.router.navigate(['/forums/'+this.forumPost._id]);
+        this.router.navigate(['/forums/' + this.forumPost._id]);
       },
       error => {
         this.message = error.message;
