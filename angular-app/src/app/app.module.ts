@@ -143,7 +143,9 @@ const appRoutes: Routes = [
     MatGridListModule,
     MatSnackBarModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, {
+      onSameUrlNavigation: 'reload'
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

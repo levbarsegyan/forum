@@ -3,6 +3,8 @@ import { ForumService } from '../forum.service';
 import { MatSnackBar } from '@angular/material';
 import { ForumPost } from 'src/app/models/forum.model';
 import { ForumComment } from 'src/app/models/comment.model';
+import { Router } from '@angular/router';
+import { NgForm } from "@angular/forms";
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
@@ -12,19 +14,20 @@ export class CommentComponent implements OnInit {
   constructor(
     private forumService: ForumService,
     private snackBar: MatSnackBar,
+    private router: Router,
   ) { }
   forumPost: ForumPost;
   forumComments: ForumComment[] = [];
   editToggle = false;
   commentButtonClicked = false;
-targetCommentId: number = null;
+  targetCommentId: number = null;
   ngOnInit() {
     this.forumPost = this.forumService.getInterestedPost();
     this.listComments(this.forumPost.comment);
   }
   listComments(comments) {
     comments.forEach(commentId => {
-      this.forumService.listAllComments(commentId).subscribe(
+      this.forumService.listAComment(commentId).subscribe(
         commentData => {
           const comment: ForumComment = {
             _id: commentData._id,
@@ -32,7 +35,6 @@ targetCommentId: number = null;
             author: commentData.author,
             date_published: commentData.date_published,
           };
-          console.log(comment);
           this.forumComments.push(comment);
         },
         error => {
@@ -48,13 +50,15 @@ targetCommentId: number = null;
         let messageFromTheServer = '';
         messageFromTheServer = data.toString();
         this.openSnackBar(messageFromTheServer, 'Close');
+        location.reload();
       },
       error => {
         this.openSnackBar(error.message, 'Close');
       }
     );
   }
-  editComment(id) {
+  editComment(commentForm: NgForm) {
+    console.log(commentForm.value.enteredComment);
   }
   toggleEdit(idThatToggled) {
     this.editToggle = !this.editToggle;

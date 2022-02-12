@@ -1,10 +1,10 @@
 <div class="commentContainer" *ngFor="let comment of this.forumComments">
-  <mat-card class="comment">      
-    <div class="reply-content" [hidden]="isEditable(comment._id)" [innerText]="comment.content">
-    </div>
-    <textarea class="comment-edit" [hidden]="!isEditable(comment._id)" [innerText]="comment.content"></textarea>
-    <hr>
-    <div class="reply-footer">
+  <div [hidden]="isEditable(comment._id)">
+    <mat-card class="comment">      
+      <div class="reply-content"  [innerText]="comment.content">
+      </div>
+      <hr>
+      <div class="reply-footer">
         <div class="flex footer-item links">
           <div class="standard-footer">
             <button
@@ -13,10 +13,25 @@
                 class="header-link">Forum Delete</button></a>
           </div>
         </div>
-      <span class="author footer-item">By
-        <span [innerText]="comment.author"></span>
-        at <span [innerText]="comment.date_published"></span>
-      </span>
-    </div>
-  </mat-card>
+        <span class="author footer-item">By
+          <span [innerText]="comment.author"></span>
+          at <span [innerText]="comment.date_published"></span>
+        </span>
+      </div>
+    </mat-card>
+  </div>
+  <div [hidden]="!isEditable(comment._id)">
+    <mat-card class="editable-comment" [hidden]="true">
+      <form class="" (ngSubmit)="editComment(commentForm)" #commentForm="ngForm">
+        <mat-form-field>
+          <textarea matInput rows="3" name="enteredComment" #content="ngModel" required [(ngModel)]="comment.content"></textarea>
+          <mat-error *ngIf="content.invalid">Please enter content.</mat-error>
+        </mat-form-field>
+        <div class="editable-footer" >
+          <button class="edit-button" mat-raised-button color="primary" type="submit" [disabled]="commentForm.form.invalid || commentButtonClicked">Submit</button>
+          <button class="edit-button" mat-raised-button color="warn" (click)="toggleEdit(comment._id)">Cancel</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
 </div>

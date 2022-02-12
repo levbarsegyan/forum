@@ -70,9 +70,9 @@ router.post('/delete-reply', function (req, res, next) {
     res.json("Comment/Reply was deleted");
     next();
 });
-router.put('/vote-up', function (req, res, next) {
+router.post('/vote-up', function (req, res, next) {
 });
-router.put('/vote-down', function (req, res, next) {
+router.post('/vote-down', function (req, res, next) {
 });
 router.post('/add-reply', function (req, res, next) {
     let postId = req.body.postId;

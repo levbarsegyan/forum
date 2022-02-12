@@ -13,6 +13,7 @@ export class ForumService {
   private editPostUrl = 'http:
   private deletePostUrl = 'http:
   private listPostUrl = 'http:
+  private listACommentUrl = 'http:
   private listCommentsUrl = 'http:
   private deletePostReplyUrl = 'http:
   private increaseVoteUrl = 'http:
@@ -79,8 +80,15 @@ export class ForumService {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
-  listAllComments(commentId): Observable<any> {
-    return this.http.post<any>(this.listCommentsUrl, { _id: commentId }, {
+  listAComment(commentId): Observable<any> {
+    return this.http.post<any>(this.listACommentUrl, { _id: commentId }, {
+      observe: 'body',
+      withCredentials: true,
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    });
+  }
+  listAllComments(commentIdArray): Observable<any> {
+    return this.http.post<any>(this.listCommentsUrl, { ids: commentIdArray }, {
       observe: 'body',
       withCredentials: true,
       headers: new HttpHeaders().append('Content-Type', 'application/json')
