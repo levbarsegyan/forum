@@ -89,6 +89,16 @@ router.post('/add-reply', function (req, res, next) {
     );
     res.json({ message: "Comment added" });
 });
+router.post('/edit-reply', function (req, res, next) {
+    CommentData.findByIdAndUpdate(req.body.comment._id, {
+        content: req.body.comment.content
+    }).catch(
+        function (reason) {
+            console.log(reason);
+        }
+    );
+    res.json({ message: "Comment updated" });
+});
 router.post('/get-reply', function (req, res, next) {
     CommentData.findById(req.body._id).then(
         function (document) {

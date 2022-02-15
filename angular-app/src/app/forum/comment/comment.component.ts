@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material';
 import { ForumPost } from 'src/app/models/forum.model';
 import { ForumComment } from 'src/app/models/comment.model';
 import { Router } from '@angular/router';
-import { NgForm } from "@angular/forms";
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
@@ -14,7 +14,6 @@ export class CommentComponent implements OnInit {
   constructor(
     private forumService: ForumService,
     private snackBar: MatSnackBar,
-    private router: Router,
   ) { }
   forumPost: ForumPost;
   forumComments: ForumComment[] = [];
@@ -39,7 +38,7 @@ export class CommentComponent implements OnInit {
         },
         error => {
           console.log('Failed to load comments!');
-          this.openSnackBar('Failed to load comments!', "Okay");
+          this.openSnackBar('Failed to load comments!', 'Okay');
         }
       );
     });
@@ -57,8 +56,22 @@ export class CommentComponent implements OnInit {
       }
     );
   }
-  editComment(commentForm: NgForm) {
-    console.log(commentForm.value.enteredComment);
+  editComment(commentForm: NgForm, oldCommentData: ForumComment) {
+    const comment: ForumComment = {
+      _id: oldCommentData._id,
+      author: oldCommentData.author,
+      date_published: oldCommentData.date_published,
+      content: commentForm.value.enteredComment,
+    };
+    this.forumService.editReplyOfForumPost(comment).subscribe(
+      replyData => {
+        console.log(replyData.message);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+    location.reload();
   }
   toggleEdit(idThatToggled) {
     this.editToggle = !this.editToggle;

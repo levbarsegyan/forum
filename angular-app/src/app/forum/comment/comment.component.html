@@ -22,9 +22,9 @@
   </div>
   <div [hidden]="!isEditable(comment._id)">
     <mat-card class="editable-comment" [hidden]="true">
-      <form class="" (ngSubmit)="editComment(commentForm)" #commentForm="ngForm">
+      <form class="" (ngSubmit)="editComment(commentForm, comment)" #commentForm="ngForm">
         <mat-form-field>
-          <textarea matInput rows="3" name="enteredComment" #content="ngModel" required [(ngModel)]="comment.content"></textarea>
+          <textarea matInput rows="10" name="enteredComment" #content="ngModel" required [(ngModel)]="comment.content"></textarea>
           <mat-error *ngIf="content.invalid">Please enter content.</mat-error>
         </mat-form-field>
         <div class="editable-footer" >

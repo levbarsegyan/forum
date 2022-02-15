@@ -37,7 +37,7 @@ export class ShowPostComponent implements OnInit {
         this.message = error.message;
       }
     );
-    this.router.navigate(['/forums/list']);
+    location.reload();
   }
   createComment(postId: number, form: NgForm) {
     this.commentButtonClicked = true;
@@ -50,6 +50,7 @@ export class ShowPostComponent implements OnInit {
     this.forumService.addReplyToForumPost(postId, commentItem).subscribe(
       data => {
         this.openSnackBar(data.message, 'Close');
+        location.reload();
       },
       error => {
         this.openSnackBar(error.message, 'Close');
