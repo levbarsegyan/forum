@@ -66,12 +66,12 @@ export class CommentComponent implements OnInit {
     this.forumService.editReplyOfForumPost(comment).subscribe(
       replyData => {
         console.log(replyData.message);
+        location.reload();
       },
       error => {
         console.log(error);
       }
     );
-    location.reload();
   }
   toggleEdit(idThatToggled) {
     this.editToggle = !this.editToggle;

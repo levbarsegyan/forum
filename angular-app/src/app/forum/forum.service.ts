@@ -74,7 +74,7 @@ export class ForumService {
     });
   }
   editReplyOfForumPost(comment: ForumComment): Observable<any> {
-    return this.http.post(this.editCommentUrl, { comment }, {
+    return this.http.post<any>(this.editCommentUrl, { comment }, {
       observe: 'body',
       withCredentials: true,
       headers: new HttpHeaders().append('Content-Type', 'application/json')

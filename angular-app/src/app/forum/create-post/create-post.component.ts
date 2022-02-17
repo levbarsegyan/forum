@@ -48,7 +48,7 @@ export class CreatePostComponent implements OnInit {
   redirectUserToList() {
     console.log('Waiting');
     setTimeout(() => {
-      this.router.navigate(['/forums/list']);
+      this.router.navigate(['/forums']);
     }, 2000);
   }
 }

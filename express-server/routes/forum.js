@@ -5,9 +5,12 @@ const mongoose = require('mongoose');
 const CommentData = require('../models/comments');
 const ForumData = require('../models/forum');
 router.post('/create', function (req, res, next) {
-    console.log(req.body);
     let postInformation = new ForumData(req.body);
-    postInformation.save();
+    try {
+        postInformation.save()
+    } catch (reason) {
+        console.log("Saving failed for reason: " + reason);
+    }
 });
 router.post('/delete-post', function (req, res, next) {
     ForumData.findById(req.body._id).then(
@@ -40,14 +43,21 @@ router.post('/delete-post', function (req, res, next) {
 });
 router.post('/edit-post', function (req, res, next) {
     ForumData.findByIdAndUpdate(req.body._id, { content: req.body.content })
-        .then(function (doc) {
-            res.json({ message: "Post updated!" });
-        });
+        .then(
+            doc => {
+                res.json({ message: "Post updated!" });
+            }
+        );
 });
 router.get('/list', function (req, res, next) {
     ForumData.find().then(
-        function (doc) {
+        doc => {
             res.json(doc);
+        }
+    ).catch(
+        reason => {
+            console.log("Rejected for reason: " + reason);
+            res.status(404).json(reason);
         }
     );
 });
@@ -84,7 +94,8 @@ router.post('/add-reply', function (req, res, next) {
                 .catch(() => {
                     console.log("Error on saving comment");
                     res.json({ message: "Error on saving comment" });
-                }));
+                })
+            );
         }
     );
     res.json({ message: "Comment added" });

@@ -37,7 +37,7 @@ export class ShowPostComponent implements OnInit {
         this.message = error.message;
       }
     );
-    location.reload();
+    this.router.navigate(['/forums/']);
   }
   createComment(postId: number, form: NgForm) {
     this.commentButtonClicked = true;
