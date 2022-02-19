@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 router.post('/register', async (req, res, next)  => {
     const doesEmailExist = await User.findOne({ email: req.body.email });
     if (doesEmailExist) return res.status(400).send({ error: "User is already registered on this Email Address" });
@@ -37,14 +38,14 @@ router.post('/login', (req, res, next) => {
         }
     });
 });
-router.get('/user', isUserValid, (req, res, next) => {
-    return res.status(200).json(req.user);
+router.post('/user', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    return res.status(200).json("Welcome to the protected route");
 });
 router.get('/logout', isUserValid, function (req, res, next) {
     req.logout();
     return res.status(200).json({ message: 'Logout Success' });
 });
 function isUserValid(req, res, next) {
-    next();
+    return passport.authenticate('jwt', { session: false });
 }
 module.exports = router;
