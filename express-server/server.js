@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const cookieparser = require('cookie-parser');
 const usersRoute = require('./routes/user');
 const forumRoute = require('./routes/forum');
 const port = process.env.PORT || 8000;
@@ -20,6 +21,7 @@ app.use(cors({
     credentials: true,
 }));
 app.use(express.json());
+app.use(cookieparser());
 app.use(express.urlencoded({ extended: false }));
 mongoose.connect('mongodb:
 app.use(session({

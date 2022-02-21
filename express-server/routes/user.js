@@ -24,22 +24,27 @@ router.post('/register', async (req, res, next)  => {
     next();
 });
 router.post('/login', (req, res, next) => {
-    User.findOne({ username: req.body.username }, (error, user) => {
+    console.log("Request with user as " + req.body.email + " and pass as " + req.body.password)
+    User.findOne({ username: req.body.email }, (error, user) => {
         if (error) return res.status(400).send('Error logging in');
-        if (!user) { return res.status(401).send('Incorrect email or password.'); }
-        if (!user.isValid(req.body.password)) {
+        if (!user || !user.isValid(req.body.password)) {
             return res.status(401).send('Incorrect email or password.');
         }
         else {       
             var token = jwt.sign({ id: user._id }, process.env.SECRET, {
                 expiresIn: 10000
             });
-            res.json({ token: 'JWT ' + token });
+            res.cookie('jwt', token, { httpOnly: true, secure: false });
+            res.status(200).send({ token });
         }
     });
 });
-router.post('/user', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    return res.status(200).json("Welcome to the protected route");
+router.get('/user', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    console.log("Passed Authentication");
+    if (req.user)
+        res.status(200).json(req.user);
+    else
+        res.status(400).json("User signed out")
 });
 router.get('/logout', isUserValid, function (req, res, next) {
     req.logout();

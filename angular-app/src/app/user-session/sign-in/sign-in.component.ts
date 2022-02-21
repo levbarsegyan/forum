@@ -15,6 +15,7 @@ export class SignInComponent implements OnInit {
   }
   onSubmit(form: NgForm) {
     if (form.invalid) {
+      this.warning = 'Forum invalid';
       return;
     }
     this.user = {
