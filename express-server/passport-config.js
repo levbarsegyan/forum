@@ -3,12 +3,11 @@ const passportJWT = require('passport-jwt');
 const JwtStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;
 const User = require('./models/user');
-var cookieExtractor = function(req) {
+var cookieExtractor = function (req) {
     var token = null;
-    if (req && req.cookies)    {
+    if (req && req.cookies) {
         token = req.cookies.jwt;
     }
-    console.log("Found the token = " + token);
     return token;
 };
 const options = {

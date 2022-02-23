@@ -21,8 +21,9 @@ mat-card-title {
   font-weight: bold;
 }
 .author-area {
-  padding: .5em;
-  margin: 0;
+  display: block;
+  padding: 0;
+  margin: .2em;
 }
 .buttons {
   display: inline;

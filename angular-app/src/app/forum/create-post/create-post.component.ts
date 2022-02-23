@@ -3,18 +3,27 @@ import { ForumService } from '../forum.service';
 import { NgForm } from '@angular/forms';
 import { ForumPost } from 'src/app/models/forum.model';
 import { Router } from '@angular/router';
+import { UserSessionService } from 'src/app/user-session/user-session.service';
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.css']
 })
 export class CreatePostComponent implements OnInit {
-  constructor(private forumService: ForumService, private router: Router) { }
+  constructor(
+    private forumService: ForumService,
+    private router: Router,
+    private userService: UserSessionService,
+  ) { }
   newPost;
   contentHtml = '';
   fullTitle = '';
   successfullyPosted: boolean;
+  currentUser;
   ngOnInit() {
+    this.userService.checkUser().subscribe(user => {
+      this.currentUser = user;
+    });
   }
   submitPost(form: NgForm) {
     const contentInput: string = form.value.enteredContent;
@@ -43,7 +52,7 @@ export class CreatePostComponent implements OnInit {
     console.log(message.message);
   }
   getCurrentUsername(): string {
-    return 'Person';
+    return this.currentUser.username;
   }
   redirectUserToList() {
     console.log('Waiting');

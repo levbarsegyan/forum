@@ -7,13 +7,14 @@
     </h2>
   </div>
 </mat-card>
-<mat-card *ngFor="let post of posts" routerLink="/forums/{{post._id}}" (click)="makePostInterested(post)">
+<mat-card *ngFor="let post of posts" routerLink="/forums/{{post._id}}">
   <mat-card-title>
     <h3 [innerText]="post.title"></h3>
   </mat-card-title>
   <mat-card-content>
     <p [innerHTML]="post.content"></p>
     <hr />
-    <h4 class="author-area" [innerText]="post.author"></h4>
+    <h4 class="author-area"> Created by {{ post.author }} at {{ post.date_published }}</h4>
+    <br>
   </mat-card-content>
 </mat-card>

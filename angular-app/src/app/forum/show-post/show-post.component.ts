@@ -5,6 +5,8 @@ import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ForumComment } from '../../models/comment.model';
+import { UserSessionService } from 'src/app/user-session/user-session.service';
+import { User } from 'src/app/models/user.model';
 @Component({
   selector: 'app-show-post',
   templateUrl: './show-post.component.html',
@@ -13,6 +15,7 @@ import { ForumComment } from '../../models/comment.model';
 export class ShowPostComponent implements OnInit {
   constructor(
     private forumService: ForumService,
+    private userService: UserSessionService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
@@ -21,10 +24,19 @@ export class ShowPostComponent implements OnInit {
   message: string;
   wasDeleted = false;
   forumPost: ForumPost;
+  currentUser: User;
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.getPost(params.id);
     });
+    this.userService.checkUser().subscribe(
+      user => {
+        this.currentUser = user;
+      },
+      error => {
+        console.log(error.message);
+      }
+    );
   }
   deletePost(post: ForumPost) {
     this.forumService.deleteForumPost(post._id).subscribe(
@@ -44,7 +56,7 @@ export class ShowPostComponent implements OnInit {
     const currentDate = Date();
     const commentItem = {
       content: form.value.enteredComment,
-      author: 'Author',
+      author: this.currentUser.username,
       date_published: currentDate.toString(),
     };
     this.forumService.addReplyToForumPost(postId, commentItem).subscribe(
