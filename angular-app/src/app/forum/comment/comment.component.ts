@@ -48,7 +48,6 @@ export class CommentComponent implements OnInit {
       data => {
         let messageFromTheServer = '';
         messageFromTheServer = data.toString();
-        this.openSnackBar(messageFromTheServer, 'Close');
         location.reload();
       },
       error => {

@@ -34,6 +34,7 @@ import { ListPostsComponent } from './forum/list-posts/list-posts.component';
 import { EditPostComponent } from './forum/edit-post/edit-post.component';
 import { ShowPostComponent } from './forum/show-post/show-post.component';
 import { CommentComponent } from './forum/comment/comment.component';
+import { ProfileComponent } from './profile/profile.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -101,6 +102,10 @@ const appRoutes: Routes = [
     component: AdminSignInComponent,
   },
   {
+    path: 'profile/:id',
+    component: ProfileComponent,
+  },
+  {
     path: '**', component: PageNotFoundComponent,
   },
 ];
@@ -129,6 +134,7 @@ const appRoutes: Routes = [
     EditPostComponent,
     ShowPostComponent,
     CommentComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

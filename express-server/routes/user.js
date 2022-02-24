@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const jwtBlacklist = require('../models/jwt-blacklist');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const isUserValid = passport.authenticate('jwt', { session: false });
@@ -14,6 +15,11 @@ const isUserConfirmed = () => {
         else {
             next()
         }
+    }
+}
+const checkBlacklist = () => {
+    return (req, res, next) => {
+        console.log(passport.cookie);
     }
 }
 router.post('/register', async (req, res, next) => {

@@ -7,8 +7,9 @@ import { User } from '../models/user.model';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit{
-  user: User = {
+export class HeaderComponent implements OnInit {
+  user = {
+    _id: '',
     email: '',
     username: '',
     confirmed: '',
@@ -30,6 +31,7 @@ export class HeaderComponent implements OnInit{
   ngOnInit() {
   }
   addUser(data) {
+    this.user._id = data._id;
     this.user.username = data.username;
     this.user.email = data.email;
     this.user.confirmed = data.confirmed;
