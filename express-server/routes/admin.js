@@ -40,4 +40,10 @@ router.get('/role', [isUserValid, isUserAdmin()], (req, res, next) => {
     else
         res.status(400).json("User signed out");
 });
+router.get('/role', [isUserValid, isUserAdmin()], (req, res, next) => {
+    if (req.user)
+        res.status(200);
+    else
+        res.status(400).json("User signed out");
+});
 module.exports = router;

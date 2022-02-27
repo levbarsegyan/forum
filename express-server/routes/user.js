@@ -58,6 +58,14 @@ router.post('/login', (req, res, next) => {
         }
     });
 });
+router.post('/user-info', (req, res, next) => {
+    User.findById(req._id, (error, user) => {
+        userInformation = {
+            username: user.username,
+        };
+    })
+        res.status(200).json(userInformation);
+});
 router.get('/user', [isUserValid], (req, res, next) => {
     if (req.user) {
         userInformation = {
@@ -76,8 +84,8 @@ router.get('/role', isUserValid, (req, res, next) => {
     else
         res.status(400).json("User signed out")
 });
-router.get('/logout', isUserValid, (req, res, next) => {
-    req.logout();
+router.get('/logout', (req, res, next) => {
+    res.cookie('jwt', '', { httpOnly: true, secure: false });
     return res.status(200).json({ message: 'Logout Success' });
 });
 function logoutUser(req, res, next) {
