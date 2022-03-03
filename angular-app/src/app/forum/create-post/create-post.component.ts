@@ -35,11 +35,12 @@ export class CreatePostComponent implements OnInit {
     this.fullTitle = form.value.enteredTitle;
     const currentDate = Date();
     this.newPost = {
-      author: this.getCurrentUsername(),
+      author: this.getCurrentUser(),
       title: this.fullTitle,
       content: this.contentHtml,
       date_published: currentDate.toString(),
     };
+    console.log(this.newPost);
     this.forumService.addNewForumPost(this.newPost).subscribe(
       data => {
         this.successfullyPosted = true;
@@ -56,8 +57,9 @@ export class CreatePostComponent implements OnInit {
     console.log(message);
     this.openSnackBar(message, 'Okay');
   }
-  getCurrentUsername(): string {
-    return this.currentUser.username;
+  getCurrentUser() {
+    console.log(this.currentUser);
+    return this.currentUser._id;
   }
   redirectUserToList() {
     console.log('Waiting');

@@ -24,7 +24,8 @@ export class ShowPostComponent implements OnInit {
   message: string;
   wasDeleted = false;
   forumPost: ForumPost;
-  currentUser: User;
+  postAuthor: string;
+  currentUser;
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.getPost(params.id);
@@ -37,6 +38,7 @@ export class ShowPostComponent implements OnInit {
         console.log(error.message);
       }
     );
+    this.getAuthor();
   }
   deletePost(post: ForumPost) {
     this.forumService.deleteForumPost(post._id).subscribe(
@@ -56,7 +58,7 @@ export class ShowPostComponent implements OnInit {
     const currentDate = Date();
     const commentItem = {
       content: form.value.enteredComment,
-      author: this.currentUser.username,
+      author: this.currentUser._id,
       date_published: currentDate.toString(),
     };
     this.forumService.addReplyToForumPost(postId, commentItem).subscribe(
@@ -74,6 +76,14 @@ export class ShowPostComponent implements OnInit {
       data => {
         this.forumService.setInterestedPost(data);
         this.forumPost = this.forumService.getInterestedPost();
+        this.userService.getUsernameFromID( this.forumPost.author ).subscribe(
+          userdata => {
+            this.postAuthor = userdata.username;
+          },
+          error => {
+            console.log('Error getting username: ' + error);
+          }
+        );
       },
       error => {
         console.log('There was an error getting the post');

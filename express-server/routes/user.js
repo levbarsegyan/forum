@@ -59,16 +59,27 @@ router.post('/login', (req, res, next) => {
     });
 });
 router.post('/user-info', (req, res, next) => {
-    User.findById(req._id, (error, user) => {
-        userInformation = {
-            username: user.username,
-        };
-    })
-        res.status(200).json(userInformation);
+    if (req.body.id) {
+        User.findById(req.body.id, (error, user) => {
+            if (!error) {
+                console.log("request for " + user.username);
+                userInformation = { 
+                    username: user.username,
+                };
+                res.status(200).json(userInformation);
+            }
+            else {
+                console.log("Error getting Username for Id\n" +error);
+                res.status(400).json( {message: "Error finding ID "});
+            }
+        });
+    }
+    res.status(400);
 });
-router.get('/user', [isUserValid], (req, res, next) => {
+router.get('/user', isUserValid, (req, res, next) => {
     if (req.user) {
         userInformation = {
+            _id: req.user._id,
             email: req.user.email,
             username: req.user.username,
             creation_date: req.user.creation_date,
@@ -76,7 +87,7 @@ router.get('/user', [isUserValid], (req, res, next) => {
         res.status(200).json(userInformation);
     }
     else
-        res.status(400).json("User signed out")
+        res.status(400).json("User is signed out")
 });
 router.get('/role', isUserValid, (req, res, next) => {
     if (req.user)
