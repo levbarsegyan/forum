@@ -5,6 +5,7 @@ import { ForumPost } from 'src/app/models/forum.model';
 import { ForumComment } from 'src/app/models/comment.model';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { UserSessionService } from 'src/app/user-session/user-session.service';
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
@@ -14,6 +15,7 @@ export class CommentComponent implements OnInit {
   constructor(
     private forumService: ForumService,
     private snackBar: MatSnackBar,
+    private userService: UserSessionService,
   ) { }
   forumPost: ForumPost;
   forumComments: ForumComment[] = [];
@@ -34,6 +36,14 @@ export class CommentComponent implements OnInit {
             author: commentData.author,
             date_published: commentData.date_published,
           };
+          this.userService.getUsernameFromID( commentData.author ).subscribe(
+            userdata => {
+              comment.authorname = userdata.username;
+            },
+            error => {
+              console.log('Error getting username: ' + error);
+            }
+          );
           this.forumComments.push(comment);
         },
         error => {

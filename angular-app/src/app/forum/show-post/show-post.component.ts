@@ -38,7 +38,6 @@ export class ShowPostComponent implements OnInit {
         console.log(error.message);
       }
     );
-    this.getAuthor();
   }
   deletePost(post: ForumPost) {
     this.forumService.deleteForumPost(post._id).subscribe(

@@ -14,7 +14,7 @@
   <mat-card-content>
     <p [innerHTML]="post.content"></p>
     <hr />
-    <h4 class="author-area"> Created by {{ post.author }} at {{ post.date_published }}</h4>
+    <h4 class="author-area"> Created by <span class="author-name">{{post.authorname}}</span> at {{ post.date_published }}</h4>
     <br>
   </mat-card-content>
 </mat-card>

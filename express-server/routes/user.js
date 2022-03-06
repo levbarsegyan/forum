@@ -62,7 +62,6 @@ router.post('/user-info', (req, res, next) => {
     if (req.body.id) {
         User.findById(req.body.id, (error, user) => {
             if (!error) {
-                console.log("request for " + user.username);
                 userInformation = { 
                     username: user.username,
                 };
