@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const dotenv = require('dotenv');
+dotenv.config();
 const bcrypt = require('bcrypt');
 var schema = new Schema({
     email: { type: String, require: true },
@@ -11,7 +13,8 @@ var schema = new Schema({
     role: { type: String, required: false, default: 'user' }
 });
 schema.statics.hashPassword = function hashPassword(password) {
-    return bcrypt.hashSync(password, 12);
+    var saltOrRounds = +process.env.SALTORROUNDS;
+    return bcrypt.hashSync(password, saltOrRounds);
 }
 schema.methods.isValid = function (hashedPassword) {
     return bcrypt.compareSync(hashedPassword, this.password);

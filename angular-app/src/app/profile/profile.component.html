@@ -1,3 +1,13 @@
-<p>
-  profile works!
-</p>
+<app-header></app-header>
+<mat-card>
+  <mat-card-title>
+    {{ this.user.username }}'s profile
+  </mat-card-title>
+  <mat-card-content>
+    Username: {{ this.user.username }}
+    <br>
+    Email: {{ this.user.email }}
+    <br>
+    Join Date: {{ this.user.creation_date }}
+  </mat-card-content>
+</mat-card>
