@@ -67,7 +67,10 @@ export class ForumService {
     });
   }
   removeReplyFromForumPost(postId, commentId) {
-    return this.http.post(this.deletePostReplyUrl, { postId, commentId }, {
+    const comment = {
+      _id: commentId
+    };
+    return this.http.post(this.deletePostReplyUrl, { postId,  comment }, {
       observe: 'body',
       withCredentials: true,
       headers: new HttpHeaders().append('Content-Type', 'application/json')

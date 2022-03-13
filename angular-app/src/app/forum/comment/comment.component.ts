@@ -22,9 +22,13 @@ export class CommentComponent implements OnInit {
   editToggle = false;
   commentButtonClicked = false;
   targetCommentId: number = null;
+  currentUser;
   ngOnInit() {
     this.forumPost = this.forumService.getInterestedPost();
     this.listComments(this.forumPost.comment);
+    this.userService.checkUser().subscribe(user => {
+      this.currentUser = user;
+    });
   }
   listComments(comments) {
     comments.forEach(commentId => {
@@ -56,9 +60,13 @@ export class CommentComponent implements OnInit {
   deleteComment(commentId) {
     this.forumService.removeReplyFromForumPost(this.forumPost._id, commentId).subscribe(
       data => {
-        let messageFromTheServer = '';
-        messageFromTheServer = data.toString();
-        location.reload();
+        let messageFromTheServer = data.message;
+        this.openSnackBar(messageFromTheServer, 'Close');
+        let reload = false;
+        reload = data.sent;
+        if (reload) {
+          this.reloadPage(2000);
+        }
       },
       error => {
         this.openSnackBar(error.message, 'Close');
@@ -66,21 +74,26 @@ export class CommentComponent implements OnInit {
     );
   }
   editComment(commentForm: NgForm, oldCommentData: ForumComment) {
-    const comment: ForumComment = {
-      _id: oldCommentData._id,
-      author: oldCommentData.author,
-      date_published: oldCommentData.date_published,
-      content: commentForm.value.enteredComment,
-    };
-    this.forumService.editReplyOfForumPost(comment).subscribe(
-      replyData => {
-        console.log(replyData.message);
-        location.reload();
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    if (this.currentUser) {
+      const comment: ForumComment = {
+        _id: oldCommentData._id,
+        date_published: oldCommentData.date_published,
+        content: commentForm.value.enteredComment,
+      };
+      this.forumService.editReplyOfForumPost(comment).subscribe(
+        replyData => {
+          console.log(replyData.message);
+          this.openSnackBar(replyData.message, 'Okay');
+          this.reloadPage(2000);
+        },
+        error => {
+          this.openSnackBar(error.message, 'Okay');
+          console.log(error.message);
+        }
+      );
+    } else {
+      this.openSnackBar('You must sign in to edit a reply', 'Close');
+    }
   }
   toggleEdit(idThatToggled) {
     this.editToggle = !this.editToggle;
@@ -93,5 +106,10 @@ export class CommentComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
+  }
+  reloadPage(time: number) {
+    setTimeout(() => {
+      location.reload();
+    }, time);
   }
 }

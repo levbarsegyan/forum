@@ -30,28 +30,33 @@ export class CreatePostComponent implements OnInit {
     });
   }
   submitPost(form: NgForm) {
-    const contentInput: string = form.value.enteredContent;
-    this.contentHtml = contentInput.replace(/\n/g, '<br />');
-    this.fullTitle = form.value.enteredTitle;
-    const currentDate = Date();
-    this.newPost = {
-      author: this.getCurrentUser(),
-      title: this.fullTitle,
-      content: this.contentHtml,
-      date_published: currentDate.toString(),
-    };
-    console.log(this.newPost);
-    this.forumService.addNewForumPost(this.newPost).subscribe(
-      data => {
-        this.successfullyPosted = true;
-        this.sendMessageForSuccessOrFailure('Post was submited, thank you');
-      },
-      error => {
-        this.successfullyPosted = false;
-        this.sendMessageForSuccessOrFailure('There was an error sending the post, try again later');
-      }
-    );
-    this.redirectUserToList();
+    if (this.currentUser) {
+      const contentInput: string = form.value.enteredContent;
+      this.contentHtml = contentInput.replace(/\n/g, '<br />');
+      this.fullTitle = form.value.enteredTitle;
+      const currentDate = Date();
+      this.newPost = {
+        title: this.fullTitle,
+        content: this.contentHtml,
+        date_published: currentDate.toString(),
+      };
+      this.forumService.addNewForumPost(this.newPost).subscribe(
+        data => {
+          console.log(data);
+          this.successfullyPosted = data.sent;
+          this.sendMessageForSuccessOrFailure(data.message);
+        },
+        error => {
+          console.log(error);
+          this.successfullyPosted = error.sent;
+          this.sendMessageForSuccessOrFailure(error.message);
+        }
+      );
+      this.redirectUserToList();
+    } else {
+      this.successfullyPosted = false;
+      this.sendMessageForSuccessOrFailure('You need to sign in');
+    }
   }
   sendMessageForSuccessOrFailure(message: string) {
     console.log(message);
@@ -62,7 +67,6 @@ export class CreatePostComponent implements OnInit {
     return this.currentUser._id;
   }
   redirectUserToList() {
-    console.log('Waiting');
     setTimeout(() => {
       this.router.navigate(['/forums']);
     }, 3000);

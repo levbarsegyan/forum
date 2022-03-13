@@ -21,7 +21,7 @@
     <button mat-raised-button color="primary" type="submit" [disabled]="!forumForm.form.valid">Publish</button>
   </form>
 </mat-card>
-<mat-card *ngIf="forumForm.submitted">
+<mat-card *ngIf="this.successfullyPosted">
   <mat-card-header>
     <mat-card-title>
       Submitted!

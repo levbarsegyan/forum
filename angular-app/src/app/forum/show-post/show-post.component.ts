@@ -42,33 +42,42 @@ export class ShowPostComponent implements OnInit {
   deletePost(post: ForumPost) {
     this.forumService.deleteForumPost(post._id).subscribe(
       data => {
-        this.wasDeleted = true;
-        post.title = 'Deleted';
-        post.content = data.message;
+        if (data.sent) {
+          this.wasDeleted = true;
+          post.title = 'Deleted';
+          post.content = data.message;
+        } else {
+          this.openSnackBar(data.message, "Okay");
+        }
       },
       error => {
         this.message = error.message;
       }
     );
-    this.router.navigate(['/forums/']);
+    setTimeout(() => {
+      this.router.navigate(['/forums/']);
+    }, 2000);
   }
   createComment(postId: number, form: NgForm) {
-    this.commentButtonClicked = true;
-    const currentDate = Date();
-    const commentItem = {
-      content: form.value.enteredComment,
-      author: this.currentUser._id,
-      date_published: currentDate.toString(),
-    };
-    this.forumService.addReplyToForumPost(postId, commentItem).subscribe(
-      data => {
-        this.openSnackBar(data.message, 'Close');
-        location.reload();
-      },
-      error => {
-        this.openSnackBar(error.message, 'Close');
-      }
-    );
+    if (this.currentUser) {
+      this.commentButtonClicked = true;
+      const currentDate = Date();
+      const commentItem = {
+        content: form.value.enteredComment,
+        date_published: currentDate.toString(),
+      };
+      this.forumService.addReplyToForumPost(postId, commentItem).subscribe(
+        data => {
+          this.openSnackBar(data.message, 'Close');
+          this.reloadPage();
+        },
+        error => {
+          this.openSnackBar(error.message, 'Close');
+        }
+      );
+    } else {
+      this.openSnackBar('You need to log in to post a comment', 'Close');
+    }
   }
   getPost(idOfThePost) {
     this.forumService.showForumPost(idOfThePost).subscribe(
@@ -94,5 +103,10 @@ export class ShowPostComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
+  }
+  reloadPage() {
+    setTimeout(() => {
+      location.reload();
+    }, 3000);
   }
 }

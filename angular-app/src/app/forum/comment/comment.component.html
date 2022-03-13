@@ -7,10 +7,14 @@
       <div class="reply-footer">
         <div class="flex footer-item links">
           <div class="standard-footer">
-            <button
-                mat-button class="header-link" (click)="toggleEdit(comment._id)">Comment Edit</button>
-            <a (click)="deleteComment(comment._id)" routerLinkActive="active"><button mat-button
-                class="header-link">Forum Delete</button></a>
+            <button mat-button class="header-link" (click)="toggleEdit(comment._id)">
+              Comment Edit
+            </button>
+            <a (click)="deleteComment(comment._id)" routerLinkActive="active">
+              <button mat-button class="header-link">
+                Forum Delete
+              </button>
+            </a>
           </div>
         </div>
         <span class="author footer-item">By
