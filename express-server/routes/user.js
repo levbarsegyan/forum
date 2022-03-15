@@ -63,16 +63,38 @@ router.post('/user-info', (req, res, next) => {
         User.findById(req.body.id, (error, user) => {
             if (!error) {
                 userInformation = { 
+                    _id: user._id,
                     username: user.username,
                 };
-                res.status(200).json(userInformation);
+                res.status(200).json({ user: userInformation });
             }
             else {
                 console.log("Error getting Username for Id\n" +error);
                 res.status(400).json( {message: "Error finding ID "});
             }
         });
+    } else {
+        res.status(400);
     }
+});
+router.get('/all-users', (req, res, next) => {
+    User.find({}, (error, doc) => {
+        if (!error) {
+            let allUsers = [];
+            doc.forEach(user => {
+                userInfo = {
+                    _id: user._id,
+                    username: user.username,
+                }
+                allUsers.push(userInfo);
+            });
+            res.status(200).json({ allUsers });
+        }
+        else {
+            console.log("Error getting Username for Id\n" +error);
+            res.status(400).json( {message: "Error finding ID "});
+        }
+    });
     res.status(400);
 });
 router.get('/user', isUserValid, (req, res, next) => {
@@ -87,6 +109,18 @@ router.get('/user', isUserValid, (req, res, next) => {
     }
     else
         res.status(400).json("User is signed out")
+});
+router.get('/ban-user', isUserValid, (req, res, next) => {
+    if (req.user)
+        res.status(200).json(req.user.role);
+    else
+        res.status(400).json("User signed out")
+});
+router.get('/delete-user', isUserValid, (req, res, next) => {
+    if (req.user)
+        res.status(200).json(req.user.role);
+    else
+        res.status(400).json("User signed out")
 });
 router.get('/role', isUserValid, (req, res, next) => {
     if (req.user)

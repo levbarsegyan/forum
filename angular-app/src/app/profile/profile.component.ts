@@ -13,16 +13,46 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
   ) { }
-  user: any;
+  user = {
+    username: '',
+    email: '',
+  };
+  allUsers: [];
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      console.log(params.id);
-      this.user = this.userService.checkUser().subscribe(userData => {
-        this.user = userData;
+      this.getUserProfile(params.id);
+    });
+    this.getAllUsers();
+  }
+  getAllUsers() {
+    this.userService.getAllUsers().subscribe(
+      data => {
+        this.allUsers = data.allUsers;
       },
       error => {
         console.log(error);
-      });
-    });
+      }
+    );
+  }
+  getUserProfile(id: number) {
+    this.userService.checkUser().subscribe(
+      user => {
+        this.user = user;
+        if (this.user._id !== id) {
+          this.user = this.userService.getUsernameFromID(id).subscribe(
+            userData => {
+              console.log(userData);
+              this.user = userData.user;
+            },
+            error => {
+              console.log(error);
+            }
+          );
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 }

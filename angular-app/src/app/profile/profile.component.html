@@ -11,3 +11,11 @@
     Join Date: {{ this.user.creation_date }}
   </mat-card-content>
 </mat-card>
+<mat-card>
+  <mat-card-title>
+    Others' Profiles
+  </mat-card-title>
+  <ul >
+    <li *ngFor=" let user of this.allUsers"><a href="/profile/{{ user._id }}">{{ user.username }}</a></li>
+  </ul>
+</mat-card>

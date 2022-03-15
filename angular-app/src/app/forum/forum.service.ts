@@ -66,7 +66,7 @@ export class ForumService {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
-  removeReplyFromForumPost(postId, commentId) {
+  removeReplyFromForumPost(postId, commentId): Observable<any>  {
     const comment = {
       _id: commentId
     };
