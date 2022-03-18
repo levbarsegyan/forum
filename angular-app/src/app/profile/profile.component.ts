@@ -38,8 +38,8 @@ export class ProfileComponent implements OnInit {
     this.userService.checkUser().subscribe(
       user => {
         this.user = user;
-        if (this.user._id !== id) {
-          this.user = this.userService.getUsernameFromID(id).subscribe(
+        if (user._id !== id) {
+          this.userService.getUsernameFromID(id).subscribe(
             userData => {
               console.log(userData);
               this.user = userData.user;

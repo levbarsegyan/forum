@@ -74,7 +74,7 @@ router.post('/user-info', (req, res, next) => {
             }
         });
     } else {
-        res.status(400);
+        res.status(400).json({message: "No user"});
     }
 });
 router.get('/all-users', (req, res, next) => {
