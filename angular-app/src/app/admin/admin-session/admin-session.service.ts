@@ -11,6 +11,7 @@ export class AdminSessionService {
   userUrl = 'http:
   loggedInUrl = 'http:
   registerUrl = 'http:
+  roleUrl = 'http:
   private loggedIn: boolean;
   signIn(user): Observable<any> {
     return this.http.post<any>(this.signInUrl, user, {
@@ -27,7 +28,14 @@ export class AdminSessionService {
     });
   }
   register(): Observable<any> {
-    return this.http.get<any>(this.registerUrl, {
+    return this.http.post<any>(this.registerUrl, {
+      observe: 'body',
+      withCredentials: true,
+      headers: new HttpHeaders().append( 'Content-Type', 'application/json')
+    });
+  }
+  role(): Observable<any> {
+    return this.http.get<any>(this.roleUrl, {
       observe: 'body',
       withCredentials: true,
       headers: new HttpHeaders().append( 'Content-Type', 'application/json')

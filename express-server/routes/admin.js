@@ -6,6 +6,7 @@ const passport = require('passport');
 const isUserValid = passport.authenticate('jwt', { session: false });
 const isUserConfirmed = () => {
     return (req, res, next) => {
+        console.log("Checking is user a user");
         if (!req.user.confirmed_email) {
             return res.status(400).json({
                 message: "You must confirm your email account by clicking the link emailed to you, on the account provided when signing up"
@@ -21,29 +22,28 @@ const isUserConfirmed = () => {
         }
     }
 }
-const isUserAdmin = () => {
-    return (req, res, next) => {
-        if (req.user.role === 'user') {
-            res.status(400).json({ message: "User is not an admin" });
-        }
-        else if (req.user.role === 'admin') {
-            next();
-        }
-        else {
-            res.status(400).json({ message: "User is not an admin" });
-        }
+const isUserAdmin = (req, res, next) => {
+    if (req.user.role === 'user') {
+        res.status(400).json({ admin: false, message: "User is not an admin" });
+    }
+    else if (req.user.role === 'admin') {
+        next();
+    }
+    else {
+        res.status(400).json({ admin: false, message: "User is not an admin" });
     }
 }
-router.get('/role', [isUserValid, isUserAdmin()], (req, res, next) => {
+router.get('/role', [isUserValid, isUserAdmin], (req, res, next) => {
     if (req.user)
-        res.status(200);
+        res.status(200).json({admin: true, role: 'admin'});
     else
-        res.status(400).json("User signed out");
+        res.status(400).json({admin: false, role: 'user'});
 });
-router.get('/role', [isUserValid, isUserAdmin()], (req, res, next) => {
-    if (req.user)
-        res.status(200);
+router.get('/check', [isUserValid, isUserAdmin], (req, res, next) => {
+    if (req.user) {
+        res.status(200).json({ admin: true, message: "User is admin" });
+    }
     else
-        res.status(400).json("User signed out");
+        res.status(400).json({ admin: false, message: "User is user"});
 });
 module.exports = router;

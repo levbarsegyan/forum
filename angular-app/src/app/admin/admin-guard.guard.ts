@@ -11,6 +11,7 @@ export class AdminGuardGuard implements CanActivate {
   canActivate(): boolean {
     this.adminSession.loginStatus().subscribe(data => {
       this.loggedIn = data;
+      console.log(data);
     });
     if (!this.loggedIn) {
       this.router.navigate(['admin-sign-in']);

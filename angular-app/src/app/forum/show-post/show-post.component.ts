@@ -47,7 +47,7 @@ export class ShowPostComponent implements OnInit {
           post.title = 'Deleted';
           post.content = data.message;
         } else {
-          this.openSnackBar(data.message, "Okay");
+          this.openSnackBar(data.message, 'Okay');
         }
       },
       error => {

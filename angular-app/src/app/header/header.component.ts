@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserSessionService } from '../user-session/user-session.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
+import { AdminSessionService } from '../admin/admin-session/admin-session.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -10,32 +11,48 @@ import { User } from '../models/user.model';
 export class HeaderComponent implements OnInit {
   user = {
     _id: '',
-    email: '',
     username: '',
-    confirmed: '',
-    creation_date: '',
   };
-  signedIn = false;
-  constructor(private userSession: UserSessionService, private router: Router) {
-    this.userSession.checkUser()
-      .subscribe(
-        data => {
-          this.addUser(data);
-        },
-        error => {
-          console.log(error);
-          this.signedIn = false;
-        }
-      );
-  }
+  private isAdmin = false;
+  private signedIn = false;
+  constructor(
+    private userSession: UserSessionService,
+    private router: Router,
+    private adminSession: AdminSessionService,
+  ) { }
   ngOnInit() {
+    this.userSession.checkUser().subscribe(
+      data => {
+        this.user._id = data._id;
+        this.user.username = data.username;
+        this.setSignedIn(true);
+      },
+      error => {
+        console.log(error);
+        this.setSignedIn(false);
+      }
+    );
+    this.adminSession.role().subscribe(
+      data => {
+        this.setIsAdmin(data.admin);
+      },
+      error => {
+        console.log(error);
+        console.log(error.admin);
+        this.setIsAdmin(error.admin);
+      }
+    );
   }
-  addUser(data) {
-    this.user._id = data._id;
-    this.user.username = data.username;
-    this.user.email = data.email;
-    this.user.confirmed = data.confirmed;
-    this.user.creation_date = data.creation_date;
-    this.signedIn = true;
+  setIsAdmin(value: boolean) {
+    this.isAdmin = value;
+  }
+  getIsAdmin(): boolean {
+    return this.isAdmin;
+  }
+  setSignedIn(value: boolean) {
+    this.signedIn = value;
+  }
+  getSignedIn(): boolean {
+    return this.signedIn;
   }
 }

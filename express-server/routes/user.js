@@ -143,7 +143,7 @@ router.post('/default-admin', async (req, res, next) => {
         creation_date: date.toString(),
         confirmed_game: true,
         confirmed_email: true,
-        role: "admin",
+        role: 'admin',
     });
     try {
         doc = await user.save();
