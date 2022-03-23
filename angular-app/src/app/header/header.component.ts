@@ -34,12 +34,11 @@ export class HeaderComponent implements OnInit {
     );
     this.adminSession.role().subscribe(
       data => {
-        this.setIsAdmin(data.admin);
+        this.setIsAdmin(true);
       },
       error => {
         console.log(error);
-        console.log(error.admin);
-        this.setIsAdmin(error.admin);
+        this.setIsAdmin(false);
       }
     );
   }

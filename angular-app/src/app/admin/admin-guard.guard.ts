@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AdminSessionService } from './admin-session/admin-session.service';
@@ -6,16 +7,23 @@ import { AdminSessionService } from './admin-session/admin-session.service';
   providedIn: 'root'
 })
 export class AdminGuardGuard implements CanActivate {
-  constructor(private adminSession: AdminSessionService, private router: Router) { }
-  private loggedIn: boolean;
-  canActivate(): boolean {
-    this.adminSession.loginStatus().subscribe(data => {
-      this.loggedIn = data;
-      console.log(data);
+  private _loggedIn = false;
+  constructor(
+    private adminSession: AdminSessionService,
+    private router: Router,
+    private http: HttpClient,
+  ) { }
+  canActivate(): Observable<boolean> {
+    return this.http.get<any>(this.adminSession.checkUrl, {
+      observe: 'body',
+      withCredentials: true,
+      headers: new HttpHeaders().append( 'Content-Type', 'application/json')
     });
-    if (!this.loggedIn) {
-      this.router.navigate(['admin-sign-in']);
-    }
-    return this.loggedIn;
+  }
+  public get loggedIn(): boolean {
+    return this._loggedIn;
+  }
+  public set loggedIn(value: boolean) {
+    this._loggedIn = value;
   }
 }

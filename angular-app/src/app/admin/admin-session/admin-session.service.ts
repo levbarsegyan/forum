@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { toPromise } from 'rxjs/add/operator/toPromise';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,6 +13,7 @@ export class AdminSessionService {
   loggedInUrl = 'http:
   registerUrl = 'http:
   roleUrl = 'http:
+  checkUrl = 'http:
   private loggedIn: boolean;
   signIn(user): Observable<any> {
     return this.http.post<any>(this.signInUrl, user, {
@@ -40,6 +42,10 @@ export class AdminSessionService {
       withCredentials: true,
       headers: new HttpHeaders().append( 'Content-Type', 'application/json')
     });
+  }
+  async check() {
+    const response = await this.http.get(this.checkUrl).toPromise();
+    return response;
   }
   checkUser(): Observable<any> {
     return this.http.get<any>(this.userUrl, {

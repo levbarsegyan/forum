@@ -39,11 +39,23 @@ router.get('/role', [isUserValid, isUserAdmin], (req, res, next) => {
     else
         res.status(400).json({admin: false, role: 'user'});
 });
-router.get('/check', [isUserValid, isUserAdmin], (req, res, next) => {
+router.get('/check-login', [isUserValid, isUserAdmin], (req, res, next) => {
     if (req.user) {
         res.status(200).json({ admin: true, message: "User is admin" });
     }
     else
         res.status(400).json({ admin: false, message: "User is user"});
+});
+router.get('/check', isUserValid, (req, res, next) => {
+    if (req.user.role === 'user') {
+        res.json(false);
+    }
+    else if (req.user.role === 'admin') {
+        res.status(200).json(true);
+    }
+    else {
+        res.json(false);
+    }
+    next();
 });
 module.exports = router;
