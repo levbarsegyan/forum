@@ -24,8 +24,6 @@ import { SignInComponent } from './user-session/sign-in/sign-in.component';
 import { SignUpComponent } from './user-session/sign-up/sign-up.component';
 import { LogoutComponent } from './user-session/logout/logout.component';
 import { AdminHeaderComponent } from './admin/header/header.component';
-import { AdminSignInComponent } from './admin/admin-session/sign-in/admin-sign-in.component';
-import { AdminSignOutComponent } from './admin/admin-session/sign-out/admin-sign-out.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { AdminGuardGuard } from './admin/admin-guard.guard';
 import { ForumComponent } from './forum/forum.component';
@@ -88,18 +86,10 @@ const appRoutes: Routes = [
     canActivate: [AdminGuardGuard],
     children: [
       {
-        path: 'sign-out',
-        component: AdminSignOutComponent,
-      },
-      {
         path: 'create-news',
         component: NewsCreateComponent,
       },
     ]
-  },
-  {
-    path: 'admin-sign-in',
-    component: AdminSignInComponent,
   },
   {
     path: 'profile/:id',
@@ -125,8 +115,6 @@ const appRoutes: Routes = [
     SignUpComponent,
     LogoutComponent,
     AdminHeaderComponent,
-    AdminSignInComponent,
-    AdminSignOutComponent,
     AdminHomeComponent,
     ForumComponent,
     CreatePostComponent,
