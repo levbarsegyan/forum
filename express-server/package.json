@@ -2,7 +2,7 @@
   "name": "decaforum",
   "version": "1.0.0",
   "description": "Forum made for the Playdeca.com website and game server",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js"
