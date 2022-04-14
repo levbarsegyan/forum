@@ -12,7 +12,10 @@ const cookieparser = require('cookie-parser');
 const usersRoute = require('./routes/user');
 const adminRoute = require('./routes/admin');
 const forumRoute = require('./routes/forum');
-const port = process.env.PORT || 8000;
+const BACKEND_PORT = process.env.BACKEND_PORT || 8000;
+const FRONTEND_DOMAIN = "http:
+const BACKEND_DOMAIN = "http:
+const MONGODB_DOMAIN = process.env.DB_CONNECTION;
 app.use(cors({
     origin: [
         'http:
@@ -23,7 +26,7 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieparser());
 app.use(express.urlencoded({ extended: false }));
-mongoose.connect('mongodb:
+mongoose.connect(MONGODB_DOMAIN, { useNewUrlParser: true, useFindAndModify: false });
 app.use(session({
     name: 'decaform.sid',
     resave: false,
@@ -43,6 +46,6 @@ app.use(passport.session());
 app.use('/api/forum', forumRoute);
 app.use('/api/users', usersRoute);
 app.use('/api/admin/', adminRoute);
-app.listen(port, () => {
+app.listen(BACKEND_PORT, () => {
     console.log('Server started!');
 })
