@@ -13,6 +13,7 @@ export class NewsCreateComponent implements OnInit {
   ngOnInit() {
   }
   onSubmit(form: NgForm) {
+    const currentDate: Date = new Date();
     this.newsPost = {
       title: form.value.enteredTitle,
       content: form.value.enteredContent,

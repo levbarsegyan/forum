@@ -1,42 +1,18 @@
-<mat-card>
-  <mat-card-header>
-    <h2> Example News </h2>
-    <span class="flex"></span>
-    <h6>Time here</h6>
-  </mat-card-header>
-  <mat-card-content>
-    <p>This is the main content for the news and should be able to show everything off. Make sure to check for formatting.</p>
-    <p>More filler text for the page to fill up</p>
-    <p>And even more text</p>
-  </mat-card-content>
-  <hr>
-    <button mat-raised-button color='primary'>Edit Me</button>
-</mat-card>
-<mat-card>
-  <mat-card-header>
-    <h2> Example News </h2>
-    <span class="flex"></span>
-    <h6>Time here</h6>
-  </mat-card-header>
-  <mat-card-content>
-    <p>This is the main content for the news and should be able to show everything off. Make sure to check for formatting.</p>
-    <p>More filler text for the page to fill up</p>
-    <p>And even more text</p>
-  </mat-card-content>
-  <hr>
-    <button mat-raised-button color='primary'>Edit Me</button>
-</mat-card>
-<mat-card>
-  <mat-card-header>
-    <h2> Example News </h2>
-    <span class="flex"></span>
-    <h6>Time here</h6>
-  </mat-card-header>
-  <mat-card-content>
-    <p>This is the main content for the news and should be able to show everything off. Make sure to check for formatting.</p>
-    <p>More filler text for the page to fill up</p>
-    <p>And even more text</p>
-  </mat-card-content>
-  <hr>
-    <button mat-raised-button color='primary'>Edit Me</button>
-</mat-card>
+<div class="news-area">
+  <mat-card *ngFor="let newsItem of this.allNews">
+    <mat-card-header>
+      <h2> {{ newsItem.title }} </h2>
+      <span class="flex"></span>
+      <h6> {{newsItem.date  }} </h6>
+    </mat-card-header>
+    <mat-card-content>
+      <p [innerHTML]="newsItem.content">
+      </p>
+      Good Luck and Have Fun, {{ newsItem.author }}
+    </mat-card-content>
+    <hr>
+    <div [hidden]="!this.adminAccess">
+      <button mat-raised-button color='primary'>Edit Me</button>
+    </div>
+  </mat-card>
+</div>
