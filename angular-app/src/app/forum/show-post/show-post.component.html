@@ -11,22 +11,22 @@
         <div class="post-footer">
           <hr>
           <span class="flex footer-item">
-        <div class="links">
-          <a routerLink="/forums/edit/{{forumPost._id}}" routerLinkActive="active"><button
-              mat-button class="header-link">Forum Edit</button></a>
-          <a (click)="deletePost(this.forumPost)" routerLinkActive="active"><button mat-button
-              class="header-link">Forum Delete</button></a>
-        </div>
+            <div class="links">
+              <a routerLink="/forums/edit/{{forumPost._id}}" routerLinkActive="active"><button mat-button
+                  class="header-link">Forum Edit</button></a>
+              <a (click)="deletePost(this.forumPost)" routerLinkActive="active"><button mat-button
+                  class="header-link">Forum Delete</button></a>
+            </div>
           </span>
           <span class="author footer-item">By
-            <a href="/profile/{{ this.postAuthor }}"><span [innerText]="this.postAuthor"></span></a>
+            <a href="/profile/{{this.forumPost.author }}"><span [innerText]="this.postAuthor"></span></a>
             Published on <span [innerText]="this.forumPost.date_published"></span>
           </span>
         </div>
       </mat-card-content>
     </div>
   </mat-card>
-  <app-comment ></app-comment>
+  <app-comment></app-comment>
   <mat-card>
     <form class="" (ngSubmit)="createComment(this.forumPost._id, commentForm)" #commentForm="ngForm">
       <mat-form-field>
@@ -34,7 +34,8 @@
           #content="ngModel"></textarea>
         <mat-error *ngIf="content.invalid">Please enter content.</mat-error>
       </mat-form-field>
-      <button mat-raised-button color="primary" type="submit" [disabled]="commentForm.form.invalid || commentButtonClicked">Comment</button>
+      <button mat-raised-button color="primary" type="submit"
+        [disabled]="commentForm.form.invalid || commentButtonClicked">Comment</button>
     </form>
   </mat-card>
 </div>
