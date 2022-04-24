@@ -69,12 +69,12 @@ router.post('/user-info', (req, res, next) => {
                 res.status(200).json({ user: userInformation });
             }
             else {
-                console.log("Error getting Username for Id\n" +error);
-                res.status(400).json( {message: "Error finding ID "});
+                console.log("Error getting Username for Id\n" + error);
+                res.status(400).json({ message: "Error finding ID " });
             }
         });
     } else {
-        res.status(400).json({message: "No user"});
+        res.status(401).json({ message: "No user" });
     }
 });
 router.get('/all-users', (req, res, next) => {
@@ -91,8 +91,8 @@ router.get('/all-users', (req, res, next) => {
             res.status(200).json({ allUsers });
         }
         else {
-            console.log("Error getting Username for Id\n" +error);
-            res.status(400).json( {message: "Error finding ID "});
+            console.log("Error getting Username for Id\n" + error);
+            res.status(400).json({ message: "Error finding ID " });
         }
     });
     res.status(400);

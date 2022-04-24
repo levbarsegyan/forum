@@ -22,9 +22,9 @@ export class ListPostsComponent implements OnInit {
       data => {
         this.posts = data;
         this.posts.forEach((post) => {
-          this.userService.getUsernameFromID( post.author ).subscribe(
+          this.userService.getUsernameFromID(post.author).subscribe(
             userdata => {
-              post.authorname = userdata.username;
+              post.authorname = userdata.user.username;
             },
             error => {
               console.log('Error getting username: ' + error);

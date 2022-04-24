@@ -27,15 +27,18 @@ export class ShowPostComponent implements OnInit {
   postAuthor: string;
   currentUser;
   ngOnInit() {
+    let postId;
     this.activatedRoute.params.subscribe(params => {
-      this.getPost(params.id);
+      postId = params.id;
     });
+    this.getPost(postId);
     this.userService.checkUser().subscribe(
       user => {
         this.currentUser = user;
       },
       error => {
         console.log(error.message);
+        this.currentUser = null;
       }
     );
   }
@@ -83,19 +86,25 @@ export class ShowPostComponent implements OnInit {
     this.forumService.showForumPost(idOfThePost).subscribe(
       data => {
         this.forumService.setInterestedPost(data);
-        this.forumPost = this.forumService.getInterestedPost();
-        this.userService.getUsernameFromID( this.forumPost.author ).subscribe(
-          userdata => {
-            this.postAuthor = userdata.username;
-          },
-          error => {
-            console.log('Error getting username: ' + error);
-          }
-        );
+        this.forumPost = data;
+        console.log('Auth id ' + data.author)
+        console.log('Auth name ' + data.authorname)
+        this.setAuthorName(data.author);
       },
       error => {
         console.log('There was an error getting the post');
         console.log(error);
+      }
+    );
+  }
+  setAuthorName(authorId) {
+    this.userService.getUsernameFromID(authorId).subscribe(
+      data => {
+        this.postAuthor = data.user.username;
+      },
+      error => {
+        this.openSnackBar('Error getting username', 'Close');
+        this.postAuthor = error;
       }
     );
   }

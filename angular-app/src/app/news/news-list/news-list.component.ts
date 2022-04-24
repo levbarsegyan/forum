@@ -30,7 +30,7 @@ export class NewsListComponent implements OnInit {
       title: 'Example title for the frontpage',
       author: 'Admin',
       content: 'Welcome to play deca we hope you enjoy your stay here. We try to keep the community happy friendly and kind. All are welcome and we hope to see you out and about on the server. Good luck and have fun.',
-      date: new Date(),
+      date: new Date(Date.now()),
     };
     this.allNews.push(exampleNews);
     this.allNews.push(exampleNews);

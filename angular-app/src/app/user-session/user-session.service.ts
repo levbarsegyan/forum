@@ -23,35 +23,35 @@ export class UserSessionService {
     return this.http.post<any>(this.signInUrl, user, {
       observe: 'body',
       withCredentials: true,
-      headers: new HttpHeaders().append( 'Content-Type', 'application/json')
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
   registerRequest(body): Observable<any> {
     return this.http.post(this.registerUrl, body, {
       observe: 'body',
       withCredentials: true,
-      headers: new HttpHeaders().append( 'Content-Type', 'application/json')
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
-  getUsernameFromID( id): Observable<any> {
+  getUsernameFromID(id): Observable<any> {
     return this.http.post<any>(this.userInfoUrl, { id }, {
       observe: 'body',
       withCredentials: true,
-      headers: new HttpHeaders().append( 'Content-Type', 'application/json')
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
   checkUser(): Observable<any> {
     return this.http.get<any>(this.userUrl, {
       observe: 'body',
       withCredentials: true,
-      headers: new HttpHeaders().append( 'Content-Type', 'application/json')
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
   logout(): Observable<any> {
     return this.http.get(this.logoutUrl, {
       observe: 'body',
       withCredentials: true,
-      headers: new HttpHeaders().append( 'Content-Type', 'application/json')
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
   getAllUsers(): Observable<any> {
