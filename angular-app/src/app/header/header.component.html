@@ -9,14 +9,16 @@
     <a routerLink="/info" routerLinkActive="active"><button mat-button class="header-link">Information</button></a>
     <a routerLink="/vote" routerLinkActive="active"><button mat-button class="header-link">Vote</button></a>
     <a routerLink="/forums" routerLinkActive="active"><button mat-button class="header-link">Forum</button></a>
-    <a routerLink="/sign-in" [hidden]="getSignedIn()" routerLinkActive="active"><button mat-button class="header-link">Sign
+    <a routerLink="/sign-in" [hidden]="getSignedIn()" routerLinkActive="active"><button mat-button
+        class="header-link">Sign
         In</button></a>
     <a routerLink="/profile/{{ this.user._id }}" [hidden]="!getSignedIn()" routerLinkActive="active"><button mat-button
         class="header-link">Profile</button></a>
-    <a routerLink="/logout" [hidden]="!getSignedIn()" routerLinkActive="active"><button mat-button
-        class="header-link">Logout</button></a>
+    <a routerLink="" [hidden]="!getSignedIn()" routerLinkActive="active"><button mat-button class="header-link"
+        (click)="logout()">Logout</button></a>
     <a routerLink="/dynmap" routerLinkActive="active"><button mat-button class="header-link">Dynmap</button></a>
     <a routerLink="/donate" routerLinkActive="active"><button mat-button class="header-link">Donate</button></a>
-    <a routerLink="/admin" routerLinkActive="active" [hidden]="!getIsAdmin()"> <button mat-button class="header-link">Admin Home</button></a>
+    <a routerLink="/admin" routerLinkActive="active" [hidden]="!getIsAdmin()"> <button mat-button
+        class="header-link">Admin Home</button></a>
   </nav>
 </mat-toolbar>

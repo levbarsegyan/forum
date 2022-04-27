@@ -4,7 +4,7 @@ var forumDataSchema = new Schema({
     title: { type: String, required: true },
     content: { type: String, required: true },
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    date_published: { type: String, required: true },
+    date_published: { type: Date, required: true },
     vote_count: { type: Number, required: false },
     comment: [{ type: mongoose.Schema.Types.ObjectId, ref: 'CommentData' }],
 });

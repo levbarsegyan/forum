@@ -3,6 +3,7 @@ import { ForumService } from '../forum.service';
 import { ForumPost } from '../../models/forum.model';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UserSessionService } from 'src/app/user-session/user-session.service';
 @Component({
   selector: 'app-edit-post',
   templateUrl: './edit-post.component.html',
@@ -13,6 +14,7 @@ export class EditPostComponent implements OnInit {
     private forumService: ForumService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private userService: UserSessionService,
   ) { }
   fullTitle = '';
   contentHtml = '';
@@ -24,6 +26,14 @@ export class EditPostComponent implements OnInit {
       this.forumService.showForumPost(params.id).subscribe(
         postData => {
           this.forumPost = postData;
+          this.userService.getUsernameFromID(this.forumPost.author).subscribe(
+            data => {
+              this.forumPost.authorname = data.user.username;
+            },
+            error => {
+              console.log('Error');
+            }
+          )
           this.contentHtml = this.forumPost.content.replace(/<br \/>/gi, '\n');
         },
         error => {

@@ -3,7 +3,12 @@
   <div class="buttons">
     <h2>
       Welcome to the forums. Feel free to join in or
-      <a routerLink="/create">Create new post</a>
+      <span *ngIf="this.userSignedIn">
+        <a routerLink="/create">Create new post</a>
+      </span>
+      <span *ngIf="!this.userSignedIn">
+        <a routerLink="/sign-in">sign in to make a new post</a>
+      </span>
     </h2>
   </div>
 </mat-card>
@@ -14,7 +19,11 @@
   <mat-card-content>
     <p [innerHTML]="post.content"></p>
     <hr />
-    <h4 class="author-area"> Created by <span class="author-name">{{post.authorname}}</span> at {{ post.date_published }}</h4>
+    <h4 class="author-area"> Created by
+      <span class="author-name">
+        <a href="/profile/{{post.author}}">{{post.authorname}}</a>
+      </span> at {{ post.date_published }}
+    </h4>
     <br>
   </mat-card-content>
 </mat-card>

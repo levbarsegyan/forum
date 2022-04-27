@@ -87,24 +87,19 @@ export class ShowPostComponent implements OnInit {
       data => {
         this.forumService.setInterestedPost(data);
         this.forumPost = data;
-        console.log('Auth id ' + data.author)
-        console.log('Auth name ' + data.authorname)
-        this.setAuthorName(data.author);
+        this.userService.getUsernameFromID(this.forumPost.author).subscribe(
+          data => {
+            this.forumPost.authorname = data.user.username;
+          },
+          error => {
+            this.openSnackBar('Error getting username', 'Close');
+            this.forumPost.authorname = error;
+          }
+        );
       },
       error => {
         console.log('There was an error getting the post');
         console.log(error);
-      }
-    );
-  }
-  setAuthorName(authorId) {
-    this.userService.getUsernameFromID(authorId).subscribe(
-      data => {
-        this.postAuthor = data.user.username;
-      },
-      error => {
-        this.openSnackBar('Error getting username', 'Close');
-        this.postAuthor = error;
       }
     );
   }

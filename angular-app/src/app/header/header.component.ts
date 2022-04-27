@@ -54,4 +54,15 @@ export class HeaderComponent implements OnInit {
   getSignedIn(): boolean {
     return this.signedIn;
   }
+  logout() {
+    this.userSession.logout().subscribe(
+      data => {
+        location.reload();
+        console.log(data.message);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 }

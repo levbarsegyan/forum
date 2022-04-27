@@ -17,6 +17,7 @@ export class ListPostsComponent implements OnInit {
   posts: ForumPost[] = [];
   message: string;
   wasDeleted = false;
+  userSignedIn = false;
   ngOnInit() {
     this.forumService.listAllForumPost().subscribe(
       data => {
@@ -36,5 +37,13 @@ export class ListPostsComponent implements OnInit {
         console.log(error);
       }
     );
+    this.userService.checkUser().subscribe(
+      data => {
+        this.userSignedIn = true;
+      },
+      error => {
+        this.userSignedIn = false;
+      }
+    )
   }
 }
