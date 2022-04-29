@@ -3,5 +3,5 @@ export interface ForumComment {
   content: string;
   author?: number;
   authorname?: string;
-  date_published: string;
+  date_published: Date;
 }

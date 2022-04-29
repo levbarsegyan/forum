@@ -34,11 +34,10 @@ export class CreatePostComponent implements OnInit {
       const contentInput: string = form.value.enteredContent;
       this.contentHtml = contentInput.replace(/\n/g, '<br />');
       this.fullTitle = form.value.enteredTitle;
-      const currentDate = Date();
       this.newPost = {
         title: this.fullTitle,
         content: this.contentHtml,
-        date_published: currentDate.toString(),
+        date_published: new Date(),
       };
       this.forumService.addNewForumPost(this.newPost).subscribe(
         data => {

@@ -1,7 +1,7 @@
 <div class="commentContainer" *ngFor="let comment of this.forumComments">
   <div [hidden]="isEditable(comment._id)">
-    <mat-card class="comment">      
-      <div class="reply-content"  [innerText]="comment.content">
+    <mat-card class="comment">
+      <div class="reply-content" [innerText]="comment.content">
       </div>
       <hr>
       <div class="reply-footer">
@@ -18,8 +18,8 @@
           </div>
         </div>
         <span class="author footer-item">By
-          <span [innerText]="comment.authorname"></span>
-          at <span [innerText]="comment.date_published"></span>
+          <a href="/profile/{{comment.author}}"><span [innerText]="comment.authorname"></span></a>
+          at <span>{{ comment.date_published }}</span>
         </span>
       </div>
     </mat-card>
@@ -28,11 +28,13 @@
     <mat-card class="editable-comment" [hidden]="true">
       <form class="" (ngSubmit)="editComment(commentForm, comment)" #commentForm="ngForm">
         <mat-form-field>
-          <textarea matInput rows="10" name="enteredComment" #content="ngModel" required [(ngModel)]="comment.content"></textarea>
+          <textarea matInput rows="10" name="enteredComment" #content="ngModel" required
+            [(ngModel)]="comment.content"></textarea>
           <mat-error *ngIf="content.invalid">Please enter content.</mat-error>
         </mat-form-field>
-        <div class="editable-footer" >
-          <button class="edit-button" mat-raised-button color="primary" type="submit" [disabled]="commentForm.form.invalid || commentButtonClicked">Submit</button>
+        <div class="editable-footer">
+          <button class="edit-button" mat-raised-button color="primary" type="submit"
+            [disabled]="commentForm.form.invalid || commentButtonClicked">Submit</button>
           <button class="edit-button" mat-raised-button color="warn" (click)="toggleEdit(comment._id)">Cancel</button>
         </div>
       </form>

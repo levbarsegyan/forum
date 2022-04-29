@@ -23,6 +23,7 @@ export class ListPostsComponent implements OnInit {
       data => {
         this.posts = data;
         this.posts.forEach((post) => {
+          post.date_published = new Date(post.date_published);
           this.userService.getUsernameFromID(post.author).subscribe(
             userdata => {
               post.authorname = userdata.user.username;

@@ -38,11 +38,11 @@ export class CommentComponent implements OnInit {
             _id: commentData._id,
             content: commentData.content,
             author: commentData.author,
-            date_published: commentData.date_published,
+            date_published: new Date(commentData.date_published),
           };
-          this.userService.getUsernameFromID( commentData.author ).subscribe(
+          this.userService.getUsernameFromID(commentData.author).subscribe(
             userdata => {
-              comment.authorname = userdata.username;
+              comment.authorname = userdata.user.username;
             },
             error => {
               console.log('Error getting username: ' + error);
@@ -60,7 +60,7 @@ export class CommentComponent implements OnInit {
   deleteComment(commentId) {
     this.forumService.removeReplyFromForumPost(this.forumPost._id, commentId).subscribe(
       data => {
-        let messageFromTheServer = data.message;
+        const messageFromTheServer = data.message;
         this.openSnackBar(messageFromTheServer, 'Close');
         let reload = false;
         reload = data.sent;

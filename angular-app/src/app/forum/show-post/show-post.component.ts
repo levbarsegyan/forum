@@ -64,10 +64,9 @@ export class ShowPostComponent implements OnInit {
   createComment(postId: number, form: NgForm) {
     if (this.currentUser) {
       this.commentButtonClicked = true;
-      const currentDate = Date();
       const commentItem = {
         content: form.value.enteredComment,
-        date_published: currentDate.toString(),
+        date_published: new Date(),
       };
       this.forumService.addReplyToForumPost(postId, commentItem).subscribe(
         data => {
@@ -87,9 +86,10 @@ export class ShowPostComponent implements OnInit {
       data => {
         this.forumService.setInterestedPost(data);
         this.forumPost = data;
+        this.forumPost.date_published = new Date(data.date_published);
         this.userService.getUsernameFromID(this.forumPost.author).subscribe(
-          data => {
-            this.forumPost.authorname = data.user.username;
+          userdata => {
+            this.forumPost.authorname = userdata.user.username;
           },
           error => {
             this.openSnackBar('Error getting username', 'Close');

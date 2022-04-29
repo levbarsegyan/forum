@@ -10,7 +10,7 @@ export class UserSessionService {
     email: '',
     username: '',
     confirmed: '',
-    creation_date: '',
+    creation_date: new Date(),
   };
   signInUrl = 'http:
   registerUrl = 'http:

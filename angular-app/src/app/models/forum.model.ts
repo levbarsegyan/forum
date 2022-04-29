@@ -4,6 +4,6 @@ export interface ForumPost {
   content: string;
   author?: number;
   authorname?: string;
-  date_published: string;
+  date_published: Date;
   comment: [number];
 }
