@@ -6,7 +6,7 @@
       <span *ngIf="this.userSignedIn">
         <a routerLink="/create">Create new post</a>
       </span>
-      <span *ngIf="this.userSignedIn">
+      <span *ngIf="!this.userSignedIn">
         <a routerLink="/sign-in">sign in to make a new post</a>
       </span>
     </h2>

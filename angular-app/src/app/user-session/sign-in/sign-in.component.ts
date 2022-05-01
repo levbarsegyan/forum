@@ -28,8 +28,8 @@ export class SignInComponent implements OnInit {
         this.routerMove.navigate(['/']);
       },
       error => {
-        console.error(error.error);
-        this.warning = error.error;
+        console.error(error.error.message);
+        this.warning = error.error.message;
       }
     );
   }

@@ -25,10 +25,10 @@ export class CommentComponent implements OnInit {
   currentUser;
   ngOnInit() {
     this.forumPost = this.forumService.getInterestedPost();
-    this.listComments(this.forumPost.comment);
     this.userService.checkUser().subscribe(user => {
       this.currentUser = user;
     });
+    this.listComments(this.forumPost.comment);
   }
   listComments(comments) {
     comments.forEach(commentId => {
@@ -39,6 +39,7 @@ export class CommentComponent implements OnInit {
             content: commentData.content,
             author: commentData.author,
             date_published: new Date(commentData.date_published),
+            show_controls: this.showCommentControls(this.currentUser, commentData.author),
           };
           this.userService.getUsernameFromID(commentData.author).subscribe(
             userdata => {
@@ -94,6 +95,12 @@ export class CommentComponent implements OnInit {
     } else {
       this.openSnackBar('You must sign in to edit a reply', 'Close');
     }
+  }
+  showCommentControls(signedInUser, authorOfComment): boolean {
+    if (signedInUser && signedInUser._id === authorOfComment) {
+      return true;
+    }
+    return false;
   }
   toggleEdit(idThatToggled) {
     this.editToggle = !this.editToggle;

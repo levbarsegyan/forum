@@ -4,4 +4,5 @@ export interface ForumComment {
   author?: number;
   authorname?: string;
   date_published: Date;
+  show_controls?: boolean;
 }

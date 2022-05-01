@@ -13,7 +13,7 @@ const isUserConfirmed = () => {
             res.status(400).json({ message: "You must confirm your in-game name by typing /register in minecraft and clicking the link. Open it in the browser you are signed in on." });
         }
         else {
-            next()
+            next();
         }
     }
 }
@@ -45,9 +45,9 @@ router.post('/register', async (req, res, next) => {
 });
 router.post('/login', (req, res, next) => {
     User.findOne({ username: req.body.email }, (error, user) => {
-        if (error) return res.status(400).send('Error logging in');
+        if (error) return res.status(400).json({ message: 'Error logging in' });
         if (!user || !user.isValid(req.body.password)) {
-            return res.status(401).send('Incorrect email or password.');
+            return res.status(400).json({ message: 'Incorrect email or password.' });
         }
         else {
             var token = jwt.sign({ id: user._id }, process.env.SECRET, {

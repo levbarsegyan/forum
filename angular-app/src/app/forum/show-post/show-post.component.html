@@ -11,7 +11,7 @@
         <div class="post-footer">
           <hr>
           <span class="flex footer-item">
-            <div class="links">
+            <div class="links" [hidden]="!permittedForControls">
               <a routerLink="/forums/edit/{{forumPost._id}}" routerLinkActive="active"><button mat-button
                   class="header-link">Forum Edit</button></a>
               <a (click)="deletePost(this.forumPost)" routerLinkActive="active"><button mat-button

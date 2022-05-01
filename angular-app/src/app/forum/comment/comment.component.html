@@ -6,7 +6,7 @@
       <hr>
       <div class="reply-footer">
         <div class="flex footer-item links">
-          <div class="standard-footer">
+          <div class="standard-footer" [hidden]="!comment.show_controls">
             <button mat-button class="header-link" (click)="toggleEdit(comment._id)">
               Comment Edit
             </button>

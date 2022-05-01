@@ -22,6 +22,7 @@ export class ShowPostComponent implements OnInit {
   ) { }
   commentButtonClicked = false;
   message: string;
+  permittedForControls = false;
   wasDeleted = false;
   forumPost: ForumPost;
   postAuthor: string;
@@ -35,6 +36,7 @@ export class ShowPostComponent implements OnInit {
     this.userService.checkUser().subscribe(
       user => {
         this.currentUser = user;
+        this.permittedForControls = this.showPostControls();
       },
       error => {
         console.log(error.message);
@@ -61,26 +63,6 @@ export class ShowPostComponent implements OnInit {
       this.router.navigate(['/forums/']);
     }, 2000);
   }
-  createComment(postId: number, form: NgForm) {
-    if (this.currentUser) {
-      this.commentButtonClicked = true;
-      const commentItem = {
-        content: form.value.enteredComment,
-        date_published: new Date(),
-      };
-      this.forumService.addReplyToForumPost(postId, commentItem).subscribe(
-        data => {
-          this.openSnackBar(data.message, 'Close');
-          this.reloadPage();
-        },
-        error => {
-          this.openSnackBar(error.message, 'Close');
-        }
-      );
-    } else {
-      this.openSnackBar('You need to log in to post a comment', 'Close');
-    }
-  }
   getPost(idOfThePost) {
     this.forumService.showForumPost(idOfThePost).subscribe(
       data => {
@@ -102,6 +84,32 @@ export class ShowPostComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+  showPostControls(): boolean {
+    if (this.currentUser && this.forumPost && this.currentUser._id === this.forumPost.author) {
+      return true;
+    }
+    return false;
+  }
+  createComment(postId: number, form: NgForm) {
+    if (this.currentUser) {
+      this.commentButtonClicked = true;
+      const commentItem = {
+        content: form.value.enteredComment,
+        date_published: new Date(),
+      };
+      this.forumService.addReplyToForumPost(postId, commentItem).subscribe(
+        data => {
+          this.openSnackBar(data.message, 'Close');
+          this.reloadPage();
+        },
+        error => {
+          this.openSnackBar(error.message, 'Close');
+        }
+      );
+    } else {
+      this.openSnackBar('You need to log in to post a comment', 'Close');
+    }
   }
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
