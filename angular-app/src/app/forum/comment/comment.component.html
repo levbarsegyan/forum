@@ -8,11 +8,11 @@
         <div class="flex footer-item links">
           <div class="standard-footer" [hidden]="!comment.show_controls">
             <button mat-button class="header-link" (click)="toggleEdit(comment._id)">
-              Comment Edit
+              Edit Comment
             </button>
             <a (click)="deleteComment(comment._id)" routerLinkActive="active">
               <button mat-button class="header-link">
-                Forum Delete
+                Delete Comment
               </button>
             </a>
           </div>

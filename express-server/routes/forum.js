@@ -128,7 +128,7 @@ router.post('/add-reply', isUserValid, function (req, res, next) {
     commentInformation.save().then(
         com => {
             return (ForumData.findByIdAndUpdate(postId, { '$push': { 'comment': com._id } })
-                .catch(() => {
+                .catch( () => {
                     console.log("Error on saving comment");
                     res.json({ message: "Error on saving comment" });
                 })
@@ -143,7 +143,7 @@ router.post('/edit-reply', isUserValid, getCommentAuthorId, function (req, res, 
         CommentData.findByIdAndUpdate(req.body.comment._id, {
             content: req.body.comment.content
         }).catch(
-            function (reason) {
+            (reason) => {
                 console.log(reason);
                 res.status(400).json({ message : "Comment failed to update"})
             }
@@ -155,14 +155,14 @@ router.post('/edit-reply', isUserValid, getCommentAuthorId, function (req, res, 
 });
 router.post('/get-reply', function (req, res, next) {
     CommentData.findById(req.body._id).then(
-        function (document) {
+        (document) => {
             res.json(document);
         }
     );
 });
 router.post('/get-post', function (req, res, next) {
     ForumData.findOne(req.body).then(
-        function (doc) {
+        (doc) => {
             res.json(doc);
             next();
         }

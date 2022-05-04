@@ -24,7 +24,7 @@ export class CommentComponent implements OnInit {
   targetCommentId: number = null;
   currentUser;
   ngOnInit() {
-    this.forumPost = this.forumService.getInterestedPost();
+    this.forumPost = this.forumService.interestedPost;
     this.userService.checkUser().subscribe(user => {
       this.currentUser = user;
     });

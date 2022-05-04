@@ -22,6 +22,7 @@ export class ForumService {
   private editCommentUrl = 'http:
   private showPostUrl = 'http:
   constructor(private router: Router, private http: HttpClient) { }
+  private _interestedPost: ForumPost;
   increaseVote() {
     const userToken = { message: 'example text' };
     return this.http.post(this.newPostUrl, userToken, {
@@ -114,10 +115,10 @@ export class ForumService {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
-  getInterestedPost() {
-    return this.forumPost;
+  public get interestedPost(): ForumPost {
+    return this._interestedPost;
   }
-  setInterestedPost(post: ForumPost) {
-    this.forumPost = post;
+  public set interestedPost(value: ForumPost) {
+    this._interestedPost = value;
   }
 }

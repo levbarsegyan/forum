@@ -26,7 +26,6 @@ export class ShowPostComponent implements OnInit {
   wasDeleted = false;
   forumPost: ForumPost;
   postAuthor: string;
-  currentUser;
   ngOnInit() {
     let postId;
     this.activatedRoute.params.subscribe(params => {
@@ -35,12 +34,11 @@ export class ShowPostComponent implements OnInit {
     this.getPost(postId);
     this.userService.checkUser().subscribe(
       user => {
-        this.currentUser = user;
-        this.permittedForControls = this.showPostControls();
+        this.userService.currentUser = user;
       },
       error => {
         console.log(error.message);
-        this.currentUser = null;
+        this.userService.currentUser = null;
       }
     );
   }
@@ -66,7 +64,7 @@ export class ShowPostComponent implements OnInit {
   getPost(idOfThePost) {
     this.forumService.showForumPost(idOfThePost).subscribe(
       data => {
-        this.forumService.setInterestedPost(data);
+        this.forumService.interestedPost = data;
         this.forumPost = data;
         this.forumPost.date_published = new Date(data.date_published);
         this.userService.getUsernameFromID(this.forumPost.author).subscribe(
@@ -86,13 +84,18 @@ export class ShowPostComponent implements OnInit {
     );
   }
   showPostControls(): boolean {
-    if (this.currentUser && this.forumPost && this.currentUser._id === this.forumPost.author) {
-      return true;
+    if (this.userService.currentUser && this.forumService.interestedPost) {
+      if (  this.userService.currentUser._id === this.forumService.interestedPost.author) {
+        return true;
+      }
     }
     return false;
   }
+  checkSignedOut(): boolean {
+    return !this.userService.isUserSignedIn;
+  }
   createComment(postId: number, form: NgForm) {
-    if (this.currentUser) {
+    if (this.userService.currentUser) {
       this.commentButtonClicked = true;
       const commentItem = {
         content: form.value.enteredComment,

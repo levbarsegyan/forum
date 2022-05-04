@@ -16,25 +16,24 @@ export class HeaderComponent implements OnInit {
   private isAdmin = false;
   private signedIn = false;
   constructor(
-    private userSession: UserSessionService,
+    private userService: UserSessionService,
     private router: Router,
     private adminSession: AdminSessionService,
   ) { }
   ngOnInit() {
-    this.userSession.checkUser().subscribe(
+    this.userService.checkUser().subscribe(
       data => {
         this.user._id = data._id;
         this.user.username = data.username;
-        this.setSignedIn(true);
+        this.userService.isUserSignedIn = true;
       },
       error => {
         console.log(error);
-        this.setSignedIn(false);
       }
     );
     this.adminSession.role().subscribe(
       data => {
-        this.setIsAdmin(true);
+        this.setIsAdmin(data);
       },
       error => {
         console.log(error);
@@ -48,16 +47,14 @@ export class HeaderComponent implements OnInit {
   getIsAdmin(): boolean {
     return this.isAdmin;
   }
-  setSignedIn(value: boolean) {
-    this.signedIn = value;
-  }
   getSignedIn(): boolean {
-    return this.signedIn;
+    return this.userService.isUserSignedIn;
   }
   logout() {
-    this.userSession.logout().subscribe(
+    this.userService.logout().subscribe(
       data => {
         location.reload();
+        this.userService.isUserSignedIn = false;
         console.log(data.message);
       },
       error => {

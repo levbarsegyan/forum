@@ -6,12 +6,8 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class UserSessionService {
-  user: User = {
-    email: '',
-    username: '',
-    confirmed: '',
-    creation_date: new Date(),
-  };
+  private _isUserSignedIn: boolean = false;
+  private _user: User;
   signInUrl = 'http:
   registerUrl = 'http:
   userUrl = 'http:
@@ -60,5 +56,17 @@ export class UserSessionService {
       withCredentials: true,
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
+  }
+  public get isUserSignedIn(): boolean {
+    return this._isUserSignedIn;
+  }
+  public set isUserSignedIn(value: boolean) {
+    this._isUserSignedIn = value;
+  }
+  public get currentUser(): User {
+    return this._user;
+  }
+  public set currentUser(value: User) {
+    this._user = value;
   }
 }

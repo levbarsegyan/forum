@@ -25,22 +25,12 @@ export class SignInComponent implements OnInit {
     this.userSessionService.loginRequest(this.user).subscribe(
       data => {
         console.log(data);
+        this.userSessionService.isUserSignedIn = true;
         this.routerMove.navigate(['/']);
       },
       error => {
         console.error(error.error.message);
         this.warning = error.error.message;
-      }
-    );
-  }
-  logout() {
-    this.userSessionService.logout().subscribe(
-      data => {
-        console.log(data);
-        this.routerMove.navigate(['/']);
-      },
-      error => {
-        console.error(error);
       }
     );
   }
