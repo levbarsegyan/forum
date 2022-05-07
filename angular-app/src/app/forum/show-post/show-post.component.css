@@ -49,3 +49,19 @@ mat-expansion-panel {
 .comment {
   background-color: lightgrey;
 }
+.full-block {
+}
+.inline-block {
+  display: inline-block;
+}
+.voting {
+  width: 2%;
+  vertical-align: top;
+  padding: .5em;
+  font-size: 20px;
+  position: relative;
+}
+.post {
+  width: 94%;
+  margin: auto;
+}

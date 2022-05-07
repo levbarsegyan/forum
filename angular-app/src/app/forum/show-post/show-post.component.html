@@ -1,29 +1,34 @@
 <app-header></app-header>
 <div *ngIf="forumPost">
   <mat-card>
-    <div class="post">
-      <mat-card-title>
-        <h3 [innerText]="this.forumPost.title"></h3>
-      </mat-card-title>
-      <hr>
-      <mat-card-content class="content">
-        <p class="post-content" [innerHTML]="this.forumPost.content"></p>
-        <div class="post-footer">
-          <hr>
-          <span class="flex footer-item">
-            <div class="links" [hidden]="!showPostControls()">
-              <a routerLink="/forums/edit/{{forumPost._id}}" routerLinkActive="active"><button mat-button
-                  class="header-link">Forum Edit</button></a>
-              <a (click)="deletePost(this.forumPost)" routerLinkActive="active"><button mat-button
-                  class="header-link">Forum Delete</button></a>
-            </div>
-          </span>
-          <span class="author footer-item">By
-            <a href="/profile/{{this.forumPost.author }}"><span [innerText]="this.forumPost.authorname"></span></a>
-            Published on <span [innerText]="this.forumPost.date_published"></span>
-          </span>
-        </div>
-      </mat-card-content>
+    <div class="full-block">
+      <div class="voting inline-block">
+        <app-voting></app-voting>
+      </div>
+      <div class="post inline-block">
+        <mat-card-title>
+          <h3 [innerText]="this.forumPost.title"></h3>
+        </mat-card-title>
+        <hr>
+        <mat-card-content class="content">
+          <p class="post-content" [innerHTML]="this.forumPost.content"></p>
+          <div class="post-footer">
+            <hr>
+            <span class="flex footer-item">
+              <div class="links" [hidden]="!showPostControls()">
+                <a routerLink="/forums/edit/{{forumPost._id}}" routerLinkActive="active"><button mat-button
+                    class="header-link">Forum Edit</button></a>
+                <a (click)="deletePost(this.forumPost)" routerLinkActive="active"><button mat-button
+                    class="header-link">Forum Delete</button></a>
+              </div>
+            </span>
+            <span class="author footer-item">By
+              <a href="/profile/{{this.forumPost.author }}"><span [innerText]="this.forumPost.authorname"></span></a>
+              Published on <span [innerText]="this.forumPost.date_published"></span>
+            </span>
+          </div>
+        </mat-card-content>
+      </div>
     </div>
   </mat-card>
   <app-comment></app-comment>
