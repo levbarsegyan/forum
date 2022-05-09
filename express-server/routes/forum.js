@@ -4,6 +4,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const CommentData = require('../models/comments');
 const ForumData = require('../models/forum');
+const VoteData = require('../models/vote');
 const isUserValid = passport.authenticate('jwt', { session: false });
 const getCommentAuthorId = function (req, res, next)  {
     CommentData.findById(req.body.comment._id).then(
@@ -157,6 +158,28 @@ router.post('/get-reply', function (req, res, next) {
     CommentData.findById(req.body._id).then(
         (document) => {
             res.json(document);
+        }
+    );
+});
+router.post('/get-post', function (req, res, next) {
+    ForumData.findOne(req.body).then(
+        (doc) => {
+            res.json(doc);
+            next();
+        }
+    );
+});
+router.post('/inc-forum-vote', function (req, res, next) {
+    ForumData.findByIdAndUpdate(req.body.forum._id, { $inc: { vote_count: 1 } });
+});
+router.post('/dec-forum-vote', function (req, res, next) {
+    ForumData.findByIdAndUpdate(req.body.forum._id, { $inc: { vote_count: -1 } });
+});
+router.post('/get-post', function (req, res, next) {
+    ForumData.findOne(req.body).then(
+        (doc) => {
+            res.json(doc);
+            next();
         }
     );
 });

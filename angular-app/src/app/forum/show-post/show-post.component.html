@@ -3,7 +3,17 @@
   <mat-card>
     <div class="full-block">
       <div class="voting inline-block">
-        <app-voting></app-voting>
+        <div class="vote">
+          <div class="uparrow">
+            <span> &uarr; </span>
+          </div>
+          <div class="vote-count">
+            <span>{{this.forumPost.vote_count}}</span>
+          </div>
+          <div class="downarrow">
+            <span> &darr; </span>
+          </div>
+        </div>
       </div>
       <div class="post inline-block">
         <mat-card-title>
@@ -22,8 +32,8 @@
                     class="header-link">Forum Delete</button></a>
               </div>
             </span>
-            <span class="author footer-item">By
-              <a href="/profile/{{this.forumPost.author }}"><span [innerText]="this.forumPost.authorname"></span></a>
+            <span class="footer-credit footer-item">By
+              <a href="/profile/{{this.forumPost.author }}"><span [innerText]="this.forumPost.authorname" class="author"></span></a>
               Published on <span [innerText]="this.forumPost.date_published"></span>
             </span>
           </div>

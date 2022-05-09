@@ -41,9 +41,14 @@ mat-expansion-panel {
   font-size: 9pt;
 }
 .author {
-  width: 70%;
-  font-family: monospace;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 10pt;
+}
+.footer-credit {
   font-size: 9pt;
+  font-family: monospace;
+  width: 70%;
   text-align: end;
 }
 .comment {
@@ -63,5 +68,14 @@ mat-expansion-panel {
 }
 .post {
   width: 94%;
+  margin: auto;
+}
+.vote-count {
+  text-align: justify;
+  margin: auto;
+  text-indent: -.45em;
+}
+.uparrow .downarrow {
+  text-align: end;
   margin: auto;
 }

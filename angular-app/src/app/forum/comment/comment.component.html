@@ -1,26 +1,41 @@
 <div class="commentContainer" *ngFor="let comment of this.forumComments">
   <div [hidden]="isEditable(comment._id)">
     <mat-card class="comment">
-      <div class="reply-content" [innerText]="comment.content">
-      </div>
-      <hr>
-      <div class="reply-footer">
-        <div class="flex footer-item links">
-          <div class="standard-footer" [hidden]="!comment.show_controls">
-            <button mat-button class="header-link" (click)="toggleEdit(comment._id)">
-              Edit Comment
-            </button>
-            <a (click)="deleteComment(comment._id)" routerLinkActive="active">
-              <button mat-button class="header-link">
-                Delete Comment
-              </button>
-            </a>
+      <div class="voting inline-block">
+        <div class="vote-comment">
+          <div class="uparrow">
+            <span> &uarr; </span>
+          </div>
+          <div class="vote-count">
+            <span>{{comment.vote_count}}</span>
+          </div>
+          <div class="downarrow">
+            <span> &darr; </span>
           </div>
         </div>
-        <span class="author footer-item">By
-          <a href="/profile/{{comment.author}}"><span [innerText]="comment.authorname"></span></a>
-          at <span>{{ comment.date_published }}</span>
-        </span>
+      </div>
+      <div class="comment-data inline-block">
+        <div class="reply-content" [innerText]="comment.content">
+        </div>
+        <hr>
+        <div class="reply-footer">
+          <div class="flex footer-item links">
+            <div class="standard-footer" [hidden]="!comment.show_controls">
+              <button mat-button class="header-link" (click)="toggleEdit(comment._id)">
+                Edit Comment
+              </button>
+              <a (click)="deleteComment(comment._id)" routerLinkActive="active">
+                <button mat-button class="header-link">
+                  Delete Comment
+                </button>
+              </a>
+            </div>
+          </div>
+          <span class="author footer-item">By
+            <a href="/profile/{{comment.author}}"><span [innerText]="comment.authorname"></span></a>
+            at <span>{{ comment.date_published }}</span>
+          </span>
+        </div>
       </div>
     </mat-card>
   </div>

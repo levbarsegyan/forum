@@ -30,3 +30,37 @@ mat-card-title {
   margin: auto;
   padding: 0;
 }
+.author {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 10pt;
+}
+.footer-credit {
+  font-size: 9pt;
+  font-family: monospace;
+  width: 70%;
+  text-align: end;
+}
+.voting {
+  width: 2%;
+  vertical-align: top;
+  padding: .5em;
+  font-size: 20px;
+  position: relative;
+}
+.vote-count {
+  text-align: justify;
+  margin: auto;
+  text-indent: -.45em;
+}
+.uparrow .downarrow {
+  text-align: end;
+  margin: auto;
+}
+.inline-block {
+  display: inline-block;
+}
+.post {
+  width: 94%;
+  margin: auto;
+}
