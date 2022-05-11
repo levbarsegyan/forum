@@ -41,21 +41,35 @@ export class ShowPostComponent implements OnInit {
         this.userService.currentUser = null;
       }
     );
-    this.forumService.getForumVoteCount(this.forumService.interestedPost._id).subscribe(
+  }
+  upVote() {
+    this.forumService.increaseForumVote(this.forumPost._id).subscribe(
       data => {
-        console.log("Number of votes for post is " + data);
-        this.forumPost.vote_count = data;
+        console.log('I voted up');
       },
       error => {
-        console.log("Voting error: " + error.message);
+        console.log('error voting up');
       }
     );
   }
-  upVote() {
-  }
   downVote() {
+    this.forumService.decreaseForumVote(this.forumPost._id).subscribe(
+      data => {
+        console.log('I voted up');
+      },
+      error => {
+        console.log('error voting up');
+      }
+    );
   }
   checkVoteStatus() {
+    this.forumService.getUserForumVoteStatus(this.forumPost._id).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+      }
+    );
   }
   deletePost(post: ForumPost) {
     this.forumService.deleteForumPost(post._id).subscribe(
@@ -81,7 +95,7 @@ export class ShowPostComponent implements OnInit {
       data => {
         this.forumService.interestedPost = data;
         this.forumPost = data;
-        this.forumPost.vote_count = 0;
+        console.log('Vote count is ' + this.forumPost.vote_count);
         this.forumPost.date_published = new Date(data.date_published);
         this.userService.getUsernameFromID(this.forumPost.author).subscribe(
           userdata => {

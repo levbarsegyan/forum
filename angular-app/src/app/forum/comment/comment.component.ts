@@ -30,18 +30,6 @@ export class CommentComponent implements OnInit {
     });
     this.listComments(this.forumPost.comment);
   }
-  upVote(commentId: number) {
-    this.forumService.increaseCommentVote(commentId).subscribe(
-      data => {
-      },
-      error => {
-      }
-    );
-  }
-  downVote() {
-  }
-  checkVoteStatus() {
-  }
   listComments(comments) {
     comments.forEach(commentId => {
       this.forumService.listAComment(commentId).subscribe(

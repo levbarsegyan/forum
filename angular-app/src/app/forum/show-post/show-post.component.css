@@ -54,8 +54,6 @@ mat-expansion-panel {
 .comment {
   background-color: lightgrey;
 }
-.full-block {
-}
 .inline-block {
   display: inline-block;
 }
@@ -78,4 +76,10 @@ mat-expansion-panel {
 .uparrow .downarrow {
   text-align: end;
   margin: auto;
+}
+.uparrow:hover {
+  color: green;
+}
+.downarrow:hover {
+  color: red;
 }

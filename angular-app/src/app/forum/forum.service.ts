@@ -16,6 +16,7 @@ export class ForumService {
   private listACommentUrl = 'http:
   private listCommentsUrl = 'http:
   private deletePostReplyUrl = 'http:
+  private userVoteInfoUrl = 'http:
   private incForumVoteUrl = 'http:
   private decForumVoteUrl = 'http:
   private incCommentVoteUrl = 'http:
@@ -29,30 +30,18 @@ export class ForumService {
     observe: 'body',
     withCredentials: true,
   };
-  private _interestedPost: ForumPost;
+  private InterestedPost: ForumPost;
+  getUserForumVoteStatus(forumId: number) {
+    const forum = { _id: forumId };
+    return this.http.post(this.userVoteInfoUrl, {forum}, this.httpOptions );
+  }
   increaseForumVote(forumId: number) {
     const forum = { _id: forumId };
-    return this.http.post(this.incForumVoteUrl, forum, this.httpOptions );
+    return this.http.post(this.incForumVoteUrl, {forum}, this.httpOptions );
   }
   decreaseForumVote(forumId: number) {
     const forum = { _id: forumId };
-    return this.http.post(this.decForumVoteUrl, forum, this.httpOptions);
-  }
-  increaseCommentVote(commentId: number) {
-    const comment = { _id: commentId };
-    return this.http.post(this.incCommentVoteUrl, comment, this.httpOptions);
-  }
-  decreaseCommentVote(commentId: number) {
-    const comment = { _id: commentId };
-    return this.http.post(this.decForumVoteUrl, comment, this.httpOptions);
-  }
-  getForumVoteCount(forumId: number): Observable<number> {
-    const forum = { _id: forumId };
-    return this.http.post<number>(this.decForumVoteUrl, this.httpOptions);
-  }
-  getCommentVoteCount(commentId: number): Observable<number> {
-    const comment = { _id: commentId };
-    return this.http.post<number>(this.decForumVoteUrl, this.httpOptions);
+    return this.http.post(this.decForumVoteUrl, {forum}, this.httpOptions);
   }
   addNewForumPost(forumPost: ForumPost): Observable<any> {
     return this.http.post(this.newPostUrl, forumPost, this.httpOptions);
@@ -67,9 +56,7 @@ export class ForumService {
     return this.http.post(this.addReplyUrl, { postId, comment }, this.httpOptions);
   }
   removeReplyFromForumPost(postId, commentId): Observable<any>  {
-    const comment = {
-      _id: commentId
-    };
+    const comment = { _id: commentId };
     return this.http.post(this.deletePostReplyUrl, { postId,  comment }, this.httpOptions);
   }
   editReplyOfForumPost(comment: ForumComment): Observable<any> {
@@ -91,9 +78,9 @@ export class ForumService {
     return this.http.post<any>(this.showPostUrl, { _id: postId }, this.httpOptions);
   }
   public get interestedPost(): ForumPost {
-    return this._interestedPost;
+    return this.InterestedPost;
   }
   public set interestedPost(value: ForumPost) {
-    this._interestedPost = value;
+    this.InterestedPost = value;
   }
 }

@@ -54,8 +54,13 @@ mat-card-title {
   text-indent: -.45em;
 }
 .uparrow .downarrow {
-  text-align: end;
-  margin: auto;
+  text-align: start;
+}
+.uparrow:hover {
+  color: green;
+}
+.downarrow:hover {
+  color: red;
 }
 .inline-block {
   display: inline-block;

@@ -1,19 +1,6 @@
 <div class="commentContainer" *ngFor="let comment of this.forumComments">
   <div [hidden]="isEditable(comment._id)">
     <mat-card class="comment">
-      <div class="voting inline-block">
-        <div class="vote-comment">
-          <div class="uparrow">
-            <span> &uarr; </span>
-          </div>
-          <div class="vote-count">
-            <span>{{comment.vote_count}}</span>
-          </div>
-          <div class="downarrow">
-            <span> &darr; </span>
-          </div>
-        </div>
-      </div>
       <div class="comment-data inline-block">
         <div class="reply-content" [innerText]="comment.content">
         </div>

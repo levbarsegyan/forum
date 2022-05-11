@@ -32,14 +32,6 @@ export class ListPostsComponent implements OnInit {
               console.log('Error getting username: ' + error);
             }
           );
-          this.forumService.getForumVoteCount(post._id).subscribe(
-            count => {
-              post.vote_count = count;
-            },
-            error => {
-              console.log(error);
-            }
-          );
         });
       },
       error => {
@@ -53,6 +45,6 @@ export class ListPostsComponent implements OnInit {
       error => {
         this.userSignedIn = false;
       }
-    )
+    );
   }
 }

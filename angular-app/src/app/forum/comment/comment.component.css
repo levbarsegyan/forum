@@ -52,27 +52,3 @@ mat-expansion-panel {
 .comment {
   background-color: lightgrey;
 }
-.comment-data {
-  width: 94%;
-  margin: auto;
-  padding: auto;
-}
-.voting {
-  width: 2%;
-  vertical-align: top;
-  padding: .5em;
-  font-size: 20px;
-  position: relative;
-}
-.vote-count {
-  text-align: justify;
-  margin: auto;
-  text-indent: -.45em;
-}
-.uparrow .downarrow {
-  text-align: end;
-  margin: auto;
-}
-.inline-block {
-  display: inline-block;
-}
