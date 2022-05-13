@@ -16,13 +16,13 @@
   <div class="voting inline-block">
     <div class="vote">
       <div class="uparrow">
-        <span> &#9650; </span>
+        <span (click)="upVote(post._id)" > &#9650; </span>
       </div>
       <div class="vote-count">
         <span>{{post.vote_count}}</span>
       </div>
       <div class="downarrow">
-        <span > &#9660; </span>
+        <span (click)="downVote(post._id)"> &#9660; </span>
       </div>
     </div>
   </div>

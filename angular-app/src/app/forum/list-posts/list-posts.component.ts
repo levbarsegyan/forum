@@ -47,4 +47,33 @@ export class ListPostsComponent implements OnInit {
       }
     );
   }
+  upVote(postId) {
+    this.forumService.increaseForumVote(postId).subscribe(
+      data => {
+        console.log('I voted up');
+      },
+      error => {
+        console.log('error voting');
+      }
+    );
+  }
+  downVote(postId) {
+    this.forumService.decreaseForumVote(postId).subscribe(
+      data => {
+        console.log('I voted down');
+      },
+      error => {
+        console.log('error voting');
+      }
+    );
+  }
+  checkVoteStatus(postId) {
+    this.forumService.getUserForumVoteStatus(postId).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+      }
+    );
+  }
 }

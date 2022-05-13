@@ -36,9 +36,7 @@ router.post('/create', isUserValid, function (req, res, next) {
     rawPostData.vote_count = 0;
     let postInformation = new ForumData(rawPostData);
     try {
-        postInformation.save().then((doc) => {
-            createNewForumVote(doc._id, req.user._id, true);
-        });
+        postInformation.save();
         res.status(200).json({ sent: true, message: "Post was submited, thank you" });
     } catch (reason) {
         console.log("Saving failed for reason: " + reason);
@@ -171,84 +169,64 @@ router.post('/get-post', function (req, res, next) {
 router.post('/inc-forum-vote', isUserValid, function (req, res, next) {
     let postId = req.body.forum._id;
     let userId = req.user._id;
-    console.log("user: " + userId);
-    console.log("post: " + postId);
-    VoteData.findOne({ user_id: userId }, (err, vote) => {
-        if (err) {
-            console.log("Voting error: " + err);
-        }
-        else if (vote === null) {
-            createNewForumVote(postId, userId, true);
-            ForumData.findByIdAndUpdate(postId, { '$inc': { vote_count: 1 } })
-        }
-        else {
-            if (vote.voted_up) {
-            }
-            else {
-                console.log("Updating Forum Vote and Vote Data");
-                ForumData.findByIdAndUpdate(postId, { '$inc': { vote_count: 2 } }, (err, res) => {
-                    if (err) { console.log(err); }
-                    else { console.log(res); }
-                });
-                VoteData.findByIdAndUpdate(vote._id, { '$set': { voted_up: true, voted_down: false } }, (err, res) => {
-                    if (err) { console.log(err); }
-                    else { console.log(res); }
-                });
-            }
-        }
-    })
+    voteAction(postId, userId, true)
 });
 router.post('/dec-forum-vote', isUserValid, function (req, res, next) {
     let postId = req.body.forum._id;
     let userId = req.user._id;
-    VoteData.find({ user_id: userId }, (err, votes) => {
+    voteAction(postId, userId, false)
+});
+function voteAction(postId, userId, isActionVoteUp){
+    console.log("user: " + userId);
+    console.log("post: " + postId);
+    let voteIncrease = 1;
+    if (!isActionVoteUp) voteIncrease *= -1;
+    VoteData.findOne({ user_id: userId, forum_id: postId }, (err, vote) => {
         if (err) {
             console.log("Voting error: " + err);
         }
-        else if (!votes.length) {
-            createNewForumVote(postId, userId, false);
+        else if (vote === null) {
+            console.log("Vote is null, making new vote");
+            let newVoteData = {
+                forum_id: postId,
+                voted_up: isActionVoteUp,
+                voted_down: !isActionVoteUp,
+                user_id: userId,
+            };
+            let newVote = new VoteData(newVoteData);
+            try {
+                newVote.save().then(
+                    (voteSaved) => (ForumData.findByIdAndUpdate(postId, {
+                        $push: { votes: voteSaved._id },
+                        $inc: { vote_count: voteIncrease }
+                    })).catch(() => { res.json({ message: "Error upvoting" }); })
+                );
+            } catch (error) { console.log("Voting creation error: " + error); }
         }
         else {
-            if (vote.voted_down) {
+            console.log("Vote is not null, changing vote");
+            if (vote.voted_up && isActionVoteUp || vote.voted_down && !isActionVoteUp ) {
+                console.log("Vote is as was, leaving");
             }
             else {
-                console.log("User has voted down: " + vote.voted_down)
-                ForumData.findByIdAndUpdate(postId, { '$inc': { vote_count: -2 } }, (err, res) => {
-                    if (err) { console.log(err); }
-                    else { console.log(res); }
+                console.log("Updating Forum Vote and Vote Data");
+                ForumData.findByIdAndUpdate(postId, { '$inc': { vote_count: (voteIncrease * 2) } }, (err, res) => {
+                    if (err) {
+                        console.log("Error: " + err);
+                    }
+                    else {
+                    }
                 });
-                VoteData.findByIdAndUpdate(vote._id, { '$set': { voted_up: false, voted_down: true } }, (err, res) => {
-                    if (err) { console.log(err); }
-                    else { console.log(res); }
+                VoteData.findByIdAndUpdate(vote._id, { '$set': { voted_up: isActionVoteUp, voted_down: !isActionVoteUp } }, (err, res) => {
+                    if (err) {
+                        console.log("Error: " + err);
+                    }
+                    else {
+                    }
                 });
             }
         }
     })
-});
-function createNewForumVote(postId, userId, votedUp) {
-    let newVoteData = {
-        forum_id: postId,
-        voted_up: votedUp,
-        voted_down: !votedUp,
-        user_id: userId,
-    }
-    let vote = new VoteData(newVoteData);
-    try {
-        vote.save().then(
-            (voteSaved) => (ForumData.findByIdAndUpdate(postId, {
-                $push: {
-                    votes: voteSaved._id
-                },
-                $inc: {
-                    vote_count: 1
-                }
-            })).catch(() => {
-                res.json({ message: "Error upvoting" });
-            })
-        );
-    } catch (error) {
-        console.log("Voting creation error: " + error);
-    }
 }
 router.get('/user-voting-info', isUserValid, function (req, res, next) {
     ForumData.findOne(req.user._id).then(

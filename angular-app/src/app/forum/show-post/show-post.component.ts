@@ -48,17 +48,17 @@ export class ShowPostComponent implements OnInit {
         console.log('I voted up');
       },
       error => {
-        console.log('error voting up');
+        console.log('error voting');
       }
     );
   }
   downVote() {
     this.forumService.decreaseForumVote(this.forumPost._id).subscribe(
       data => {
-        console.log('I voted up');
+        console.log('I voted down');
       },
       error => {
-        console.log('error voting up');
+        console.log('error voting');
       }
     );
   }
