@@ -7,6 +7,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ForumComment } from '../../models/comment.model';
 import { UserSessionService } from 'src/app/user-session/user-session.service';
 import { User } from 'src/app/models/user.model';
+import { Vote } from 'src/app/models/vote.model';
+import { VoteService } from '../vote.service';
 @Component({
   selector: 'app-show-post',
   templateUrl: './show-post.component.html',
@@ -16,6 +18,7 @@ export class ShowPostComponent implements OnInit {
   constructor(
     private forumService: ForumService,
     private userService: UserSessionService,
+    private voteService: VoteService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
@@ -26,15 +29,23 @@ export class ShowPostComponent implements OnInit {
   wasDeleted = false;
   forumPost: ForumPost;
   postAuthor: string;
+  voteStatus: Vote;
   ngOnInit() {
     let postId;
     this.activatedRoute.params.subscribe(params => {
       postId = params.id;
     });
     this.getPost(postId);
+    this.voteStatus = {
+      author_id: null,
+      forum_id: postId,
+      voted_up: false,
+      voted_down: false,
+    };
     this.userService.checkUser().subscribe(
       user => {
         this.userService.currentUser = user;
+        this.voteStatus = this.checkVoteStatus(postId);
       },
       error => {
         console.log(error.message);
@@ -42,8 +53,8 @@ export class ShowPostComponent implements OnInit {
       }
     );
   }
-  upVote() {
-    this.forumService.increaseForumVote(this.forumPost._id).subscribe(
+  upVote(alreadyVoted: boolean) {
+    this.voteService.increaseForumVote(this.forumPost._id, alreadyVoted).subscribe(
       data => {
         console.log('I voted up');
       },
@@ -52,8 +63,8 @@ export class ShowPostComponent implements OnInit {
       }
     );
   }
-  downVote() {
-    this.forumService.decreaseForumVote(this.forumPost._id).subscribe(
+  downVote(alreadyVoted: boolean) {
+    this.voteService.decreaseForumVote(this.forumPost._id, alreadyVoted).subscribe(
       data => {
         console.log('I voted down');
       },
@@ -62,14 +73,8 @@ export class ShowPostComponent implements OnInit {
       }
     );
   }
-  checkVoteStatus() {
-    this.forumService.getUserForumVoteStatus(this.forumPost._id).subscribe(
-      data => {
-        console.log(data);
-      },
-      error => {
-      }
-    );
+  checkVoteStatus(postId): Vote {
+    return this.voteService.getUserForumVoteStatus(postId);
   }
   deletePost(post: ForumPost) {
     this.forumService.deleteForumPost(post._id).subscribe(
@@ -115,7 +120,7 @@ export class ShowPostComponent implements OnInit {
   }
   showPostControls(): boolean {
     if (this.userService.currentUser && this.forumService.interestedPost) {
-      if (  this.userService.currentUser._id === this.forumService.interestedPost.author) {
+      if (this.userService.currentUser._id === this.forumService.interestedPost.author) {
         return true;
       }
     }

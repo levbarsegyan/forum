@@ -6,7 +6,7 @@ const CommentData = require('../models/comments');
 const ForumData = require('../models/forum');
 const VoteData = require('../models/vote');
 const isUserValid = passport.authenticate('jwt', { session: false });
-const getCommentAuthorId = function (req, res, next)  {
+const getCommentAuthorId = function (req, res, next) {
     CommentData.findById(req.body.comment._id).then(
         (doc, err) => {
             if (err) {
@@ -17,8 +17,8 @@ const getCommentAuthorId = function (req, res, next)  {
             }
         }
     );
-};  
-const getPostAuthorId = function (req, res, next)  {
+};
+const getPostAuthorId = function (req, res, next) {
     ForumData.findById(req.body._id).then(
         (doc, err) => {
             if (err) {
@@ -29,7 +29,7 @@ const getPostAuthorId = function (req, res, next)  {
             }
         }
     );
-};  
+};
 router.post('/create', isUserValid, function (req, res, next) {
     let rawPostData = req.body;
     rawPostData.author = req.user._id;
@@ -40,7 +40,7 @@ router.post('/create', isUserValid, function (req, res, next) {
         res.status(200).json({ sent: true, message: "Post was submited, thank you" });
     } catch (reason) {
         console.log("Saving failed for reason: " + reason);
-        res.status(200).json({ sent: false, message: 'There was an error sending the post, try again later'});
+        res.status(200).json({ sent: false, message: 'There was an error sending the post, try again later' });
     }
 });
 router.post('/delete-post', isUserValid, getPostAuthorId, function (req, res, next) {
@@ -66,7 +66,7 @@ router.post('/delete-post', isUserValid, getPostAuthorId, function (req, res, ne
         ForumData.findByIdAndDelete(req.body._id).then(
             function (doc, err) {
                 if (err) {
-                    res.json({  sent: false, message: err })
+                    res.json({ sent: false, message: err })
                 }
                 res.json({ sent: true, message: "Post deleted" });
             }
@@ -96,23 +96,23 @@ router.get('/list', function (req, res, next) {
     );
 });
 router.post('/delete-reply', isUserValid, getCommentAuthorId, function (req, res, next) {
-    if ( !req.user || req.user._id.equals(req.originalAuthorId) ) {
+    if (!req.user || req.user._id.equals(req.originalAuthorId)) {
         CommentData.findByIdAndDelete(req.body.comment._id)
-        .then(
-            function (doc, err) {
-                if (err) {
-                    res.status(400).json({ sent: false, message: "Error deleting comment -- " + err });
-                };
-            }
-        ).then(
-            ForumData.findByIdAndUpdate(req.body.postId, { '$pull': { 'comment': req.body.comment._id } }).then(
+            .then(
                 function (doc, err) {
                     if (err) {
-                        res.status(400).json({ sent: false, message: "Error updating forum post comments -- " + err })
+                        res.status(400).json({ sent: false, message: "Error deleting comment -- " + err });
                     };
                 }
-            )
-        );
+            ).then(
+                ForumData.findByIdAndUpdate(req.body.postId, { '$pull': { 'comment': req.body.comment._id } }).then(
+                    function (doc, err) {
+                        if (err) {
+                            res.status(400).json({ sent: false, message: "Error updating forum post comments -- " + err })
+                        };
+                    }
+                )
+            );
         res.json({ sent: true, message: "Comment/Reply was deleted" });
     } else {
         res.json({ sent: false, message: "You may not delete others' comments" });
@@ -126,7 +126,7 @@ router.post('/add-reply', isUserValid, function (req, res, next) {
     commentInformation.save().then(
         com => {
             return (ForumData.findByIdAndUpdate(postId, { '$push': { 'comment': com._id } })
-                .catch( () => {
+                .catch(() => {
                     console.log("Error on saving comment");
                     res.json({ message: "Error on saving comment" });
                 })
@@ -143,7 +143,7 @@ router.post('/edit-reply', isUserValid, getCommentAuthorId, function (req, res, 
         }).catch(
             (reason) => {
                 console.log(reason);
-                res.status(400).json({ message : "Comment failed to update"})
+                res.status(400).json({ message: "Comment failed to update" })
             }
         );
         res.status(200).json({ message: "Comment updated" });
@@ -176,7 +176,7 @@ router.post('/dec-forum-vote', isUserValid, function (req, res, next) {
     let userId = req.user._id;
     voteAction(postId, userId, false)
 });
-function voteAction(postId, userId, isActionVoteUp){
+function voteAction(postId, userId, isActionVoteUp) {
     console.log("user: " + userId);
     console.log("post: " + postId);
     let voteIncrease = 1;
@@ -205,7 +205,7 @@ function voteAction(postId, userId, isActionVoteUp){
         }
         else {
             console.log("Vote is not null, changing vote");
-            if (vote.voted_up && isActionVoteUp || vote.voted_down && !isActionVoteUp ) {
+            if (vote.voted_up && isActionVoteUp || vote.voted_down && !isActionVoteUp) {
                 console.log("Vote is as was, leaving");
             }
             else {
@@ -228,11 +228,16 @@ function voteAction(postId, userId, isActionVoteUp){
         }
     })
 }
-router.get('/user-voting-info', isUserValid, function (req, res, next) {
-    ForumData.findOne(req.user._id).then(
-        (vote) => {
-            res.json(vote);
+router.post('/user-voting-info', isUserValid, function (req, res, next) {
+    VoteData.findOne({ 'user_id': req.user._id, 'forum_id': req.body.forum._id }, (error, vote) => {
+        console.log(req.body.forum._id);
+        if (error) {
+            return res.status(400);
         }
-    );
+        else {
+            console.log(vote);
+            res.json({ vote });
+        }
+    })
 });
 module.exports = router;

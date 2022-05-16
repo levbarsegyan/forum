@@ -3,6 +3,8 @@ import { ForumService } from '../forum.service';
 import { Router } from '@angular/router';
 import { ForumPost } from 'src/app/models/forum.model';
 import { UserSessionService } from 'src/app/user-session/user-session.service';
+import { Vote } from 'src/app/models/vote.model';
+import { VoteService } from '../vote.service';
 @Component({
   selector: 'app-list-posts',
   templateUrl: './list-posts.component.html',
@@ -13,6 +15,7 @@ export class ListPostsComponent implements OnInit {
     private forumService: ForumService,
     private router: Router,
     private userService: UserSessionService,
+    private voteService: VoteService,
   ) { }
   posts: ForumPost[] = [];
   message: string;
@@ -48,7 +51,7 @@ export class ListPostsComponent implements OnInit {
     );
   }
   upVote(postId) {
-    this.forumService.increaseForumVote(postId).subscribe(
+    this.voteService.increaseForumVote(postId, true).subscribe(
       data => {
         console.log('I voted up');
       },
@@ -58,7 +61,7 @@ export class ListPostsComponent implements OnInit {
     );
   }
   downVote(postId) {
-    this.forumService.decreaseForumVote(postId).subscribe(
+    this.voteService.decreaseForumVote(postId, true).subscribe(
       data => {
         console.log('I voted down');
       },
@@ -67,13 +70,7 @@ export class ListPostsComponent implements OnInit {
       }
     );
   }
-  checkVoteStatus(postId) {
-    this.forumService.getUserForumVoteStatus(postId).subscribe(
-      data => {
-        console.log(data);
-      },
-      error => {
-      }
-    );
+  checkVoteStatus(postId): Vote {
+    return this.voteService.getUserForumVoteStatus(postId);
   }
 }

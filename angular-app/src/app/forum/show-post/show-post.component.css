@@ -83,3 +83,5 @@ mat-expansion-panel {
 .downarrow:hover {
   color: red;
 }
+.red { color: red; }
+.green { color: green; }

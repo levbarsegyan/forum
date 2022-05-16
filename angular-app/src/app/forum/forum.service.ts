@@ -4,6 +4,7 @@ import { ForumComment } from '../models/comment.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Vote } from '../models/vote.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,33 +17,19 @@ export class ForumService {
   private listACommentUrl = 'http:
   private listCommentsUrl = 'http:
   private deletePostReplyUrl = 'http:
-  private userVoteInfoUrl = 'http:
-  private incForumVoteUrl = 'http:
-  private decForumVoteUrl = 'http:
-  private incCommentVoteUrl = 'http:
-  private decCommentVoteUrl = 'http:
   private addReplyUrl = 'http:
   private editCommentUrl = 'http:
   private showPostUrl = 'http:
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+  ) { }
   private httpOptions: any = {
     headers: new HttpHeaders().append('Content-Type', 'application/json'),
     observe: 'body',
     withCredentials: true,
   };
   private InterestedPost: ForumPost;
-  getUserForumVoteStatus(forumId: number) {
-    const forum = { _id: forumId };
-    return this.http.post(this.userVoteInfoUrl, {forum}, this.httpOptions );
-  }
-  increaseForumVote(forumId: number) {
-    const forum = { _id: forumId };
-    return this.http.post(this.incForumVoteUrl, {forum}, this.httpOptions );
-  }
-  decreaseForumVote(forumId: number) {
-    const forum = { _id: forumId };
-    return this.http.post(this.decForumVoteUrl, {forum}, this.httpOptions);
-  }
   addNewForumPost(forumPost: ForumPost): Observable<any> {
     return this.http.post(this.newPostUrl, forumPost, this.httpOptions);
   }
@@ -55,9 +42,9 @@ export class ForumService {
   addReplyToForumPost(postId: number, comment): Observable<any> {
     return this.http.post(this.addReplyUrl, { postId, comment }, this.httpOptions);
   }
-  removeReplyFromForumPost(postId, commentId): Observable<any>  {
+  removeReplyFromForumPost(postId, commentId): Observable<any> {
     const comment = { _id: commentId };
-    return this.http.post(this.deletePostReplyUrl, { postId,  comment }, this.httpOptions);
+    return this.http.post(this.deletePostReplyUrl, { postId, comment }, this.httpOptions);
   }
   editReplyOfForumPost(comment: ForumComment): Observable<any> {
     return this.http.post<any>(this.editCommentUrl, { comment }, this.httpOptions);
