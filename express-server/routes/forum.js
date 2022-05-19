@@ -177,8 +177,6 @@ router.post('/dec-forum-vote', isUserValid, function (req, res, next) {
     voteAction(postId, userId, false)
 });
 function voteAction(postId, userId, isActionVoteUp) {
-    console.log("user: " + userId);
-    console.log("post: " + postId);
     let voteIncrease = 1;
     if (!isActionVoteUp) voteIncrease *= -1;
     VoteData.findOne({ user_id: userId, forum_id: postId }, (err, vote) => {
@@ -186,7 +184,6 @@ function voteAction(postId, userId, isActionVoteUp) {
             console.log("Voting error: " + err);
         }
         else if (vote === null) {
-            console.log("Vote is null, making new vote");
             let newVoteData = {
                 forum_id: postId,
                 voted_up: isActionVoteUp,
@@ -201,41 +198,43 @@ function voteAction(postId, userId, isActionVoteUp) {
                         $inc: { vote_count: voteIncrease }
                     })).catch(() => { res.json({ message: "Error upvoting" }); })
                 );
-            } catch (error) { console.log("Voting creation error: " + error); }
+            }
+            catch (error) { console.log("Voting creation error: " + error); }
         }
         else {
-            console.log("Vote is not null, changing vote");
             if (vote.voted_up && isActionVoteUp || vote.voted_down && !isActionVoteUp) {
-                console.log("Vote is as was, leaving");
+                if (isActionVoteUp) {
+                    changeForumVote(postId, vote._id, false, false, -1);
+                }
+                else {
+                    changeForumVote(postId, vote._id, false, false, 1);
+                }
             }
-            else {
-                console.log("Updating Forum Vote and Vote Data");
-                ForumData.findByIdAndUpdate(postId, { '$inc': { vote_count: (voteIncrease * 2) } }, (err, res) => {
-                    if (err) {
-                        console.log("Error: " + err);
-                    }
-                    else {
-                    }
-                });
-                VoteData.findByIdAndUpdate(vote._id, { '$set': { voted_up: isActionVoteUp, voted_down: !isActionVoteUp } }, (err, res) => {
-                    if (err) {
-                        console.log("Error: " + err);
-                    }
-                    else {
-                    }
-                });
+            else if (!vote.voted_up && !vote.voted_down) {  
+                changeForumVote(postId, vote._id, isActionVoteUp, !isActionVoteUp, voteIncrease);
+            }
+            else { 
+                changeForumVote(postId, vote._id, isActionVoteUp, !isActionVoteUp, voteIncrease * 2);
             }
         }
     })
 }
+function changeForumVote(postId, voteId, upVote, downVote, voteIncrease) {
+    ForumData.findByIdAndUpdate(postId, { '$inc': { vote_count: voteIncrease } }, (err, res) => {
+        if (err) { console.log("Error: " + err); }
+        else { }
+    });
+    VoteData.findByIdAndUpdate(voteId, { '$set': { voted_up: upVote, voted_down: downVote } }, (err, res) => {
+        if (err) { console.log("Error: " + err); }
+        else { }
+    });
+}
 router.post('/user-voting-info', isUserValid, function (req, res, next) {
     VoteData.findOne({ 'user_id': req.user._id, 'forum_id': req.body.forum._id }, (error, vote) => {
-        console.log(req.body.forum._id);
         if (error) {
             return res.status(400);
         }
         else {
-            console.log(vote);
             res.json({ vote });
         }
     })
