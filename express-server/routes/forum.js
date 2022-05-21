@@ -75,13 +75,14 @@ router.post('/delete-post', isUserValid, getPostAuthorId, function (req, res, ne
         res.json({ sent: false, message: "You are not the author of this post" });
     }
 });
-router.post('/edit-post', function (req, res, next) {
-    ForumData.findByIdAndUpdate(req.body._id, { content: req.body.content })
-        .then(
-            doc => {
+router.post('/edit-post', isUserValid, getPostAuthorId, function (req, res, next) {
+    if (req.user._id.equals(req.originalAuthorId)) {
+        ForumData.findByIdAndUpdate(req.body._id, { content: req.body.content },
+            () => {
                 res.json({ message: "Post updated!" });
             }
         );
+    }
 });
 router.get('/list', function (req, res, next) {
     ForumData.find().then(
@@ -136,8 +137,7 @@ router.post('/add-reply', isUserValid, function (req, res, next) {
     res.json({ message: "Comment added! Thank you, " + req.user.username });
 });
 router.post('/edit-reply', isUserValid, getCommentAuthorId, function (req, res, next) {
-    var originalAuthorId = req.originalAuthorId;
-    if (req.user._id.equals(originalAuthorId)) {
+    if (req.user._id.equals(req.originalAuthorId)) {
         CommentData.findByIdAndUpdate(req.body.comment._id, {
             content: req.body.comment.content
         }).catch(
@@ -203,10 +203,10 @@ function voteAction(postId, userId, isActionVoteUp) {
         }
         else {
             if (vote.voted_up && isActionVoteUp || vote.voted_down && !isActionVoteUp) {
-                if (isActionVoteUp) {
+                if (isActionVoteUp) {  
                     changeForumVote(postId, vote._id, false, false, -1);
                 }
-                else {
+                else {  
                     changeForumVote(postId, vote._id, false, false, 1);
                 }
             }
@@ -237,6 +237,6 @@ router.post('/user-voting-info', isUserValid, function (req, res, next) {
         else {
             res.json({ vote });
         }
-    })
+    });
 });
 module.exports = router;

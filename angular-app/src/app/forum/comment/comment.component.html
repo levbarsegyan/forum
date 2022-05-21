@@ -1,21 +1,19 @@
 <div class="commentContainer" *ngFor="let comment of this.forumComments">
   <div [hidden]="isEditable(comment._id)">
     <mat-card class="comment">
-      <div class="comment-data inline-block">
+      <div class="comment-data">
         <div class="reply-content" [innerText]="comment.content">
         </div>
         <hr>
         <div class="reply-footer">
-          <div class="flex footer-item links">
+          <div class="footer-item control-links">
             <div class="standard-footer" [hidden]="!comment.show_controls">
               <button mat-button class="header-link" (click)="toggleEdit(comment._id)">
                 Edit Comment
               </button>
-              <a (click)="deleteComment(comment._id)" routerLinkActive="active">
-                <button mat-button class="header-link">
-                  Delete Comment
-                </button>
-              </a>
+              <button mat-button class="header-link" (click)="deleteComment(comment._id)">
+                Delete Comment
+              </button>
             </div>
           </div>
           <span class="author footer-item">By

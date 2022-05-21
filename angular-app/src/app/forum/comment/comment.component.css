@@ -40,15 +40,16 @@ mat-expansion-panel {
 }
 .date-published {
   width: 35%;
-  font-family: monospace;
-  font-size: 9pt;
+  font-size: 10pt;
 }
 .author {
   width: 70%;
-  font-family: monospace;
-  font-size: 9pt;
+  font-size: 10pt;
   text-align: end;
 }
 .comment {
-  background-color: lightgrey;
+  background-color: white;
+}
+.comment-data {
+  margin: 1em;
 }

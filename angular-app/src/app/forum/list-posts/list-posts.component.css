@@ -12,14 +12,6 @@ mat-card {
 h3{
   width: 100%; margin: 4px; padding: 0;
 }
-mat-card-title {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  color: #555;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font-weight: bold;
-}
 .author-area {
   display: block;
   padding: 0;
@@ -42,28 +34,10 @@ mat-card-title {
   text-align: end;
 }
 .voting {
-  width: 2%;
+  width: 4%;
   vertical-align: top;
-  padding: .5em;
   font-size: 20px;
   position: relative;
-}
-.vote-count {
-  text-align: justify;
-  margin: auto;
-  text-indent: -.45em;
-}
-.uparrow .downarrow {
-  text-align: start;
-}
-.uparrow:hover {
-  color: green;
-}
-.downarrow:hover {
-  color: red;
-}
-.inline-block {
-  display: inline-block;
 }
 .post {
   width: 94%;

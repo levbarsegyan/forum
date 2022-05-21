@@ -26,12 +26,14 @@
           <p class="post-content" [innerHTML]="this.forumPost.content"></p>
           <div class="post-footer">
             <hr>
-            <span class="flex footer-item">
-              <div class="links" [hidden]="!showPostControls()">
+            <span class="flex footer-item ">
+              <div class="control-links" [hidden]="!showPostControls()">
                 <a routerLink="/forums/edit/{{forumPost._id}}" routerLinkActive="active"><button mat-button
-                    class="header-link">Forum Edit</button></a>
+                    class="control-links">Forum
+                    Edit</button></a>
                 <a (click)="deletePost(this.forumPost)" routerLinkActive="active"><button mat-button
-                    class="header-link">Forum Delete</button></a>
+                    class="control-links">Forum
+                    Delete</button></a>
               </div>
             </span>
             <span class="footer-credit footer-item">By

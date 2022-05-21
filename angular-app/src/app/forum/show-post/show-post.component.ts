@@ -62,6 +62,8 @@ export class ShowPostComponent implements OnInit {
         console.log('error voting');
       }
     );
+    this.voteStatus.voted_up = !alreadyVoted;
+    (alreadyVoted) ? this.forumPost.vote_count -= 1 : this.forumPost.vote_count += 1;
   }
   downVote(alreadyVoted: boolean) {
     this.voteService.decreaseForumVote(this.forumPost._id, alreadyVoted).subscribe(
@@ -72,6 +74,8 @@ export class ShowPostComponent implements OnInit {
         console.log('error voting');
       }
     );
+    this.voteStatus.voted_down = !alreadyVoted;
+    (alreadyVoted) ? this.forumPost.vote_count += 1 : this.forumPost.vote_count -= 1;
   }
   checkVoteStatus(postId): Vote {
     return this.voteService.getUserForumVoteStatus(postId);

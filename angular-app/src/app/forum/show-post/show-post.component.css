@@ -54,13 +54,9 @@ mat-expansion-panel {
 .comment {
   background-color: lightgrey;
 }
-.inline-block {
-  display: inline-block;
-}
 .voting {
-  width: 2%;
+  width: 4%;
   vertical-align: top;
-  padding: .5em;
   font-size: 20px;
   position: relative;
 }
@@ -68,20 +64,3 @@ mat-expansion-panel {
   width: 94%;
   margin: auto;
 }
-.vote-count {
-  text-align: justify;
-  margin: auto;
-  text-indent: -.45em;
-}
-.uparrow .downarrow {
-  text-align: end;
-  margin: auto;
-}
-.uparrow:hover {
-  color: green;
-}
-.downarrow:hover {
-  color: red;
-}
-.red { color: red; }
-.green { color: green; }
