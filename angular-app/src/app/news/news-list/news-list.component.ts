@@ -16,14 +16,6 @@ export class NewsListComponent implements OnInit {
   ) { }
   ngOnInit() {
     this.getNews();
-    this.adminSessionService.check().subscribe(
-      data => {
-        this.adminAccess = true;
-      },
-      error => {
-        this.adminAccess = false;
-      }
-    );
   }
   getNews() {
     const exampleNews: News = {
@@ -32,8 +24,26 @@ export class NewsListComponent implements OnInit {
       content: 'Welcome to play deca we hope you enjoy your stay here. We try to keep the community happy friendly and kind. All are welcome and we hope to see you out and about on the server. Good luck and have fun.',
       date: new Date(Date.now()),
     };
-    this.allNews.push(exampleNews);
-    this.allNews.push(exampleNews);
-    this.allNews.push(exampleNews);
+    this.newsService.getAllNews().subscribe(
+      data => {
+        this.allNews = data;
+        console.log(this.allNews);
+      },
+      error => {
+        console.log("News failed to load");
+      }
+    );
+  }
+  checkAdminAccess() {
+    let allow = false;
+    this.adminSessionService.check().subscribe(
+      data => {
+        allow = true;
+      },
+      error => {
+        allow = false;
+      }
+    );
+    return allow;
   }
 }

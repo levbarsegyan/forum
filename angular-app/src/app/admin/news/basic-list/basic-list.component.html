@@ -1,0 +1,27 @@
+<mat-card>
+  <mat-card-title>
+    <h3>
+      All News Posts
+    </h3>
+  </mat-card-title>
+  <mat-card-content>
+    <div class="section" *ngFor="let newsPost of newsPosts">
+      <hr>
+      <div class="news-title">
+        <h4>
+          {{newsPost.title}}
+        </h4>
+      </div>
+      <div class="news-date">
+        {{newsPost.date}}
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-card>
+  <h2 class="underlinable centre">
+    <a [routerLink]="['/admin/create-news']" routerLinkActive="router-link-active">
+      Write more news for front page
+    </a>
+  </h2>
+</mat-card>

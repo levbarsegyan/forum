@@ -32,6 +32,7 @@ import { EditPostComponent } from './forum/edit-post/edit-post.component';
 import { ShowPostComponent } from './forum/show-post/show-post.component';
 import { CommentComponent } from './forum/comment/comment.component';
 import { ProfileComponent } from './profile/profile.component';
+import { BasicListComponent } from './admin/news/basic-list/basic-list.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -81,6 +82,10 @@ const appRoutes: Routes = [
     canActivate: [AdminGuardGuard],
     children: [
       {
+        path: 'news-list',
+        component: BasicListComponent,
+      },
+      {
         path: 'create-news',
         component: NewsCreateComponent,
       },
@@ -117,6 +122,7 @@ const appRoutes: Routes = [
     ShowPostComponent,
     CommentComponent,
     ProfileComponent,
+    BasicListComponent,
   ],
   imports: [
     BrowserModule,

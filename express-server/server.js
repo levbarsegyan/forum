@@ -12,6 +12,7 @@ const cookieparser = require('cookie-parser');
 const usersRoute = require('./routes/user');
 const adminRoute = require('./routes/admin');
 const forumRoute = require('./routes/forum');
+const newsRoute = require('./routes/news');
 const BACKEND_PORT = process.env.BACKEND_PORT || 8000;
 const FRONTEND_DOMAIN = "http:
 const BACKEND_DOMAIN = "http:
@@ -45,7 +46,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api/forum', forumRoute);
 app.use('/api/users', usersRoute);
-app.use('/api/admin/', adminRoute);
+app.use('/api/admin', adminRoute);
+app.use('/api/news', newsRoute);
 app.listen(BACKEND_PORT, () => {
     console.log('Server started!');
 })
