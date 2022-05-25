@@ -12,14 +12,15 @@ export class BasicListComponent implements OnInit {
     private adminService: AdminSessionService,
     private newsService: NewsService,
   ) { }
-  newsPosts: News[];
+  newsPosts: News[] = [];
   ngOnInit() {
+    this.getNewsList();
   }
   getNewsList() {
-    let listOfAllNewsPosts: News[];
+    let listOfAllNewsPosts: News[] = [];
     this.newsService.getAllNews().subscribe(
       data => {
-        listOfAllNewsPosts = data;
+        this.newsPosts = data;
       },
       error => {
         console.log("Failed to access all the news posts");

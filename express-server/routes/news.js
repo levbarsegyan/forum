@@ -4,7 +4,6 @@ const passport = require('passport');
 const NewsData = require('../models/news');
 const isUserValid = passport.authenticate('jwt', { session: false });
 const isUserAdmin = (req, res, next) => {
-    console.log("Checking for admin")
     if (req.user.role === 'user') {
         res.status(400).json({ admin: false, message: "User is not an admin" });
     }
@@ -15,15 +14,11 @@ const isUserAdmin = (req, res, next) => {
         res.status(400).json({ admin: false, message: "User is not an admin" });
     }
 }
-router.post('/create', function (req, res, next) {
-    console.log("Hello");
-    console.log(req.body.news);
+router.post('/create', isUserValid, isUserAdmin, function (req, res, next) {
     let newsInformation = new NewsData(req.body.news);
     console.log(newsInformation);
     try {
-        console.log("saving");
         newsInformation.save();
-        console.log("saved");
         res.status(200).json({ sent: true, message: "Submited, thank you" });
     } catch (reason) {
         console.log("Saving failed for reason: " + reason);
