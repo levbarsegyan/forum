@@ -1,0 +1,61 @@
+.inline-block {
+    display: inline-block;
+}
+.half-page {
+    margin: 5rem auto;
+    width: 50%;
+    vertical-align: top;
+}
+mat-card {
+    width: 95%; 
+    text-align: center;
+    padding: .5em 0;
+}
+h3 {
+    color: dimgray;
+    font-size: 30;
+}
+ul {
+    justify-content: center;
+    display: block;
+    width: 80%;
+    margin: auto;
+    padding: 0;
+}
+li {
+    list-style: none;
+    margin: auto;
+    font-size: 14pt;
+    padding: 1.5em;
+}
+.donate-main {
+    width: 60%;
+    margin:  auto;
+    padding:  auto;
+}
+.price-region {
+    background: deepskyblue;
+}
+a {
+    color: black;
+    text-decoration: none;
+}
+a div:hover{
+    background-color: skyblue;
+}
+.price {
+    font-size: 35pt;
+    color: dimgray;
+}
+.duration {
+    font-size: 11pt;
+    color: dimgray;
+}
+.buy-button {
+    padding: 1rem;
+    font-size: 20pt;
+}
+.small-text {
+    font-size: 12pt;
+    color: white;
+}

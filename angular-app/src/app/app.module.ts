@@ -33,6 +33,7 @@ import { ShowPostComponent } from './forum/show-post/show-post.component';
 import { CommentComponent } from './forum/comment/comment.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BasicListComponent } from './admin/news/basic-list/basic-list.component';
+import { DonateComponent } from './donate/donate.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -96,6 +97,10 @@ const appRoutes: Routes = [
     component: ProfileComponent,
   },
   {
+    path: 'donate',
+    component: DonateComponent,
+  },
+  {
     path: '**', component: PageNotFoundComponent,
   },
 ];
@@ -123,6 +128,7 @@ const appRoutes: Routes = [
     CommentComponent,
     ProfileComponent,
     BasicListComponent,
+    DonateComponent,
   ],
   imports: [
     BrowserModule,
