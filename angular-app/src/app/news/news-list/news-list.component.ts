@@ -27,6 +27,9 @@ export class NewsListComponent implements OnInit {
     this.newsService.getAllNews().subscribe(
       data => {
         this.allNews = data;
+        for (const news of this.allNews) {
+          news.date = new Date(news.date);
+        }
         console.log(this.allNews);
       },
       error => {

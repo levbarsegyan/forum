@@ -5,14 +5,12 @@
       <span class="flex"></span>
       <h6> {{newsItem.date  }} </h6>
     </mat-card-header>
+    <hr>
     <mat-card-content>
       <p [innerHTML]="newsItem.content">
       </p>
       Good Luck and Have Fun, {{ newsItem.author }}
     </mat-card-content>
     <hr>
-    <div [hidden]="!this.adminAccess">
-      <button mat-raised-button color='primary'>Edit Me</button>
-    </div>
   </mat-card>
 </div>

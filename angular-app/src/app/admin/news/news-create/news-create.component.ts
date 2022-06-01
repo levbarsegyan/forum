@@ -17,11 +17,13 @@ export class NewsCreateComponent implements OnInit {
   ngOnInit() {
   }
   onSubmit(form: NgForm) {
+    const contentInput: string = form.value.enteredContent;
+    const contentHtml = contentInput.replace(/\n/g, '<br />');
     this.newsPost = {
       title: form.value.enteredTitle,
-      content: form.value.enteredContent,
+      content: contentHtml,
       author: this.getAuthor(),
-      date: this.getDate(),
+      date: new Date(),
     };
     this.newsService.saveNews(this.newsPost).subscribe(
       data => {
@@ -34,8 +36,5 @@ export class NewsCreateComponent implements OnInit {
   }
   getAuthor() {
     return 'Admin';
-  }
-  getDate() {
-    return new Date();
   }
 }
