@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="containers">
-  <div class="left-container">
+  <div class="left-container inline-block">
   <mat-card>
     <mat-card-title>Sign In</mat-card-title>
     <mat-card-subtitle>Already signed up? Sign in below!</mat-card-subtitle>
@@ -11,7 +11,7 @@
         type="email"
         name="enteredEmail"
         required
-        placeholder="Minecraft Email" value="">
+        placeholder="Email" value="">
       </mat-form-field>
       <mat-form-field class="sign-in-field">
         <input matInput
@@ -31,7 +31,7 @@
     </form>
   </mat-card>
   </div>
-  <div class="right-container">
+  <div class="right-container inline-block">
   <app-sign-up></app-sign-up>
   </div>
 </div>

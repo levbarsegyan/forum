@@ -4,3 +4,13 @@
 .centre {
     text-align: center;
 }
+.inline-block {
+  display: inline-block;
+}
+.left-region {
+  width: 50%;
+}
+.right-region {
+  width: 50%;
+  text-align:right;
+}

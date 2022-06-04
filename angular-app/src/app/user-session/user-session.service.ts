@@ -8,6 +8,11 @@ import { User } from '../models/user.model';
 export class UserSessionService {
   private _isUserSignedIn: boolean = false;
   private _user: User;
+  private httpOptions: any = {
+    headers: new HttpHeaders().append('Content-Type', 'application/json'),
+    observe: 'body',
+    withCredentials: true,
+  };
   signInUrl = 'http:
   registerUrl = 'http:
   userUrl = 'http:
@@ -16,46 +21,22 @@ export class UserSessionService {
   allUsersUrl = 'http:
   constructor(private http: HttpClient) { }
   loginRequest(user): Observable<any> {
-    return this.http.post<any>(this.signInUrl, user, {
-      observe: 'body',
-      withCredentials: true,
-      headers: new HttpHeaders().append('Content-Type', 'application/json')
-    });
+    return this.http.post<any>(this.signInUrl, user, this.httpOptions);
   }
   registerRequest(body): Observable<any> {
-    return this.http.post(this.registerUrl, body, {
-      observe: 'body',
-      withCredentials: true,
-      headers: new HttpHeaders().append('Content-Type', 'application/json')
-    });
+    return this.http.post(this.registerUrl, body, this.httpOptions);
   }
   getUsernameFromID(id): Observable<any> {
-    return this.http.post<any>(this.userInfoUrl, { id }, {
-      observe: 'body',
-      withCredentials: true,
-      headers: new HttpHeaders().append('Content-Type', 'application/json')
-    });
+    return this.http.post<any>(this.userInfoUrl, { id }, this.httpOptions);
   }
   checkUser(): Observable<any> {
-    return this.http.get<any>(this.userUrl, {
-      observe: 'body',
-      withCredentials: true,
-      headers: new HttpHeaders().append('Content-Type', 'application/json')
-    });
+    return this.http.get<any>(this.userUrl, this.httpOptions);
   }
   logout(): Observable<any> {
-    return this.http.get(this.logoutUrl, {
-      observe: 'body',
-      withCredentials: true,
-      headers: new HttpHeaders().append('Content-Type', 'application/json')
-    });
+    return this.http.get(this.logoutUrl, this.httpOptions);
   }
   getAllUsers(): Observable<any> {
-    return this.http.get(this.allUsersUrl, {
-      observe: 'body',
-      withCredentials: true,
-      headers: new HttpHeaders().append('Content-Type', 'application/json')
-    });
+    return this.http.get(this.allUsersUrl, this.httpOptions);
   }
   public get isUserSignedIn(): boolean {
     return this._isUserSignedIn;

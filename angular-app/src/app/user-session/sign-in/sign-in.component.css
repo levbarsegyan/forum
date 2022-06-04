@@ -1,23 +1,27 @@
 .containers {
   display: flex;
   width: 50%;
-  margin: 1rem auto;
+  margin: .5rem auto;
 }
 mat-card {
-  display: block;
   width: 100%;
 }
 .left-container {
-  flex: 0 0 40%;
-  margin: 0 auto;
+  width: 45%;
+  min-width: 200px;
+  margin: 1rem auto auto 1rem;
 }
 .right-container {
-  flex: 1;
-  margin: 0 auto;
+  width: 45%;
+  min-width: 200px;
+  margin: 1rem 1rem auto auto;
 }
 .sign-in-field {
   display: inline;
   margin: auto;
+}
+.inline-block {
+  display: inline-block;
 }
 .inline-region {
   display: inline;

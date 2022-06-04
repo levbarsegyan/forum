@@ -18,7 +18,7 @@
         (click)="logout()">Logout</button></a>
     <a routerLink="/dynmap" routerLinkActive="active"><button mat-button class="header-link">Dynmap</button></a>
     <a routerLink="/donate" routerLinkActive="active"><button mat-button class="header-link">Donate</button></a>
-    <a routerLink="/admin" routerLinkActive="active" [hidden]="!getIsAdmin()"> <button mat-button
+    <a routerLink="/admin/dashboard" routerLinkActive="active" [hidden]="!getIsAdmin()"> <button mat-button
         class="header-link">Admin Home</button></a>
   </nav>
 </mat-toolbar>

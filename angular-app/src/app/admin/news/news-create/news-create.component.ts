@@ -3,6 +3,8 @@ import { News } from '../../../models/news.model';
 import { NgForm } from '@angular/forms';
 import { NewsService } from 'src/app/news/news.service';
 import { Router } from '@angular/router';
+import { UserSessionService } from 'src/app/user-session/user-session.service';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-news-create',
   templateUrl: './news-create.component.html',
@@ -13,6 +15,8 @@ export class NewsCreateComponent implements OnInit {
   constructor(
     private newsService: NewsService,
     private router: Router,
+    private userService: UserSessionService,
+    private snackBar: MatSnackBar,
   ) { }
   ngOnInit() {
   }
@@ -25,16 +29,29 @@ export class NewsCreateComponent implements OnInit {
       author: this.getAuthor(),
       date: new Date(),
     };
+    let sent: boolean;
     this.newsService.saveNews(this.newsPost).subscribe(
       data => {
         console.log(data);
+        sent = data.sent;
+        this.openSnackBar(data.message);
       },
       error => {
         console.log(error);
+        sent = error.sent;
+        this.openSnackBar(error.message);
       }
     );
+    if (sent) {
+      this.router.navigate(['/']);
+    }
   }
   getAuthor() {
     return 'Admin';
+  }
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Okay', {
+      duration: 2000,
+    });
   }
 }

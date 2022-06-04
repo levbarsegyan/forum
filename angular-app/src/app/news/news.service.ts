@@ -18,9 +18,9 @@ export class NewsService {
     withCredentials: true,
     headers: new HttpHeaders().append('Content-Type', 'application/json')
   };
-  saveNews(news: News) {
+  saveNews(news: News): Observable<any> {
     console.log(news);
-    return this.http.post(this.saveNewsUrl, { news }, this.httpOptions);
+    return this.http.post<any>(this.saveNewsUrl, { news }, this.httpOptions);
   }
   updateNews(news: News) {
     return this.http.post(this.editNewsUrl, { news }, this.httpOptions);

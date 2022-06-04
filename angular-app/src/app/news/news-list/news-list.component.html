@@ -1,9 +1,12 @@
 <div class="news-area">
   <mat-card *ngFor="let newsItem of this.allNews">
     <mat-card-header>
-      <h2> {{ newsItem.title }} </h2>
-      <span class="flex"></span>
-      <h6> {{newsItem.date  }} </h6>
+      <h2 class="display-title">
+        {{ newsItem.title }}
+      </h2>
+      <h6 class="display-date">
+        {{newsItem.date  }}
+      </h6>
     </mat-card-header>
     <hr>
     <mat-card-content>

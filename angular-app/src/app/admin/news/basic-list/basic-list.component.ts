@@ -17,10 +17,13 @@ export class BasicListComponent implements OnInit {
     this.getNewsList();
   }
   getNewsList() {
-    let listOfAllNewsPosts: News[] = [];
+    const listOfAllNewsPosts: News[] = [];
     this.newsService.getAllNews().subscribe(
       data => {
         this.newsPosts = data;
+        for (const news of this.newsPosts) {
+          news.date = new Date(news.date);
+        }
       },
       error => {
         console.log("Failed to access all the news posts");

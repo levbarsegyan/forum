@@ -7,15 +7,24 @@
   <mat-card-content>
     <div class="section" *ngFor="let newsPost of this.newsPosts">
       <hr>
-      <div class="news-title">
-        <h4>
-          {{newsPost.title}}
-        </h4>
-      </div>
-      <div class="news-date">
-        {{newsPost.date}}
+      <div class="listing">
+        <div class="left-region inline-block">
+          <div class="news-title">
+            <h3>
+              {{newsPost.title}}
+            </h3>
+          </div>
+          <div class="news-date">
+            {{newsPost.date}}
+          </div>
+        </div>
+        <div class="right-region inline-block">
+          <button mat-button>Edit</button>
+          <button mat-button>Delete</button>
+        </div>
       </div>
     </div>
+    <hr>
   </mat-card-content>
 </mat-card>
 <mat-card>

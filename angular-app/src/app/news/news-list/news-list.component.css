@@ -8,6 +8,12 @@ mat-card-content{
   width: 100%;
   margin: auto;
 }
-.flex{
+.display-title {
+  text-align: left;
   width: 50%;
+}
+.display-date {
+  width: 50%;
+  text-align: right;
+  bottom: 0;
 }

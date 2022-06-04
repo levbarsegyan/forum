@@ -16,7 +16,6 @@ const isUserAdmin = (req, res, next) => {
 }
 router.post('/create', isUserValid, isUserAdmin, function (req, res, next) {
     let newsInformation = new NewsData(req.body.news);
-    console.log(newsInformation);
     try {
         newsInformation.save();
         res.status(200).json({ sent: true, message: "Submited, thank you" });

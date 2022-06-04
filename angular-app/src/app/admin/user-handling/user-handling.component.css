@@ -1,0 +1,17 @@
+.inline {
+  display:block;
+}
+.user-container{
+  display: block;
+  width: 100%;
+}
+mat-card-title {
+  padding: 0;
+}
+.username {
+  width: 200px;
+  display: inline-block;
+}
+.ban-button {
+  display: inline-block;
+}

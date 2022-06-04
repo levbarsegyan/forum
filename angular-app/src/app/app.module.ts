@@ -34,6 +34,8 @@ import { CommentComponent } from './forum/comment/comment.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BasicListComponent } from './admin/news/basic-list/basic-list.component';
 import { DonateComponent } from './donate/donate.component';
+import { UserHandlingComponent } from './admin/user-handling/user-handling.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -83,6 +85,10 @@ const appRoutes: Routes = [
     canActivate: [AdminGuardGuard],
     children: [
       {
+        path: 'dashboard',
+        component: DashboardComponent,
+      },
+      {
         path: 'news-list',
         component: BasicListComponent,
       },
@@ -129,6 +135,8 @@ const appRoutes: Routes = [
     ProfileComponent,
     BasicListComponent,
     DonateComponent,
+    UserHandlingComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
