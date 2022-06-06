@@ -222,7 +222,7 @@ function voteAction(postId, userId, isActionVoteUp) {
 function changeForumVote(postId, voteId, upVote, downVote, voteIncrease) {
     ForumData.findByIdAndUpdate(postId, { '$inc': { vote_count: voteIncrease } }, (err, res) => {
         if (err) { console.log("Error: " + err); }
-        else { }
+        else {  }
     });
     VoteData.findByIdAndUpdate(voteId, { '$set': { voted_up: upVote, voted_down: downVote } }, (err, res) => {
         if (err) { console.log("Error: " + err); }

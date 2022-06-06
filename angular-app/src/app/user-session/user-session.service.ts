@@ -6,7 +6,7 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class UserSessionService {
-  private _isUserSignedIn: boolean = false;
+  private _isUserSignedIn = false;
   private _user: User;
   private httpOptions: any = {
     headers: new HttpHeaders().append('Content-Type', 'application/json'),

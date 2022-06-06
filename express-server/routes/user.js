@@ -78,7 +78,7 @@ router.post('/user-info', (req, res, next) => {
     }
 });
 router.get('/all-users', (req, res, next) => {
-    User.find({}, (error, doc) => {
+    User.find({ role: 'user', banned: false }, (error, doc) => {
         if (!error) {
             let allUsers = [];
             doc.forEach(user => {
@@ -109,12 +109,6 @@ router.get('/user', isUserValid, (req, res, next) => {
     }
     else
         res.status(400).json("User is signed out")
-});
-router.get('/ban-user', isUserValid, (req, res, next) => {
-    if (req.user)
-        res.status(200).json(req.user.role);
-    else
-        res.status(400).json("User signed out")
 });
 router.get('/delete-user', isUserValid, (req, res, next) => {
     if (req.user)

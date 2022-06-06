@@ -19,18 +19,18 @@ export class UserHandlingService {
     headers: new HttpHeaders().append('Content-Type', 'application/json')
   };
   banUser(userId: number): Observable<any> {
-    const user = { _id: userId };
-    return this.http.post(this.banUserUrl, user, this.httpOptions);
+    const ban = { _id: userId };
+    return this.http.post(this.banUserUrl, {ban}, this.httpOptions);
   }
   unbanUser(userId: number): Observable<any> {
-    const user = { _id: userId };
-    return this.http.post(this.banUserUrl, user, this.httpOptions);
+    const unban = { _id: userId };
+    return this.http.post(this.unbanUserUrl, {unban}, this.httpOptions);
   }
   getUserList(): Observable<any> {
-    return this.http.post(this.banUserUrl, this.httpOptions);
+    return this.http.get(this.listAllUsersUrl, this.httpOptions);
   }
   getBannedUserList(): Observable<any> {
-    return this.http.get<any>(this.banUserUrl, this.httpOptions);
+    return this.http.get(this.listBannedUsersUrl, this.httpOptions);
   }
   promoteUser(userId: number, promotion: string) {
   }

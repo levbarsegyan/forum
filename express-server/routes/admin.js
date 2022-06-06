@@ -58,4 +58,44 @@ router.get('/check', isUserValid, (req, res, next) => {
     }
     next();
 });
+router.get('/all-banned-users', [isUserValid, isUserAdmin], (req, res, next) => {
+    User.find({ role: 'user', banned: true }, (error, document) => {
+        if (error) {
+            res.status(404).json({ message: "Not found" });
+        }
+        else {
+            let allUsers = [];
+            document.forEach(user => {
+                userInfo = {
+                    _id: user._id,
+                    username: user.username,
+                }
+                allUsers.push(userInfo);
+            });
+            res.status(200).json({ allUsers });
+        }
+    })
+});
+router.post('/ban-user', [isUserValid, isUserAdmin], (req, res, next) => {
+    const userId = req.body.ban._id;
+    User.findByIdAndUpdate(userId, { banned: true }, (error, document) => {
+        if (error) {
+            res.status(200).json({ message: 'Cannot ban player reason: ' + error });
+        }
+        else {
+            res.status(200).json({ message: 'Player was banned from the website' });
+        }
+    });
+});
+router.post('/unban-user', [isUserValid, isUserAdmin], (req, res, next) => {
+    const userId = req.body.unban._id;
+    User.findByIdAndUpdate(userId, { banned: false }, (error, document) => {
+        if (error) {
+            res.status(200).json({ message: 'Cannot unban player reason: ' + error });
+        }
+        else {
+            res.status(200).json({ message: 'Player has been unbanned from the website' });
+        }
+    });
+});
 module.exports = router;

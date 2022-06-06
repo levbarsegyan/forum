@@ -10,7 +10,8 @@ var schema = new Schema({
     creation_date: { type: Date, require: true },
     confirmed_game: { type: Boolean, required: true, default: false },
     confirmed_email: { type: Boolean, required: true, default: false },
-    role: { type: String, required: false, default: 'user' }
+    role: { type: String, required: false, default: 'user' },
+    banned: { type: Boolean, required: false, default: false },
 });
 schema.statics.hashPassword = function hashPassword(password) {
     var saltOrRounds = +process.env.SALTORROUNDS;
