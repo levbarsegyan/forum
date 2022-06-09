@@ -96,6 +96,10 @@ const appRoutes: Routes = [
         path: 'create-news',
         component: NewsCreateComponent,
       },
+      {
+        path: 'edit-news/:id',
+        component: NewsUpdateComponent,
+      },
     ]
   },
   {

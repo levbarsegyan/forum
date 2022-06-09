@@ -26,23 +26,31 @@ router.post('/create', isUserValid, isUserAdmin, function (req, res, next) {
     next();
 });
 router.post('/delete', isUserValid, isUserAdmin, function (req, res, next) {
-    if (req.user._id.equals(req.originalAuthorId) ) {
-        NewsData.findByIdAndDelete(req.body._id).then(
-            function (doc, err) {
-                if (err) {
-                    res.json({ sent: false, message: err })
-                }
-                res.json({ sent: true, message: "News deleted" });
+    NewsData.findByIdAndDelete(req.body.newsId).then(
+        (doc, err) => {
+            if (err) {
+                res.json({ sent: false, message: err })
             }
-        );
-    } else {
-        res.json({ sent: false, message: "You are not the author of this post" });
-    }
+            res.json({ sent: true, message: "News deleted" });
+        }
+    );
 });
 router.post('/edit', isUserValid, isUserAdmin, function (req, res, next) {
-    NewsData.findByIdAndUpdate(req.body._id, { content: req.body.content },
+    NewsData.findByIdAndUpdate(req.body.news._id, { content: req.body.news.content },
         () => {
             res.json({ message: "News post updated!" });
+        }
+    );
+});
+router.post('/get-post', function (req, res, next) {
+    NewsData.findById(req.body.news._id).then(
+        doc => {
+            res.json(doc);
+        }
+    ).catch(
+        reason => {
+            console.log("Rejected for reason: " + reason);
+            res.status(404).json(reason);
         }
     );
 });

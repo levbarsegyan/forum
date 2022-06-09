@@ -45,15 +45,16 @@ a div:hover{
 }
 .price {
     font-size: 35pt;
-    color: dimgray;
+    color: white;
 }
 .duration {
     font-size: 11pt;
-    color: dimgray;
+    color: white;
 }
 .buy-button {
     padding: 1rem;
     font-size: 20pt;
+    color: white;
 }
 .small-text {
     font-size: 12pt;

@@ -19,8 +19,14 @@
           </div>
         </div>
         <div class="right-region inline-block">
-          <button mat-button>Edit</button>
-          <button mat-button>Delete</button>
+          <button mat-button>
+            <a routerLink="/admin/edit-news/{{newsPost._id}}">
+              Edit
+            </a>
+          </button>
+          <button mat-button>
+            Delete
+          </button>
         </div>
       </div>
     </div>
