@@ -31,4 +31,13 @@ export class BasicListComponent implements OnInit {
     );
     return listOfAllNewsPosts;
   }
+  deleteNewsPost(newsId) {
+    this.newsService.deleteNews(newsId).subscribe(
+      data => {
+      },
+      error => {
+        console.log(error.message);
+      }
+    )
+  }
 }

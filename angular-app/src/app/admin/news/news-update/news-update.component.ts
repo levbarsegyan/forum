@@ -45,7 +45,6 @@ export class NewsUpdateComponent implements OnInit {
     };
     this.newsService.updateNews(this.newPost).subscribe(
       data => {
-        this.message = data.message;
         this.router.navigate(['/']);
       },
       error => {

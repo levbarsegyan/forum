@@ -26,12 +26,12 @@ router.post('/create', isUserValid, isUserAdmin, function (req, res, next) {
     next();
 });
 router.post('/delete', isUserValid, isUserAdmin, function (req, res, next) {
-    NewsData.findByIdAndDelete(req.body.newsId).then(
+    NewsData.findByIdAndDelete(req.body.news._id).then(
         (doc, err) => {
             if (err) {
                 res.json({ sent: false, message: err })
             }
-            res.json({ sent: true, message: "News deleted" });
+            res.status(200).json({ sent: true, message: "News deleted" });
         }
     );
 });

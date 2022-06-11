@@ -14,3 +14,6 @@
   width: 50%;
   text-align:right;
 }
+.delete {
+  color: red;
+}
