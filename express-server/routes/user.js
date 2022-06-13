@@ -49,6 +49,9 @@ router.post('/login', (req, res, next) => {
         if (!user || !user.isValid(req.body.password)) {
             return res.status(400).json({ message: 'Incorrect email or password.' });
         }
+        else if (user.banned) {
+            return res.status(400).json({ message: 'User is banned' });
+        }
         else {
             var token = jwt.sign({ id: user._id }, process.env.SECRET, {
                 expiresIn: 10000
@@ -98,6 +101,10 @@ router.get('/all-users', (req, res, next) => {
     res.status(400);
 });
 router.get('/user', isUserValid, (req, res, next) => {
+    if (req.user.banned) {
+        res.cookie('jwt', '', { httpOnly: true, secure: false });
+        return res.status(200).json({ message: 'Logout Success' });
+    }
     if (req.user) {
         userInformation = {
             _id: req.user._id,

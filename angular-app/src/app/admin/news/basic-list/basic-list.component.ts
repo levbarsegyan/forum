@@ -38,6 +38,6 @@ export class BasicListComponent implements OnInit {
       error => {
         console.log(error.message);
       }
-    )
+    );
   }
 }
