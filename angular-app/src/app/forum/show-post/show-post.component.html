@@ -27,13 +27,17 @@
           <div class="post-footer">
             <hr>
             <span class="flex footer-item ">
-              <div class="control-links" [hidden]="!showPostControls()">
+              <div class="control-links" [hidden]="this.permittedForControls">
                 <a routerLink="/forums/edit/{{forumPost._id}}" routerLinkActive="active"><button mat-button
                     class="control-links">Forum
-                    Edit</button></a>
+                    Edit
+                  </button>
+                </a>
                 <a (click)="deletePost(this.forumPost)" routerLinkActive="active"><button mat-button
                     class="control-links">Forum
-                    Delete</button></a>
+                    Delete
+                  </button>
+                </a>
               </div>
             </span>
             <span class="footer-credit footer-item">By

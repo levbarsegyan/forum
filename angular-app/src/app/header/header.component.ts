@@ -13,8 +13,6 @@ export class HeaderComponent implements OnInit {
     _id: '',
     username: '',
   };
-  private isAdmin = false;
-  private signedIn = false;
   constructor(
     private userService: UserSessionService,
     private router: Router,
@@ -33,19 +31,16 @@ export class HeaderComponent implements OnInit {
     );
     this.adminSession.role().subscribe(
       data => {
-        this.setIsAdmin(data);
+        this.adminSession.loggedIn = data.admin;
       },
       error => {
         console.log(error);
-        this.setIsAdmin(false);
+        this.adminSession.loggedIn = false;
       }
     );
   }
-  setIsAdmin(value: boolean) {
-    this.isAdmin = value;
-  }
   getIsAdmin(): boolean {
-    return this.isAdmin;
+    return this.adminSession.loggedIn;
   }
   getSignedIn(): boolean {
     return this.userService.isUserSignedIn;
@@ -55,6 +50,7 @@ export class HeaderComponent implements OnInit {
       data => {
         location.reload();
         this.userService.isUserSignedIn = false;
+        this.adminSession.loggedIn = false;
         console.log(data.message);
       },
       error => {

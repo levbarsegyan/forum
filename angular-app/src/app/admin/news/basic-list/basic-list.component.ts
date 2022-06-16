@@ -26,7 +26,7 @@ export class BasicListComponent implements OnInit {
         }
       },
       error => {
-        console.log("Failed to access all the news posts");
+        console.log('Failed to access all the news posts');
       }
     );
     return listOfAllNewsPosts;

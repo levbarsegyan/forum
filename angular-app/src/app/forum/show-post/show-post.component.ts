@@ -9,6 +9,7 @@ import { UserSessionService } from 'src/app/user-session/user-session.service';
 import { User } from 'src/app/models/user.model';
 import { Vote } from 'src/app/models/vote.model';
 import { VoteService } from '../vote.service';
+import { AdminSessionService } from 'src/app/admin/admin-session/admin-session.service';
 @Component({
   selector: 'app-show-post',
   templateUrl: './show-post.component.html',
@@ -18,6 +19,7 @@ export class ShowPostComponent implements OnInit {
   constructor(
     private forumService: ForumService,
     private userService: UserSessionService,
+    private adminService: AdminSessionService,
     private voteService: VoteService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -52,6 +54,15 @@ export class ShowPostComponent implements OnInit {
         this.userService.currentUser = null;
       }
     );
+    this.adminService.role().subscribe(
+      data => {
+        this.adminService.loggedIn = data.admin;
+      },
+      error => {
+        this.adminService.loggedIn = false;
+      }
+    );
+    this.permittedForControls = this.showPostControls();
   }
   upVote(alreadyVoted: boolean) {
     this.voteService.increaseForumVote(this.forumPost._id, alreadyVoted).subscribe(
@@ -125,6 +136,9 @@ export class ShowPostComponent implements OnInit {
   showPostControls(): boolean {
     if (this.userService.currentUser && this.forumService.interestedPost) {
       if (this.userService.currentUser._id === this.forumService.interestedPost.author) {
+        return true;
+      }
+      if (this.adminService.loggedIn) {
         return true;
       }
     }

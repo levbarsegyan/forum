@@ -26,20 +26,8 @@ export class NewsListComponent implements OnInit {
         }
       },
       error => {
-        console.log("News failed to load");
+        console.log('News failed to load');
       }
     );
-  }
-  checkAdminAccess() {
-    let allow = false;
-    this.adminSessionService.check().subscribe(
-      data => {
-        allow = true;
-      },
-      error => {
-        allow = false;
-      }
-    );
-    return allow;
   }
 }

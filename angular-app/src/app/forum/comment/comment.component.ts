@@ -6,6 +6,7 @@ import { ForumComment } from 'src/app/models/comment.model';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UserSessionService } from 'src/app/user-session/user-session.service';
+import { AdminSessionService } from 'src/app/admin/admin-session/admin-session.service';
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
@@ -16,12 +17,14 @@ export class CommentComponent implements OnInit {
     private forumService: ForumService,
     private snackBar: MatSnackBar,
     private userService: UserSessionService,
+    private adminService: AdminSessionService,
   ) { }
   forumPost: ForumPost;
   forumComments: ForumComment[] = [];
   editToggle = false;
   commentButtonClicked = false;
   targetCommentId: number = null;
+  isAdmin = false;
   currentUser;
   ngOnInit() {
     this.forumPost = this.forumService.interestedPost;
@@ -29,6 +32,14 @@ export class CommentComponent implements OnInit {
       this.currentUser = user;
     });
     this.listComments(this.forumPost.comment);
+    this.adminService.role().subscribe(
+      data => {
+        this.adminService.loggedIn = data.admin;
+      },
+      error => {
+        this.adminService.loggedIn = false;
+      }
+    );
   }
   listComments(comments) {
     comments.forEach(commentId => {
@@ -98,6 +109,9 @@ export class CommentComponent implements OnInit {
   }
   showCommentControls(signedInUser, authorOfComment): boolean {
     if (signedInUser && signedInUser._id === authorOfComment) {
+      return true;
+    }
+    if (this.adminService.loggedIn) {
       return true;
     }
     return false;

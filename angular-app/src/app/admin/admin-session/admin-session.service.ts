@@ -9,44 +9,31 @@ export class AdminSessionService {
   signInUrl = 'http:
   signOutUrl = 'http:
   userUrl = 'http:
-  loggedInUrl = 'http:
   registerUrl = 'http:
   roleUrl = 'http:
   checkUrl = 'http:
-  private loggedIn: boolean;
+  private _loggedIn;
+  public get loggedIn() {
+    return this._loggedIn;
+  }
+  public set loggedIn(value) {
+    this._loggedIn = value;
+  }
+  private httpOptions: any = {
+    observe: 'body',
+    withCredentials: true,
+    headers: new HttpHeaders().append('Content-Type', 'application/json')
+  };
   register(): Observable<any> {
-    return this.http.post<any>(this.registerUrl, {
-      observe: 'body',
-      withCredentials: true,
-      headers: new HttpHeaders().append( 'Content-Type', 'application/json')
-    });
+    return this.http.post<any>(this.registerUrl, this.httpOptions);
   }
   role(): Observable<any> {
-    return this.http.get<any>(this.roleUrl, {
-      observe: 'body',
-      withCredentials: true,
-      headers: new HttpHeaders().append( 'Content-Type', 'application/json')
-    });
+    return this.http.get<any>(this.roleUrl, this.httpOptions);
   }
   check(): Observable<any> {
-    return this.http.get<any>(this.checkUrl, {
-      observe: 'body',
-      withCredentials: true,
-      headers: new HttpHeaders().append( 'Content-Type', 'application/json')
-    });
+    return this.http.get<any>(this.checkUrl, this.httpOptions);
   }
   checkUser(): Observable<any> {
-    return this.http.get<any>(this.userUrl, {
-      observe: 'body',
-      withCredentials: true,
-      headers: new HttpHeaders().append( 'Content-Type', 'application/json')
-    });
-  }
-  loginStatus(): Observable<boolean> {
-    return this.http.get<boolean>(this.loggedInUrl, {
-      observe: 'body',
-      withCredentials: true,
-      headers: new HttpHeaders().append( 'Content-Type', 'application/json')
-    });
+    return this.http.get<any>(this.userUrl);
   }
 }

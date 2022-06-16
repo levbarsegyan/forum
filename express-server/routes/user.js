@@ -117,12 +117,6 @@ router.get('/user', isUserValid, (req, res, next) => {
     else
         res.status(400).json("User is signed out")
 });
-router.get('/delete-user', isUserValid, (req, res, next) => {
-    if (req.user)
-        res.status(200).json(req.user.role);
-    else
-        res.status(400).json("User signed out")
-});
 router.get('/role', isUserValid, (req, res, next) => {
     if (req.user)
         res.status(200).json(req.user.role);

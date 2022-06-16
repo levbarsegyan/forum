@@ -44,7 +44,7 @@ router.post('/create', isUserValid, function (req, res, next) {
     }
 });
 router.post('/delete-post', isUserValid, getPostAuthorId, function (req, res, next) {
-    if (req.user._id.equals(req.originalAuthorId) ) {
+    if (req.user._id.equals(req.originalAuthorId) || req.user.role === 'admin') {
         ForumData.findById(req.body._id).then(
             function (doc, err) {
                 if (err) {
@@ -76,7 +76,7 @@ router.post('/delete-post', isUserValid, getPostAuthorId, function (req, res, ne
     }
 });
 router.post('/edit-post', isUserValid, getPostAuthorId, function (req, res, next) {
-    if (req.user._id.equals(req.originalAuthorId)) {
+    if (req.user._id.equals(req.originalAuthorId) || req.user.role === 'admin') {
         ForumData.findByIdAndUpdate(req.body._id, { content: req.body.content },
             () => {
                 res.json({ message: "Post updated!" });
@@ -97,7 +97,7 @@ router.get('/list', function (req, res, next) {
     );
 });
 router.post('/delete-reply', isUserValid, getCommentAuthorId, function (req, res, next) {
-    if (!req.user || req.user._id.equals(req.originalAuthorId)) {
+    if (!req.user || req.user._id.equals(req.originalAuthorId) || req.user.role === 'admin') {
         CommentData.findByIdAndDelete(req.body.comment._id)
             .then(
                 function (doc, err) {
@@ -137,7 +137,7 @@ router.post('/add-reply', isUserValid, function (req, res, next) {
     res.json({ message: "Comment added! Thank you, " + req.user.username });
 });
 router.post('/edit-reply', isUserValid, getCommentAuthorId, function (req, res, next) {
-    if (req.user._id.equals(req.originalAuthorId)) {
+    if (req.user._id.equals(req.originalAuthorId) || req.user.role === 'admin') {
         CommentData.findByIdAndUpdate(req.body.comment._id, {
             content: req.body.comment.content
         }).catch(
@@ -235,7 +235,7 @@ router.post('/user-voting-info', isUserValid, function (req, res, next) {
             return res.status(400);
         }
         else {
-            res.json({ vote });
+            res.status(200).json({ vote });
         }
     });
 });

@@ -37,24 +37,17 @@ router.get('/role', [isUserValid, isUserAdmin], (req, res, next) => {
     if (req.user)
         res.status(200).json({ admin: true, role: 'admin' });
     else
-        res.status(400).json({ admin: false, role: 'user' });
-});
-router.get('/check-login', [isUserValid, isUserAdmin], (req, res, next) => {
-    if (req.user) {
-        res.status(200).json({ admin: true, message: "User is admin" });
-    }
-    else
-        res.status(400).json({ admin: false, message: "User is user" });
+        res.status(200).json({ admin: false, role: 'user' });
 });
 router.get('/check', isUserValid, (req, res, next) => {
     if (req.user.role === 'user') {
-        res.json(false);
+        res.status(200).json({ result: false });
     }
     else if (req.user.role === 'admin') {
-        res.status(200).json(true);
+        res.status(200).json({ result: true });
     }
     else {
-        res.json(false);
+        res.status(200).json({ result: false });
     }
     next();
 });
