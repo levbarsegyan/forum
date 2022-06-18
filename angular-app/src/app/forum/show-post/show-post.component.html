@@ -5,15 +5,16 @@
       <div class="voting inline-block">
         <div class="vote">
           <div class="uparrow">
-            <span (click)="upVote(false)" *ngIf="!this.voteStatus.voted_up"> &#9650; </span>
-            <span (click)="upVote(true)" *ngIf="this.voteStatus.voted_up" class="green"> &#9650; </span>
+            <span (click)="upVote(false, this.voteStatus.voted_down)" *ngIf="!this.voteStatus.voted_up"> &#9650; </span>
+            <span (click)="upVote(true, false)" *ngIf="this.voteStatus.voted_up" class="green"> &#9650; </span>
           </div>
           <div class="vote-count">
             <span>{{this.forumPost.vote_count}}</span>
           </div>
           <div class="downarrow">
-            <span (click)="downVote(false)" *ngIf="!this.voteStatus.voted_down"> &#9660; </span>
-            <span (click)="downVote(true)" *ngIf="this.voteStatus.voted_down" class="red"> &#9660; </span>
+            <span (click)="downVote(this.voteStatus.voted_up, false)" *ngIf="!this.voteStatus.voted_down"> &#9660;
+            </span>
+            <span (click)="downVote(false, true)" *ngIf="this.voteStatus.voted_down" class="red"> &#9660; </span>
           </div>
         </div>
       </div>

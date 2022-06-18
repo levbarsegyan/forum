@@ -12,7 +12,7 @@ export class AdminSessionService {
   registerUrl = 'http:
   roleUrl = 'http:
   checkUrl = 'http:
-  private _loggedIn;
+  private _loggedIn: boolean;
   public get loggedIn() {
     return this._loggedIn;
   }

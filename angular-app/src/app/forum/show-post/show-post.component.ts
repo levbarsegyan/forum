@@ -64,8 +64,8 @@ export class ShowPostComponent implements OnInit {
     );
     this.permittedForControls = this.showPostControls();
   }
-  upVote(alreadyVoted: boolean) {
-    this.voteService.increaseForumVote(this.forumPost._id, alreadyVoted).subscribe(
+  upVote(alreadyVotedUp: boolean, alreadyVotedDown: boolean) {
+    this.voteService.increaseForumVote(this.forumPost._id, alreadyVotedUp).subscribe(
       data => {
         console.log('I voted up');
       },
@@ -73,11 +73,15 @@ export class ShowPostComponent implements OnInit {
         console.log('error voting');
       }
     );
-    this.voteStatus.voted_up = !alreadyVoted;
-    (alreadyVoted) ? this.forumPost.vote_count -= 1 : this.forumPost.vote_count += 1;
+    this.voteStatus.voted_up = !alreadyVotedUp;
+    (alreadyVotedUp) ? this.forumPost.vote_count -= 1 : this.forumPost.vote_count += 1;
+    if (alreadyVotedDown) {
+      this.forumPost.vote_count += 1;
+      this.voteStatus.voted_down = false;
+    }
   }
-  downVote(alreadyVoted: boolean) {
-    this.voteService.decreaseForumVote(this.forumPost._id, alreadyVoted).subscribe(
+  downVote(alreadyVotedUp: boolean, alreadyVotedDown: boolean) {
+    this.voteService.decreaseForumVote(this.forumPost._id, alreadyVotedDown).subscribe(
       data => {
         console.log('I voted down');
       },
@@ -85,8 +89,12 @@ export class ShowPostComponent implements OnInit {
         console.log('error voting');
       }
     );
-    this.voteStatus.voted_down = !alreadyVoted;
-    (alreadyVoted) ? this.forumPost.vote_count += 1 : this.forumPost.vote_count -= 1;
+    this.voteStatus.voted_down = !alreadyVotedDown;
+    (alreadyVotedDown) ? this.forumPost.vote_count += 1 : this.forumPost.vote_count -= 1;
+    if (alreadyVotedUp) {
+      this.forumPost.vote_count -= 1;
+      this.voteStatus.voted_up = false;
+    }
   }
   checkVoteStatus(postId): Vote {
     return this.voteService.getUserForumVoteStatus(postId);
