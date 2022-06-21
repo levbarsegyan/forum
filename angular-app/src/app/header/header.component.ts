@@ -58,4 +58,7 @@ export class HeaderComponent implements OnInit {
       }
     );
   }
+  dynmapLink() {
+    return window.location.protocol + '
+  }
 }
