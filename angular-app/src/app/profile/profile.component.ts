@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
   user = {
     username: '',
     email: '',
+    creation_date: null,
   };
   allUsers: [];
   ngOnInit() {
@@ -38,6 +39,7 @@ export class ProfileComponent implements OnInit {
     this.userService.checkUser().subscribe(
       user => {
         this.user = user;
+        this.user.creation_date = new Date(user.creation_date);
         if (user._id !== id) {
           this.userService.getUsernameFromID(id).subscribe(
             userData => {

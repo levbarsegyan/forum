@@ -41,13 +41,13 @@ router.get( '/role', [isUserValid, isUserAdmin], ( req, res, next ) => {
 } );
 router.get( '/check', isUserValid, ( req, res, next ) => {
     if ( req.user.role === 'user' ) {
-        res.status( 200 ).json( { result: false } );
+        res.status( 400 ).json( false );
     }
     else if ( req.user.role === 'admin' ) {
-        res.status( 200 ).json( { result: true } );
+        res.status( 200 ).json( true );
     }
     else {
-        res.status( 200 ).json( { result: false } );
+        res.status( 400 ).json( false );
     }
     next();
 } );

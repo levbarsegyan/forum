@@ -19,6 +19,8 @@ export class UserSessionService {
   userInfoUrl = 'http:
   logoutUrl = 'http:
   allUsersUrl = 'http:
+  confirmEmailUrl = 'http:
+  resetPasswordUrl = 'http:
   constructor(private http: HttpClient) { }
   loginRequest(user): Observable<any> {
     return this.http.post<any>(this.signInUrl, user, this.httpOptions);
@@ -37,6 +39,14 @@ export class UserSessionService {
   }
   getAllUsers(): Observable<any> {
     return this.http.get(this.allUsersUrl, this.httpOptions);
+  }
+  confirmUser(id: number, information: number) {
+    const confirmation = { id, information };
+    return this.http.post(this.confirmEmailUrl, { confirmation }, this.httpOptions);
+  }
+  resetPassword(id: number, information: number, password: string) {
+    const payload = { id, information, password };
+    return this.http.post(this.resetPasswordUrl, { payload }, this.httpOptions);
   }
   public get isUserSignedIn(): boolean {
     return this._isUserSignedIn;

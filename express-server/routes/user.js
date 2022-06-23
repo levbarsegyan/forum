@@ -25,12 +25,11 @@ const checkBlacklist = () => {
 router.post('/register', async (req, res, next) => {
     const doesEmailExist = await User.findOne({ email: req.body.email });
     if (doesEmailExist) return res.status(400).send({ error: "User is already registered on this Email Address" });
-    date = Date();
     var user = new User({
         email: req.body.email,
         username: req.body.username,
         password: User.hashPassword(req.body.password),
-        creation_date: date.toString(),
+        creation_date: new Date(),
         confirmed_game: false,
         confirmed_email: false,
         role: "user",

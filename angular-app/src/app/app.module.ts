@@ -36,6 +36,9 @@ import { BasicListComponent } from './admin/news/basic-list/basic-list.component
 import { DonateComponent } from './donate/donate.component';
 import { UserHandlingComponent } from './admin/user-handling/user-handling.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { ConfirmEmailComponent } from './user-session/confirm-email/confirm-email.component';
+import { ResetPasswordComponent } from './user-session/reset-password/reset-password.component';
+import { ConfirmAccountComponent } from './user-session/confirm-account/confirm-account.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -107,6 +110,14 @@ const appRoutes: Routes = [
     component: ProfileComponent,
   },
   {
+    path: 'reset-pass',
+    component: ResetPasswordComponent,
+  },
+  {
+    path: 'confirm',
+    component: ConfirmEmailComponent,
+  },
+  {
     path: 'donate',
     component: DonateComponent,
   },
@@ -141,6 +152,9 @@ const appRoutes: Routes = [
     DonateComponent,
     UserHandlingComponent,
     DashboardComponent,
+    ConfirmEmailComponent,
+    ResetPasswordComponent,
+    ConfirmAccountComponent,
   ],
   imports: [
     BrowserModule,
