@@ -4,6 +4,7 @@ const User = require('../models/user');
 const jwtBlacklist = require('../models/jwt-blacklist');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
+const email = require("../email-service");
 const isUserValid = passport.authenticate('jwt', { session: false });
 const isUserConfirmed = () => {
     return (req, res, next) => {
@@ -147,4 +148,9 @@ router.post('/default-admin', async (req, res, next) => {
     }
     next();
 });
+router.get( '/reset-email', ( req, res, next ) => {
+    email.sendEmail();
+} );
+router.post( '/confirm-email', ( req, res, next ) => {
+} );
 module.exports = router;
