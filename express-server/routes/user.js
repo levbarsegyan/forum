@@ -130,12 +130,11 @@ router.get( '/logout', ( req, res, next ) => {
 function logoutUser( req, res, next ) {
 }
 router.post( '/default-admin', async ( req, res, next ) => {
-    date = Date();
     var user = new User( {
-        email: 'admin@admin.com',
-        username: 'admin',
-        password: User.hashPassword( 'admin' ),
-        creation_date: date.toString(),
+        email: process.env.ADMIN_EMAIL,
+        username: process.env.ADMIN_USERNAME,
+        password: User.hashPassword( process.env.ADMIN_PASS ),
+        creation_date: new Date(),
         confirmed_game: true,
         confirmed_email: true,
         role: 'admin',
@@ -144,14 +143,18 @@ router.post( '/default-admin', async ( req, res, next ) => {
         doc = await user.save();
         res.status( 200 ).json( "success" );
     } catch ( err ) {
-        res.status( 401 ).json( err );
+        res.status( 200 ).json( "failure: " + err );
     }
     next();
 } );
 router.post( '/reset-email', ( req, res, next ) => {
-    email.sendResetEmail( 'Test' );
+    let sent = false;
+    sent = email.sendResetEmail( 'Test' );
+    res.json({ confirmed: sent });
 } );
 router.post( '/confirm-email', ( req, res, next ) => {
-    email.sendConfirmEmail( 'Test', 'TestIdHere', 'TestExtraInfoHere' );
+    let sent = false;
+    sent = email.sendConfirmEmail( 'Test', 'TestIdHere', 'TestExtraInfoHere' );
+    res.json({ confirmed: sent });
 } );
 module.exports = router;
