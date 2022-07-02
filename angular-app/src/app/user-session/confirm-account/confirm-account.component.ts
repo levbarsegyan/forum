@@ -12,6 +12,7 @@ export class ConfirmAccountComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
   ) { }
+  confirmed: boolean;
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.sendImportantInformation(params.id, params.info);

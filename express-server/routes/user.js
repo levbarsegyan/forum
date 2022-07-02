@@ -149,7 +149,7 @@ router.post( '/default-admin', async ( req, res, next ) => {
 } );
 router.post( '/reset-email', ( req, res, next ) => {
     let sent = false;
-    sent = email.sendResetEmail( 'Test' );
+    sent = email.sendResetEmail( 'Test', 'TestId', 'veryImportantExtraInfo' );
     res.json({ confirmed: sent });
 } );
 router.post( '/confirm-email', ( req, res, next ) => {

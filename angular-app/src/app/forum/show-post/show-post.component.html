@@ -28,7 +28,7 @@
           <div class="post-footer">
             <hr>
             <span class="flex footer-item ">
-              <div class="control-links" [hidden]="this.permittedForControls">
+              <div class="control-links" [hidden]="!this.showPostControls()">
                 <a routerLink="/forums/edit/{{forumPost._id}}" routerLinkActive="active"><button mat-button
                     class="control-links">Forum
                     Edit

@@ -27,7 +27,6 @@ export class ShowPostComponent implements OnInit {
   ) { }
   commentButtonClicked = false;
   message: string;
-  permittedForControls = false;
   wasDeleted = false;
   forumPost: ForumPost;
   postAuthor: string;
@@ -62,7 +61,6 @@ export class ShowPostComponent implements OnInit {
         this.adminService.loggedIn = false;
       }
     );
-    this.permittedForControls = this.showPostControls();
   }
   upVote(alreadyVotedUp: boolean, alreadyVotedDown: boolean) {
     this.voteService.increaseForumVote(this.forumPost._id, alreadyVotedUp).subscribe(

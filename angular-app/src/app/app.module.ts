@@ -110,12 +110,16 @@ const appRoutes: Routes = [
     component: ProfileComponent,
   },
   {
-    path: 'reset-pass',
+    path: 'reset-pass/:id/:info',
     component: ResetPasswordComponent,
   },
   {
     path: 'confirm',
     component: ConfirmEmailComponent,
+  },
+  {
+    path: 'confirm/:id/:info',
+    component: ConfirmAccountComponent,
   },
   {
     path: 'donate',
