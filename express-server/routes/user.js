@@ -9,9 +9,9 @@ const isUserValid = passport.authenticate( 'jwt', { session: false } );
 const isUserConfirmed = () => {
     return ( req, res, next ) => {
         if ( !req.user.confirmed_email ) {
-            res.status( 400 ).json( { message: "You must confirm your email account by clicking the link emailed to you, on the account provided when signing up" } );
+            res.status( 200 ).json( { message: "You must confirm your email account by clicking the link emailed to you, on the account provided when signing up" } );
         } else if ( !req.user.confirmed_game ) {
-            res.status( 400 ).json( { message: "You must confirm your in-game name by typing /register in minecraft and clicking the link. Open it in the browser you are signed in on." } );
+            res.status( 200 ).json( { message: "You must confirm your in-game name by typing /register in minecraft and clicking the link. Open it in the browser you are signed in on." } );
         }
         else {
             next();
@@ -30,6 +30,7 @@ router.post( '/register', async ( req, res, next ) => {
         email: req.body.email,
         username: req.body.username,
         password: User.hashPassword( req.body.password ),
+        extra_info: User.hashPassword( req.body.email ),
         creation_date: new Date(),
         confirmed_game: false,
         confirmed_email: false,
@@ -37,6 +38,7 @@ router.post( '/register', async ( req, res, next ) => {
     } );
     try {
         doc = await user.save();
+        email.sendConfirmEmail( doc.email, doc._id, doc.extra_info );
         return res.status( 201 ).json( doc );
     } catch ( err ) {
         res.status( 401 ).json( err );
@@ -134,6 +136,7 @@ router.post( '/default-admin', async ( req, res, next ) => {
         email: process.env.ADMIN_EMAIL,
         username: process.env.ADMIN_USERNAME,
         password: User.hashPassword( process.env.ADMIN_PASS ),
+        password: User.hashPassword( process.env.ADMIN_EMAIL ),
         creation_date: new Date(),
         confirmed_game: true,
         confirmed_email: true,
@@ -148,13 +151,35 @@ router.post( '/default-admin', async ( req, res, next ) => {
     next();
 } );
 router.post( '/reset-email', ( req, res, next ) => {
-    let sent = false;
-    sent = email.sendResetEmail( 'Test', 'TestId', 'veryImportantExtraInfo' );
-    res.json({ confirmed: sent });
+    let target = req.body.payload.email;
+    let targetId; 
+    let extra; 
+    User.findOneAndUpdate({ email: target, banned: false }, {allow_reset: true}, (err, doc, res) => {
+        if (err) {
+            res.json({ message: 'Cannot find user with that email address' })
+        } else {
+            targetId = doc._id;
+            extra = doc.extra_info;
+            email.sendResetEmail(target, targetId, extra);
+            res.json({ message: 'Email sent to ' + target + ' \nCheck inbox and spam folder for the reset email.' })
+        }
+    });
+} );
+router.post( '/reset-pass', ( req, res, next ) => {
+    let newPassword = req.body.payload.password;
+    let id = req.body.payload.id;
+    let extraInfo = req.body.payload.information;
+    User.findOneAndUpdate({ _id: id, banned: false, extra_info: extraInfo }, { allow_reset: false, password: User.hashPassword(newPassword) },
+        (err, doc, res) => {
+        if (err) {
+            res.json({ message: 'Unable to change user password, sorry' })
+        } else {
+            res.json({ message: 'Password reset' })
+        }
+    });
 } );
 router.post( '/confirm-email', ( req, res, next ) => {
-    let sent = false;
-    sent = email.sendConfirmEmail( 'Test', 'TestIdHere', 'TestExtraInfoHere' );
-    res.json({ confirmed: sent });
+    let id = req.body.payload.id;
+    let extra = req.body.payload.extra;
 } );
 module.exports = router;

@@ -39,6 +39,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { ConfirmEmailComponent } from './user-session/confirm-email/confirm-email.component';
 import { ResetPasswordComponent } from './user-session/reset-password/reset-password.component';
 import { ConfirmAccountComponent } from './user-session/confirm-account/confirm-account.component';
+import { ResetSubmissionComponent } from './user-session/reset-submission/reset-submission.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -159,6 +160,7 @@ const appRoutes: Routes = [
     ConfirmEmailComponent,
     ResetPasswordComponent,
     ConfirmAccountComponent,
+    ResetSubmissionComponent,
   ],
   imports: [
     BrowserModule,

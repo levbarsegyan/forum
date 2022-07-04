@@ -26,6 +26,11 @@
         mat-raised-button
         color="primary"
         type=submit>SIGN IN</button>
+        <button
+        mat-button
+        color="primary" (click)="resetPassword()"
+        >Forgot password</button>
+        <br><br>
         <span class="warning">{{ warning }}</span>
       </div>
     </form>

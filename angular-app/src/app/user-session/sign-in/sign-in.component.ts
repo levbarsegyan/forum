@@ -34,4 +34,7 @@ export class SignInComponent implements OnInit {
       }
     );
   }
+  resetPassword() {
+    this.routerMove.navigate(['/reset-submission']);
+  }
 }

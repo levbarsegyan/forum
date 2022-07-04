@@ -8,6 +8,8 @@ var schema = new Schema({
     username: { type: String, require: true },
     password: { type: String, require: true },
     creation_date: { type: Date, require: true },
+    extra_info: { type: String, required: true },
+    allow_reset: { type: String, required: true, default: false },
     confirmed_game: { type: Boolean, required: true, default: false },
     confirmed_email: { type: Boolean, required: true, default: false },
     role: { type: String, required: false, default: 'user' },
