@@ -41,11 +41,10 @@ export class SignUpComponent implements OnInit {
     };
     this.userSessionService.registerRequest(this.user).subscribe(
       data => {
-        console.log(data);
-        this.router.navigate(['/']);
+        this.router.navigate(['/confirm']);
       },
       error => {
-        this.openSnackBar('This user is already registered... I think', 'Close');
+        this.openSnackBar('This user is already registered.', 'Close');
         console.log(error);
       }
     );

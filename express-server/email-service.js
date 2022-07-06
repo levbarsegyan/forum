@@ -5,14 +5,10 @@ const emailHeader = ''
 const linkStart = 'http:
 const fromAddress = '"' + process.env.EMAIL_USERNAME + '" <' + process.env.EMAIL_ACCOUNT + '>';
 const transporter = nodemailer.createTransport( {
-    service: 'gmail',
+    host: 'smtp.gmail.com',
     auth: {
-        type: 'OAuth2',
         user: process.env.EMAIL_ACCOUNT,
-        clientId: process.env.EMAIL_CLIENT_ID,
-        clientSecret: process.env.EMAIL_SECRET,
-        refreshToken: process.env.EMAIL_REFRESH_TOKEN,
-        accessToken: process.env.EMAIL_ACCESS_TOKEN,
+        pass: process.env.EMAIL_PASS,
     }
 } );
 const sendEmail = async ( targetAddress, subject, textPlain, textHTML ) => {

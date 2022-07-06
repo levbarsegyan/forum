@@ -111,6 +111,10 @@ const appRoutes: Routes = [
     component: ProfileComponent,
   },
   {
+    path: 'reset-submission',
+    component: ResetSubmissionComponent,
+  },
+  {
     path: 'reset-pass/:id/:info',
     component: ResetPasswordComponent,
   },

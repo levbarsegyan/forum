@@ -32,7 +32,8 @@
     </mat-form-field>
     <button
     mat-raised-button
+    [disabled]="signUpForm.invalid"
     color="primary"
     type=submit>SIGN UP</button>
-  </form>
+  </form><br>
 </mat-card>

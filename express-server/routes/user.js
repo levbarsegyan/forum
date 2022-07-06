@@ -25,7 +25,7 @@ const checkBlacklist = () => {
 }
 router.post( '/register', async ( req, res, next ) => {
     const doesEmailExist = await User.findOne( { email: req.body.email } );
-    if ( doesEmailExist ) return res.status( 400 ).send( { error: "User is already registered on this Email Address" } );
+    if ( doesEmailExist ) return res.status( 400 ).send( { reply: "User is already registered on this Email Address" } );
     var user = new User( {
         email: req.body.email,
         username: req.body.username,
@@ -38,8 +38,8 @@ router.post( '/register', async ( req, res, next ) => {
     } );
     try {
         doc = await user.save();
-        email.sendConfirmEmail( doc.email, doc._id, doc.extra_info );
-        return res.status( 201 ).json( doc );
+        const success = email.sendConfirmEmail( doc.email, doc._id, doc.extra_info );
+        return res.status( 201 ).json( success );
     } catch ( err ) {
         res.status( 401 ).json( err );
     }
@@ -113,6 +113,7 @@ router.get( '/user', isUserValid, ( req, res, next ) => {
             email: req.user.email,
             username: req.user.username,
             creation_date: req.user.creation_date,
+            confirmed: req.user.confirmed_email,
         };
         res.status( 200 ).json( userInformation );
     }
@@ -151,25 +152,26 @@ router.post( '/default-admin', async ( req, res, next ) => {
     next();
 } );
 router.post( '/reset-email', ( req, res, next ) => {
-    let target = req.body.payload.email;
+    let targetEmail = req.body.payload.email;
     let targetId; 
     let extra; 
-    User.findOneAndUpdate({ email: target, banned: false }, {allow_reset: true}, (err, doc, res) => {
+    User.findOneAndUpdate({ email: targetEmail, banned: false }, {allow_reset: true}, (err, doc, res) => {
         if (err) {
             res.json({ message: 'Cannot find user with that email address' })
         } else {
             targetId = doc._id;
             extra = doc.extra_info;
-            email.sendResetEmail(target, targetId, extra);
-            res.json({ message: 'Email sent to ' + target + ' \nCheck inbox and spam folder for the reset email.' })
+            email.sendResetEmail(targetEmail, targetId, extra);
+            res.json({ message: 'Email sent to ' + targetEmail + ' \nCheck inbox and spam folder for the reset email.' })
         }
     });
 } );
 router.post( '/reset-pass', ( req, res, next ) => {
     let newPassword = req.body.payload.password;
-    let id = req.body.payload.id;
+    let userId = req.body.payload.id;
     let extraInfo = req.body.payload.information;
-    User.findOneAndUpdate({ _id: id, banned: false, extra_info: extraInfo }, { allow_reset: false, password: User.hashPassword(newPassword) },
+    User.findOneAndUpdate({ _id: userId, banned: false, extra_info: extraInfo },
+        { allow_reset: false, password: User.hashPassword(newPassword) },
         (err, doc, res) => {
         if (err) {
             res.json({ message: 'Unable to change user password, sorry' })
@@ -181,5 +183,13 @@ router.post( '/reset-pass', ( req, res, next ) => {
 router.post( '/confirm-email', ( req, res, next ) => {
     let id = req.body.payload.id;
     let extra = req.body.payload.extra;
+    User.findOneAndUpdate({ _id: id, banned: false, extra_info: extra }, { confirmed_email: true },
+        (err, doc, result) => {
+        if (err) {
+            res.json({accepted: false, reply: 'Unable to confirm account email address, sorry' })
+        } else {
+            res.json({accepted: true, reply: 'Your account\'s email address has been confirmed' })
+        }
+    });
 } );
 module.exports = router;

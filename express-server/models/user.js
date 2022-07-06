@@ -13,7 +13,7 @@ var schema = new Schema({
     confirmed_game: { type: Boolean, required: true, default: false },
     confirmed_email: { type: Boolean, required: true, default: false },
     role: { type: String, required: false, default: 'user' },
-    banned: { type: Boolean, required: false, default: false },
+    banned: { type: Boolean, required: true, default: false },
 });
 schema.statics.hashPassword = function hashPassword(password) {
     var saltOrRounds = +process.env.SALTORROUNDS;

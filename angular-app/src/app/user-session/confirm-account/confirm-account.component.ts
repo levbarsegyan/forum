@@ -12,19 +12,20 @@ export class ConfirmAccountComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
   ) { }
+  message = '';
   confirmed: boolean;
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.sendImportantInformation(params.id, params.info);
     });
   }
-  sendImportantInformation(id: number, extraInfo: number) {
+  sendImportantInformation(id: number, extraInfo: string) {
     this.userService.confirmUser(id, extraInfo).subscribe(
       data => {
-        if (true) {
-          this.router.navigate(['/']);
+        if (data.accepted) {
+          console.log(data.reply);
         } else {
-          this.displayError('Problem confirming data with server.');
+          this.displayError(data.reply);
         }
       },
       error => {
@@ -33,5 +34,6 @@ export class ConfirmAccountComponent implements OnInit {
     );
   }
   displayError(message: string) {
+    this.message = message;
   }
 }

@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
     username: '',
     email: '',
     creation_date: null,
+    confirmed: null,
   };
   allUsers: [];
   ngOnInit() {
