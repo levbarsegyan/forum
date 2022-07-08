@@ -16,12 +16,13 @@ export class ConfirmAccountComponent implements OnInit {
   confirmed: boolean;
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.sendImportantInformation(params.id, params.info);
+      this.sendImportantInformation(params.id);
     });
   }
-  sendImportantInformation(id: number, extraInfo: string) {
-    this.userService.confirmUser(id, extraInfo).subscribe(
+  sendImportantInformation(id: number ) {
+    this.userService.confirmUser(id).subscribe(
       data => {
+        this.confirmed = data.accepted;
         if (data.accepted) {
           console.log(data.reply);
         } else {

@@ -182,13 +182,12 @@ router.post( '/reset-pass', ( req, res, next ) => {
 } );
 router.post( '/confirm-email', ( req, res, next ) => {
     let id = req.body.payload.id;
-    let extra = req.body.payload.extra;
-    User.findOneAndUpdate({ _id: id, banned: false, extra_info: extra }, { confirmed_email: true },
+    User.findOneAndUpdate({ _id: id, banned: false }, { confirmed_email: true },
         (err, doc, result) => {
         if (err) {
-            res.json({accepted: false, reply: 'Unable to confirm account email address, sorry' })
+            res.status(401).send({ accepted: false, reply: 'Unable to confirm account email address, sorry' });
         } else {
-            res.json({accepted: true, reply: 'Your account\'s email address has been confirmed' })
+            res.status(200).send({ accepted: true, reply: 'Your account\'s email address has been confirmed' });
         }
     });
 } );

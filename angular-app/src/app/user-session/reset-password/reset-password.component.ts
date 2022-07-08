@@ -14,7 +14,7 @@ export class ResetPasswordComponent implements OnInit {
     private router: Router,
   ) { }
   id: number;
-  extraInfo: number;
+  extraInfo: string;
   displayWarning: string;
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {

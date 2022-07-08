@@ -41,9 +41,9 @@ export class UserSessionService {
   getAllUsers(): Observable<any> {
     return this.http.get(this.allUsersUrl, this.httpOptions);
   }
-  confirmUser(id: number, information: string) {
-    const payload = { id, information };
-    return this.http.post(this.confirmEmailUrl, { payload }, this.httpOptions);
+  confirmUser(id: number): Observable<any> {
+    const payload = { id };
+    return this.http.post<any>(this.confirmEmailUrl, { payload }, this.httpOptions);
   }
   resetPassword(id: number, information: string, password: string) {
     const payload = { id, information, password };
