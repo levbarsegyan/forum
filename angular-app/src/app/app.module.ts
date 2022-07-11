@@ -123,7 +123,7 @@ const appRoutes: Routes = [
     component: ConfirmEmailComponent,
   },
   {
-    path: 'confirm/:id/:info',
+    path: 'confirm-account/:id/:info',
     component: ConfirmAccountComponent,
   },
   {

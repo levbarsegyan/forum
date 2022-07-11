@@ -25,6 +25,9 @@ export class ConfirmAccountComponent implements OnInit {
         this.confirmed = data.accepted;
         if (data.accepted) {
           console.log(data.reply);
+          setTimeout(() => {
+              this.router.navigate(['/sign-in']);
+          }, 5000);
         } else {
           this.displayError(data.reply);
         }

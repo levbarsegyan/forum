@@ -14,26 +14,38 @@ export class ResetPasswordComponent implements OnInit {
     private router: Router,
   ) { }
   id: number;
-  extraInfo: string;
+  success: string;
   displayWarning: string;
+  username: string;
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.id = params.id;
-      this.extraInfo = params.info;
     });
+    this.userService.getUsernameFromID(this.id).subscribe(
+      data => {
+        this.username = data.user.username;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
   sendNewPassword(form: NgForm) {
     if (form.value.enteredPassword1 === form.value.enteredPassword2 && form.value.enteredPassword1 !== '') {
-      this.userService.resetPassword(this.id, this.extraInfo, form.value.enteredPassword1).subscribe(
+      this.userService.resetPassword(this.id, form.value.enteredTempCode, form.value.enteredPassword1).subscribe(
         data => {
-          if (true) {
-            this.router.navigate(['/']);
+          if (data.accepted) {
+            this.success = 'Password reset successfully. Redirecting to log in';
+            this.displayError('');
+            setTimeout(() => {
+              this.router.navigate(['/sign-in']);
+            }, 4000);
           } else {
-            this.displayError('Problem confirming data with server.');
+            this.displayError(data.message);
           }
         },
         error => {
-          this.displayError('Problem confirming data with server.');
+          this.displayError(error.error.message);
         }
       );
     } else {

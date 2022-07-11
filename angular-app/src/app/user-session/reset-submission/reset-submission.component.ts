@@ -10,6 +10,7 @@ export class ResetSubmissionComponent implements OnInit {
   constructor(
     private userService: UserSessionService,
   ) { }
+  private emailRegExp: RegExp = this.userService.emailRegExp;
   warning = '';
   information = '';
   ngOnInit() {
@@ -18,8 +19,10 @@ export class ResetSubmissionComponent implements OnInit {
     const email = form.value.enteredEmail;
     if (form.invalid) {
       this.displayWarning('Please enter your email address ');
-    } else if (form.invalid) {
-      this.displayWarning('Form doesn\'t have a correctly formatted email address.');
+    } else if (!this.emailRegExp.test(email)) {
+      this.displayWarning('This email address isn\'t correctly formatted.Please check it and try again.');
+    } else if (this.checkIfEmailExists(email)) {
+      this.displayWarning('Cannot find an account with that email address, are you sure its correct?');
     } else {
       this.userService.resetSubmission(email).subscribe(
         data => {
@@ -30,6 +33,17 @@ export class ResetSubmissionComponent implements OnInit {
         }
       );
     }
+  }
+  checkIfEmailExists(email: string): boolean {
+    let found: boolean;
+    this.userService.checkEmail(email).subscribe(
+      data => {
+        found = data.found;
+        this.displaySuccess('Email address found... sending...');
+      },
+      error => { found = false; }
+    );
+    return found;
   }
   displayWarning(message: string) {
     this.warning = message;

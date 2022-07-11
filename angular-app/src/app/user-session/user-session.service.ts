@@ -8,6 +8,7 @@ import { User } from '../models/user.model';
 export class UserSessionService {
   private _isUserSignedIn = false;
   private _user: User;
+  private _emailRegExp: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   private httpOptions: any = {
     headers: new HttpHeaders().append('Content-Type', 'application/json'),
     observe: 'body',
@@ -17,6 +18,7 @@ export class UserSessionService {
   registerUrl = 'http:
   userUrl = 'http:
   userInfoUrl = 'http:
+  checkForEmailUrl = 'http:
   logoutUrl = 'http:
   allUsersUrl = 'http:
   confirmEmailUrl = 'http:
@@ -41,17 +43,21 @@ export class UserSessionService {
   getAllUsers(): Observable<any> {
     return this.http.get(this.allUsersUrl, this.httpOptions);
   }
+  checkEmail(email: string): Observable<any> {
+    const payload = { email };
+    return this.http.post<any>(this.checkForEmailUrl, { payload }, this.httpOptions);
+  }
   confirmUser(id: number): Observable<any> {
     const payload = { id };
     return this.http.post<any>(this.confirmEmailUrl, { payload }, this.httpOptions);
   }
-  resetPassword(id: number, information: string, password: string) {
+  resetPassword(id: number, information: string, password: string): Observable<any> {
     const payload = { id, information, password };
-    return this.http.post(this.resetPasswordUrl, { payload }, this.httpOptions);
+    return this.http.post<any>(this.resetPasswordUrl, { payload }, this.httpOptions);
   }
-  resetSubmission(email: string) {
+  resetSubmission(email: string): Observable<any> {
     const payload = { email };
-    return this.http.post(this.resetPassSubmissionUrl, { payload }, this.httpOptions);
+    return this.http.post<any>(this.resetPassSubmissionUrl, { payload }, this.httpOptions);
   }
   public get isUserSignedIn(): boolean {
     return this._isUserSignedIn;
@@ -64,5 +70,8 @@ export class UserSessionService {
   }
   public set currentUser(value: User) {
     this._user = value;
+  }
+  public get emailRegExp() {
+    return this._emailRegExp;
   }
 }

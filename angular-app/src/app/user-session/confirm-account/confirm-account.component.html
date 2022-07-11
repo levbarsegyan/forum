@@ -5,9 +5,9 @@
   </mat-card-title>
   <mat-card-content>
     <ng-container *ngIf="this.confirmed; else elseTemplate">
-      <p>
-        Your account is confirmed
-      </p>
+      <h2>
+        Your account has been confirmed!
+      </h2>
     </ng-container>
     <ng-template #elseTemplate>
       <p class="warning">
