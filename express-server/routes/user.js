@@ -54,6 +54,9 @@ router.post( '/login', ( req, res, next ) => {
         else if ( user.banned ) {
             return res.status( 400 ).json( { message: 'User is banned' } );
         }
+        else if ( !user.confirmed_email ) {
+            return res.status( 400 ).json( { message: 'You have not confirmed your email address' } );
+        }
         else {
             var token = jwt.sign( { id: user._id }, process.env.SECRET, {
                 expiresIn: 10000

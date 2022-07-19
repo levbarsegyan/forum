@@ -6,13 +6,22 @@ body {
   background-position: center;
   margin: 0;
 }
-mat-card-title, mat-card-header {
+p, li{
+  font-size: 11pt;
+}
+mat-card-title, mat-card-header{
   width: 100%;
   margin: 0;
   padding: 0;
-  color: green;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-weight: bold;
+}
+h1, h2, h3, h4, h5, h6 {
+  color: #1B5E20;
+}
+mat-card-title>h1, mat-card-title>h2, mat-card-title>h3, mat-card-title>h4, mat-card-title>h5, mat-card-title>h6,
+mat-card-header>h1, mat-card-header>h2,mat-card-header>h3,mat-card-header>h4,mat-card-header>h5,mat-card-header>h6{
+  color: #1B5E20;
 }
 mat-card{
   display: block;
@@ -26,10 +35,10 @@ a{
 hr {
   border: 0;
   height: 2px;
-  background: green;
+  background: #1B5E20;
 }
 .control-links {
-  color: dimgray;
+  color: #424242;
 }
 .inline-block {
   display: inline-block;
@@ -41,10 +50,10 @@ hr {
 .uparrow .downarrow {
 }
 .uparrow:hover {
-  color: green;
+  color: #1B5E20;
 }
 .downarrow:hover {
-  color: red;
+  color: #c62828;
 }
-.red { color: red; }
-.green { color: green; }
+.red { color:#c62828; }
+.green { color:#1B5E20; }

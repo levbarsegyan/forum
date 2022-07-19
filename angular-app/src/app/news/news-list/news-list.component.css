@@ -10,10 +10,14 @@ mat-card-content{
 }
 .display-title {
   text-align: left;
-  width: 50%;
+  width: 100%;
+  display: inline-flex;
+  margin: auto;
 }
 .display-date {
-  width: 50%;
+  display: inline-flex;
+  width: 100%;
   text-align: right;
-  bottom: 0;
+  font-size: 11pt;
+  margin: auto;
 }

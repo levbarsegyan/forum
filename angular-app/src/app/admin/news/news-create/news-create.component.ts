@@ -26,7 +26,7 @@ export class NewsCreateComponent implements OnInit {
     this.newsPost = {
       title: form.value.enteredTitle,
       content: contentHtml,
-      author: this.getAuthor(),
+      author: 'Admin',
       date: new Date(),
     };
     let sent: boolean;
@@ -45,9 +45,6 @@ export class NewsCreateComponent implements OnInit {
     if (sent) {
       this.router.navigate(['/']);
     }
-  }
-  getAuthor() {
-    return 'Admin';
   }
   openSnackBar(message: string) {
     this.snackBar.open(message, 'Okay', {
