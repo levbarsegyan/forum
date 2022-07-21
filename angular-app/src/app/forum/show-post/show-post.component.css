@@ -43,10 +43,10 @@ mat-expansion-panel {
 .author {
   font-family: sans-serif;
   font-weight: bold;
-  font-size: 10pt;
+  font-size: 12pt;
 }
 .footer-credit {
-  font-size: 9pt;
+  font-size: 10pt;
   font-family: monospace;
   width: 70%;
   text-align: end;
@@ -63,4 +63,8 @@ mat-expansion-panel {
 .post {
   width: 94%;
   margin: auto;
+}
+img {
+  max-width: 100%;
+  max-height: 100%;
 }

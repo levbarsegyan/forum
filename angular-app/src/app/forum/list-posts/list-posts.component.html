@@ -16,13 +16,17 @@
   <div class="voting inline-block">
     <div class="vote">
       <div class="uparrow">
-        <span (click)="upVote(post._id)" > &#9650; </span>
+        <span (click)="upVote(post, false, post.vote_status.voted_down)" *ngIf="!(post.vote_status.voted_up)"> &#9650;
+        </span>
+        <span (click)="upVote(post, true, false)" *ngIf="post.vote_status.voted_up" class="green"> &#9650; </span>
       </div>
       <div class="vote-count">
         <span>{{post.vote_count}}</span>
       </div>
       <div class="downarrow">
-        <span (click)="downVote(post._id)"> &#9660; </span>
+        <span (click)="downVote(post, post.vote_status.voted_up, false)" *ngIf="!post.vote_status.voted_down"> &#9660;
+        </span>
+        <span (click)="downVote(post, false, true)" *ngIf="post.vote_status.voted_down" class="red"> &#9660; </span>
       </div>
     </div>
   </div>

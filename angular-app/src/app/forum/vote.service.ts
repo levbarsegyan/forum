@@ -50,8 +50,12 @@ export class VoteService {
       };
       this.getForumVoteStatusFromBackend(forumId).subscribe(
         data => {
-          currentVoteStatus.voted_up = data.vote.voted_up;
-          currentVoteStatus.voted_down = data.vote.voted_down;
+          if (data.vote.voted_up != null) {
+            currentVoteStatus.voted_up = data.vote.voted_up;
+          }
+          if (data.vote.voted_down != null) {
+            currentVoteStatus.voted_down = data.vote.voted_down;
+          }
         },
         error => {
           console.log(error);
