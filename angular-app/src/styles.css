@@ -50,10 +50,10 @@ hr {
 .uparrow .downarrow {
 }
 .uparrow:hover {
-  color: #1B5E20;
+  color: green;
 }
 .downarrow:hover {
   color: #c62828;
 }
 .red { color:#c62828; }
-.green { color:#1B5E20; }
+.green { color: green; }

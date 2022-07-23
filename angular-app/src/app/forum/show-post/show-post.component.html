@@ -24,7 +24,10 @@
         </mat-card-title>
         <hr>
         <mat-card-content class="content">
-          <p class="post-content" [innerHTML]="this.forumPost.content"></p>
+          <div class="post-content">
+            <div [innerHTML]="this.forumPost.content">
+            </div>
+          </div>
           <div class="post-footer">
             <hr>
             <span class="flex footer-item ">

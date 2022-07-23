@@ -41,13 +41,14 @@ export class VoteService {
   }
   getUserForumVoteStatus(forumId: number): Vote {
     let currentVoteStatus: Vote;
+    currentVoteStatus = {
+      forum_id: forumId,
+      voted_up: false,
+      voted_down: false,
+      author_id: 0,
+    };
     if (this.userService.currentUser) {
-      currentVoteStatus = {
-        forum_id: forumId,
-        voted_up: false,
-        voted_down: false,
-        author_id: this.userService.currentUser._id,
-      };
+      currentVoteStatus.author_id = this.userService.currentUser._id;
       this.getForumVoteStatusFromBackend(forumId).subscribe(
         data => {
           if (data.vote.voted_up != null) {

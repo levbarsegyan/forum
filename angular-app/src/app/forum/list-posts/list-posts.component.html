@@ -35,7 +35,9 @@
       <h3 [innerText]="post.title"></h3>
     </mat-card-title>
     <mat-card-content>
-      <p [innerHTML]="post.content"></p>
+      <div class="post-content">
+        <div [innerHTML]="post.content"> </div>
+      </div>
       <hr />
       <h4 class="author-area"> Created by
         <span class="author-name">

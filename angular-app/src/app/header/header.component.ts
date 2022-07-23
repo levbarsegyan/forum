@@ -10,7 +10,7 @@ import { AdminSessionService } from '../admin/admin-session/admin-session.servic
 })
 export class HeaderComponent implements OnInit {
   user = {
-    _id: '',
+    _id: 0,
     username: '',
   };
   constructor(
@@ -21,9 +21,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.userService.checkUser().subscribe(
       data => {
-        this.user._id = data._id;
-        this.user.username = data.username;
+        this.userService.currentUser = data;
         this.userService.isUserSignedIn = true;
+        this.user._id = this.userService.currentUser._id;
+        this.user.username = this.userService.currentUser.username;
       },
       error => {
         console.log(error);

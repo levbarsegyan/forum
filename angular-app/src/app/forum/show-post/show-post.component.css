@@ -64,7 +64,10 @@ mat-expansion-panel {
   width: 94%;
   margin: auto;
 }
-img {
-  max-width: 100%;
-  max-height: 100%;
+.post-content {
+  width: 100%;
+  height: auto;
+}
+.post-content div {
+  overflow-y: auto;
 }

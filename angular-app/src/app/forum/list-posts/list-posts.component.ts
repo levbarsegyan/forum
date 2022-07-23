@@ -23,12 +23,12 @@ export class ListPostsComponent implements OnInit {
   userSignedIn = false;
   ngOnInit() {
     this.userService.checkUser().subscribe(
-      user => {
-        this.userService.currentUser = user;
+      data => {
+        this.userService.currentUser = data;
       },
       error => {
-        console.log(error.message);
         this.userService.currentUser = null;
+        console.log(error);
       }
     );
     this.forumService.listAllForumPost().subscribe(
