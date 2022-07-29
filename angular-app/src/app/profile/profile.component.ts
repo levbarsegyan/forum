@@ -37,20 +37,20 @@ export class ProfileComponent implements OnInit {
     );
   }
   getUserProfile(id: number) {
+    this.userService.getUsernameFromID(id).subscribe(
+      userData => {
+        this.user = userData.user;
+      },
+      error => {
+        console.log(error.error.message);
+      }
+    );
     this.userService.checkUser().subscribe(
       user => {
-        this.user = user;
-        this.user.creation_date = new Date(user.creation_date);
-        if (user._id !== id) {
-          this.userService.getUsernameFromID(id).subscribe(
-            userData => {
-              console.log(userData);
-              this.user = userData.user;
-            },
-            error => {
-              console.log(error);
-            }
-          );
+        this.userService.currentUser = user;
+        if (this.userService.currentUser._id === id) {
+          this.user = user;
+          this.user.creation_date = new Date(this.user.creation_date);
         }
       },
       error => {
