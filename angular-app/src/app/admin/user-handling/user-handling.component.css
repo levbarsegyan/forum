@@ -5,6 +5,7 @@
   display: block;
   margin: auto;
   padding: auto;
+  width: 60%;
 }
 mat-card-title {
   padding: 0;

@@ -104,6 +104,10 @@ const appRoutes: Routes = [
         path: 'edit-news/:id',
         component: NewsUpdateComponent,
       },
+      {
+        path: 'user-handling',
+        component: UserHandlingComponent,
+      }
     ]
   },
   {
