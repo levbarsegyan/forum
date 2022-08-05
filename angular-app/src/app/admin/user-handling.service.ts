@@ -12,7 +12,6 @@ export class UserHandlingService {
   listBannedUsersUrl = 'http:
   banUserUrl = 'http:
   unbanUserUrl = 'http:
-  promoteUserUrl = 'http:
   private httpOptions: any = {
     observe: 'body',
     withCredentials: true,
@@ -20,18 +19,16 @@ export class UserHandlingService {
   };
   banUser(userId: number): Observable<any> {
     const ban = { _id: userId };
-    return this.http.post(this.banUserUrl, {ban}, this.httpOptions);
+    return this.http.post(this.banUserUrl, { ban }, this.httpOptions);
   }
   unbanUser(userId: number): Observable<any> {
     const unban = { _id: userId };
-    return this.http.post(this.unbanUserUrl, {unban}, this.httpOptions);
+    return this.http.post(this.unbanUserUrl, { unban }, this.httpOptions);
   }
   getUserList(): Observable<any> {
     return this.http.get(this.listAllUsersUrl, this.httpOptions);
   }
   getBannedUserList(): Observable<any> {
     return this.http.get(this.listBannedUsersUrl, this.httpOptions);
-  }
-  promoteUser(userId: number, promotion: string) {
   }
 }

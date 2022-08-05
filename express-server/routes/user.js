@@ -156,61 +156,61 @@ router.post( '/default-admin', async ( req, res, next ) => {
 } );
 router.post( '/check-email', ( req, res, next ) => {
     let targetEmail = req.body.payload.email;
-    User.findOne({ email: targetEmail, banned: false }, (err, doc) => {
-        if (err) {
-            res.status(200).json({ found: false })
+    User.findOne( { email: targetEmail, banned: false }, ( err, doc ) => {
+        if ( err ) {
+            res.status( 200 ).json( { found: false } )
         } else {
-            res.status(200).json({ found: true })
+            res.status( 200 ).json( { found: true } )
         }
-    });
+    } );
 } );
 router.post( '/reset-email', ( req, res, next ) => {
     let targetEmail = req.body.payload.email;
-    let targetId; 
-    let extra; 
-    User.findOneAndUpdate({ email: targetEmail, banned: false }, {allow_reset: true}, (err, doc, result) => {
-        if (err) {
-            res.status(200).json({ message: 'Cannot find user with that email address' })
+    let targetId;
+    let extra;
+    User.findOneAndUpdate( { email: targetEmail, banned: false }, { allow_reset: true }, ( err, doc, result ) => {
+        if ( err ) {
+            res.status( 200 ).json( { message: 'Cannot find user with that email address' } )
         } else {
             targetId = doc._id;
             extra = doc.extra_info;
-            email.sendResetEmail(targetEmail, targetId, extra);
-            res.status(200).json({ message: 'Email sent to ' + targetEmail + ' \nCheck inbox and spam folder for the reset email.' })
+            email.sendResetEmail( targetEmail, targetId, extra );
+            res.status( 200 ).json( { message: 'Email sent to ' + targetEmail + ' \nCheck inbox and spam folder for the reset email.' } )
         }
-    });
+    } );
 } );
 router.post( '/reset-pass', ( req, res, next ) => {
     let newPassword = req.body.payload.password;
     let userId = req.body.payload.id;
     let extraInfo = req.body.payload.information;
-    User.findById(userId, (error, document) => {
-        if (document.extra_info === extraInfo) {
-            User.findOneAndUpdate({ _id: userId, banned: false },
-                { allow_reset: false, password: User.hashPassword(newPassword), extraInfo: "" },
-                (err, doc, result) => {
-                if (err) {
-                    res.status(200).json({ accepted: false, message: 'Unable to change user password, sorry' })
-                } else {
-                    res.status(200).json({ accepted: true, message: 'Password reset' })
-                }
-            });
-        } else if (error) {
-            res.status(404).json({ accepted: false, message: err })
+    User.findById( userId, ( error, document ) => {
+        if ( document.extra_info === extraInfo ) {
+            User.findOneAndUpdate( { _id: userId, banned: false },
+                { allow_reset: false, password: User.hashPassword( newPassword ), extraInfo: "" },
+                ( err, doc, result ) => {
+                    if ( err ) {
+                        res.status( 200 ).json( { accepted: false, message: 'Unable to change user password, sorry' } )
+                    } else {
+                        res.status( 200 ).json( { accepted: true, message: 'Password reset' } )
+                    }
+                } );
+        } else if ( error ) {
+            res.status( 404 ).json( { accepted: false, message: err } )
         }
         else {
-            res.status(404).json({ accepted: false, message: "Incorrect Temporary Passcode" })
+            res.status( 404 ).json( { accepted: false, message: "Incorrect Temporary Passcode" } )
         }
-    })
+    } )
 } );
 router.post( '/confirm-email', ( req, res, next ) => {
     let id = req.body.payload.id;
-    User.findOneAndUpdate({ _id: id, banned: false }, { confirmed_email: true },
-        (err, doc, result) => {
-        if (err) {
-            res.status(401).send({ accepted: false, reply: 'Unable to confirm account email address, sorry' });
-        } else {
-            res.status(200).send({ accepted: true, reply: 'Your account\'s email address has been confirmed' });
-        }
-    });
+    User.findOneAndUpdate( { _id: id, banned: false }, { confirmed_email: true },
+        ( err, doc, result ) => {
+            if ( err ) {
+                res.status( 401 ).send( { accepted: false, reply: 'Unable to confirm account email address, sorry' } );
+            } else {
+                res.status( 200 ).send( { accepted: true, reply: 'Your account\'s email address has been confirmed' } );
+            }
+        } );
 } );
 module.exports = router;

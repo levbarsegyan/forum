@@ -121,7 +121,6 @@ export class ShowPostComponent implements OnInit {
       data => {
         this.forumService.interestedPost = data;
         this.forumPost = data;
-        console.log('Vote count is ' + this.forumPost.vote_count);
         this.forumPost.date_published = new Date(data.date_published);
         this.userService.getUsernameFromID(this.forumPost.author).subscribe(
           userdata => {
@@ -129,7 +128,7 @@ export class ShowPostComponent implements OnInit {
           },
           error => {
             this.openSnackBar('Error getting username', 'Close');
-            this.forumPost.authorname = error;
+            this.forumPost.authorname = error.error.message;
           }
         );
       },

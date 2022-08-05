@@ -42,7 +42,7 @@ export class CommentComponent implements OnInit {
     );
   }
   listComments(comments) {
-    comments.forEach(commentId => {
+    comments.reverse().forEach(commentId => {
       this.forumService.listAComment(commentId).subscribe(
         commentData => {
           const comment: ForumComment = {

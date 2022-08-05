@@ -29,7 +29,7 @@ export class ForumService {
     observe: 'body',
     withCredentials: true,
   };
-  private InterestedPost: ForumPost;
+  private _interestedPost: ForumPost;
   addNewForumPost(forumPost: ForumPost): Observable<any> {
     return this.http.post(this.newPostUrl, forumPost, this.httpOptions);
   }
@@ -65,9 +65,9 @@ export class ForumService {
     return this.http.post<any>(this.showPostUrl, { _id: postId }, this.httpOptions);
   }
   public get interestedPost(): ForumPost {
-    return this.InterestedPost;
+    return this._interestedPost;
   }
   public set interestedPost(value: ForumPost) {
-    this.InterestedPost = value;
+    this._interestedPost = value;
   }
 }
