@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserSessionService } from '../user-session.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { ValidationService } from '../validation.service';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
@@ -12,6 +13,7 @@ export class ResetPasswordComponent implements OnInit {
     private userService: UserSessionService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private validationService: ValidationService,
   ) { }
   id: number;
   success: string;
@@ -32,25 +34,34 @@ export class ResetPasswordComponent implements OnInit {
   }
   sendNewPassword(form: NgForm) {
     if (form.value.enteredPassword1 === form.value.enteredPassword2 && form.value.enteredPassword1 !== '') {
-      this.userService.resetPassword(this.id, form.value.enteredTempCode, form.value.enteredPassword1).subscribe(
-        data => {
-          if (data.accepted) {
-            this.success = 'Password reset successfully. Redirecting to log in';
-            this.displayError('');
-            setTimeout(() => {
-              this.router.navigate(['/sign-in']);
-            }, 4000);
-          } else {
-            this.displayError(data.message);
+      if (this.validateSubmisson(form.value.enteredPassword1)) {
+        this.userService.resetPassword(this.id, form.value.enteredTempCode, form.value.enteredPassword1).subscribe(
+          data => {
+            if (data.accepted) {
+              this.success = 'Password reset successfully. Redirecting to log in';
+              this.displayError('');
+              setTimeout(() => {
+                this.router.navigate(['/sign-in']);
+              }, 4000);
+            } else {
+              this.displayError(data.message);
+            }
+          },
+          error => {
+            this.displayError(error.error.message);
           }
-        },
-        error => {
-          this.displayError(error.error.message);
-        }
-      );
+        );
+      }
     } else {
       this.displayError('Passwords don\'t match');
     }
+  }
+  validateSubmisson(information): boolean {
+    if (!this.validationService.matchPassword(information)) {
+      this.displayError(this.validationService.warningPassword());
+      return false;
+    }
+    return true;
   }
   displayError(message: string) {
     this.displayWarning = message;

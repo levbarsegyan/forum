@@ -5,12 +5,21 @@ const jwtBlacklist = require( '../models/jwt-blacklist' );
 const jwt = require( 'jsonwebtoken' );
 const passport = require( 'passport' );
 const email = require( "../email-service" );
+const validation = require( "../validation-service" );
 const isUserValid = passport.authenticate( 'jwt', { session: false } );
-const isUserConfirmed = () => {
+const isEmailConfirmed = () => {
     return ( req, res, next ) => {
-        if ( !req.user.confirmed_email ) {
-            res.status( 200 ).json( { message: "You must confirm your email account by clicking the link emailed to you, on the account provided when signing up" } );
-        } else if ( !req.user.confirmed_game ) {
+        if (!req.user.confirmed_email) {
+            res.status(200).json({ message: "You must confirm your email account by clicking the link emailed to you, on the account provided when signing up" });
+        }
+        else {
+            next();
+        }
+    }
+}
+const isGameNameConfirmed = () => {
+    return ( req, res, next ) => {
+        if ( !req.user.confirmed_game ) {
             res.status( 200 ).json( { message: "You must confirm your in-game name by typing /register in minecraft and clicking the link. Open it in the browser you are signed in on." } );
         }
         else {
@@ -26,45 +35,59 @@ const checkBlacklist = () => {
 router.post( '/register', async ( req, res, next ) => {
     const doesEmailExist = await User.findOne( { email: req.body.email } );
     if ( doesEmailExist ) return res.status( 400 ).send( { reply: "User is already registered on this Email Address" } );
-    var user = new User( {
-        email: req.body.email,
-        username: req.body.username,
-        password: User.hashPassword( req.body.password ),
-        extra_info: User.hashPassword( req.body.email ),
-        creation_date: new Date(),
-        confirmed_game: false,
-        confirmed_email: false,
-        role: "user",
-    } );
-    try {
-        doc = await user.save();
-        const success = email.sendConfirmEmail( doc.email, doc._id, doc.extra_info );
-        return res.status( 201 ).json( success );
-    } catch ( err ) {
-        res.status( 401 ).json( err );
+    if (validation.validateNewUser(req.body.username, req.body.email, req.body.password)) {
+        var user = new User( {
+            email: req.body.email,
+            username: req.body.username,
+            password: User.hashPassword( req.body.password ),
+            extra_info: User.hashPassword( req.body.email ),
+            creation_date: new Date(),
+            confirmed_game: false,
+            confirmed_email: false,
+            role: "user",
+        } );
+        try {
+            doc = await user.save();
+            const success = email.sendConfirmEmail( doc.email, doc._id, doc.extra_info );
+            return res.status( 201 ).json( success );
+        } catch ( err ) {
+            res.status( 401 ).json( err );
+        }
+        next();
     }
-    next();
+    else {
+        res.status(200).json({ reply: "Information was invalid." });
+    }
 } );
-router.post( '/login', ( req, res, next ) => {
-    User.findOne( { username: req.body.email }, ( error, user ) => {
-        if ( error ) return res.status( 400 ).json( { message: 'Error logging in' } );
-        if ( !user || !user.isValid( req.body.password ) ) {
-            return res.status( 400 ).json( { message: 'Incorrect email or password.' } );
-        }
-        else if ( user.banned ) {
-            return res.status( 400 ).json( { message: 'User is banned' } );
-        }
-        else if ( !user.confirmed_email ) {
-            return res.status( 400 ).json( { message: 'You have not confirmed your email address' } );
-        }
-        else {
-            var token = jwt.sign( { id: user._id }, process.env.SECRET, {
-                expiresIn: 10000
-            } );
-            res.cookie( 'jwt', token, { httpOnly: true, secure: false } );
-            res.status( 200 ).send( { token } );
-        }
-    } );
+router.post( '/login', isEmailConfirmed, ( req, res, next ) => {
+    let userInformation = {
+        email: req.body.email,
+        password: req.body.password,
+    }
+    if (validation.validateSignIn(userInformation.email, userInformation.password)) {
+        User.findOne( { email: userInformation.email }, ( error, user ) => {
+            if ( error ) return res.status( 400 ).json( { message: 'Error logging in' } );
+            if ( !user || !user.isValid(userInformation.password) ) {
+                return res.status( 400 ).json( { message: 'Incorrect email or password.' } );
+            }
+            else if ( user.banned ) {
+                return res.status( 400 ).json( { message: 'User is banned' } );
+            }
+            else if ( !user.confirmed_email ) {
+                return res.status( 400 ).json( { message: 'You have not confirmed your email address' } );
+            }
+            else {
+                var token = jwt.sign( { id: user._id }, process.env.SECRET, {
+                    expiresIn: 10000
+                } );
+                res.cookie( 'jwt', token, { httpOnly: true, secure: false } );
+                res.status( 200 ).send( { token } );
+            }
+        } );
+    }
+    else {
+        res.status(400).json({ message: 'Invalid information received' });
+    }
 } );
 router.post( '/user-info', ( req, res, next ) => {
     if ( req.body.id ) {
@@ -140,7 +163,7 @@ router.post( '/default-admin', async ( req, res, next ) => {
         email: process.env.ADMIN_EMAIL,
         username: process.env.ADMIN_USERNAME,
         password: User.hashPassword( process.env.ADMIN_PASS ),
-        password: User.hashPassword( process.env.ADMIN_EMAIL ),
+        extra_info: User.hashPassword( process.env.ADMIN_EMAIL ),
         creation_date: new Date(),
         confirmed_game: true,
         confirmed_email: true,
@@ -155,29 +178,40 @@ router.post( '/default-admin', async ( req, res, next ) => {
     next();
 } );
 router.post( '/check-email', ( req, res, next ) => {
-    let targetEmail = req.body.payload.email;
-    User.findOne( { email: targetEmail, banned: false }, ( err, doc ) => {
-        if ( err ) {
-            res.status( 200 ).json( { found: false } )
-        } else {
-            res.status( 200 ).json( { found: true } )
-        }
-    } );
+    if (validation.matchEmail(req.body.payload.email)) {
+        let targetEmail = req.body.payload.email;
+        User.findOne( { email: targetEmail, banned: false }, ( err, doc ) => {
+            if ( err || doc === null ) {
+                res.status(200).json({ found: false })
+                console.log("Error: " + err);
+            } else {
+                res.status( 200 ).json( { found: true } )
+            }
+        } );
+    }
+    else {
+        res.status(200).json({ found: false, message: 'Email format is invalid' });
+    }
 } );
 router.post( '/reset-email', ( req, res, next ) => {
     let targetEmail = req.body.payload.email;
     let targetId;
     let extra;
-    User.findOneAndUpdate( { email: targetEmail, banned: false }, { allow_reset: true }, ( err, doc, result ) => {
-        if ( err ) {
-            res.status( 200 ).json( { message: 'Cannot find user with that email address' } )
-        } else {
-            targetId = doc._id;
-            extra = doc.extra_info;
-            email.sendResetEmail( targetEmail, targetId, extra );
-            res.status( 200 ).json( { message: 'Email sent to ' + targetEmail + ' \nCheck inbox and spam folder for the reset email.' } )
-        }
-    } );
+    if (validation.matchEmail(targetEmail)) {
+        User.findOneAndUpdate( { email: targetEmail, banned: false }, { allow_reset: true }, ( err, doc, result ) => {
+            if ( err ) {
+                res.status( 200 ).json( { message: 'Cannot find user with that email address' } )
+            } else {
+                targetId = doc._id;
+                extra = doc.extra_info;
+                email.sendResetEmail( targetEmail, targetId, extra );
+                res.status( 200 ).json( { message: 'Email sent to ' + targetEmail + ' \nCheck inbox and spam folder for the reset email.' } )
+            }
+        } );
+    }
+    else {
+        res.status(200).json({ message: 'Invalid Email format' });
+    }
 } );
 router.post( '/reset-pass', ( req, res, next ) => {
     let newPassword = req.body.payload.password;
@@ -193,7 +227,8 @@ router.post( '/reset-pass', ( req, res, next ) => {
                     } else {
                         res.status( 200 ).json( { accepted: true, message: 'Password reset' } )
                     }
-                } );
+                }
+            );
         } else if ( error ) {
             res.status( 404 ).json( { accepted: false, message: err } )
         }

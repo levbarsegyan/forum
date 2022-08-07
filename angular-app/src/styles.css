@@ -57,3 +57,7 @@ hr {
 }
 .red { color:#c62828; }
 .green { color: green; }
+.warning{
+  text-align: right;
+  color: red;
+}

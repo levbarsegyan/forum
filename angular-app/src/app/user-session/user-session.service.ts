@@ -8,7 +8,6 @@ import { User } from '../models/user.model';
 export class UserSessionService {
   private _isUserSignedIn = false;
   private _user: User;
-  private _emailRegExp: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   private httpOptions: any = {
     headers: new HttpHeaders().append('Content-Type', 'application/json'),
     observe: 'body',
@@ -70,8 +69,5 @@ export class UserSessionService {
   }
   public set currentUser(value: User) {
     this._user = value;
-  }
-  public get emailRegExp() {
-    return this._emailRegExp;
   }
 }

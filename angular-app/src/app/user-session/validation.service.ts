@@ -1,0 +1,31 @@
+import { Injectable } from '@angular/core';
+@Injectable({
+  providedIn: 'root'
+})
+export class ValidationService {
+  constructor() { }
+  private _usernameRegExp = /^[a-zA-Z0-9_-]{3,16}$/ig;
+  private _passwordRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+  private _emailRegExp: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  public matchUsername(username: string): boolean {
+    return this._usernameRegExp.test(username);
+  }
+  public matchPassword(password: string): boolean {
+    return this._passwordRegExp.test(password);
+  }
+  public matchEmail(email: string): boolean {
+    return this._emailRegExp.test(email);
+  }
+  public warningUsername(): string {
+    return 'Incorrect username format.' + ' Name must be between 3 and 16 characters.' + 'Please use only the following: ' +
+      'English uppercase and lowercase chaacters, numbers, _ and -';
+  }
+  public warningEmail(): string {
+    return 'Incorrect email format, please check and try again';
+  }
+  public warningPassword(): string {
+    return 'Incorrect password format, please ensure you password contains at least:\n' +
+        'One uppercase character, one lowercase character, a number, a special character (like @#*^%)' +
+        ' and the password is at minimum 8 character in length';
+  }
+}

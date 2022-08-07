@@ -24,7 +24,7 @@
         placeholder="Your Email Address" value="">
       </mat-form-field>
       <button class="inline-region"
-      [disabled]="!resetForm.valid"
+      [disabled]="!resetForm.valid || this.disabled"
       mat-raised-button
       color="primary"
       type=submit>Submit</button>
