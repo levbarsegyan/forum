@@ -27,7 +27,7 @@ export class SignInComponent implements OnInit {
       email: form.value.enteredEmail,
       password: form.value.enteredPassword,
     };
-    if (this.validateSubmisson(this.user)) {
+    if (this.validateSubmisson(form.value.enteredEmail, form.value.enteredPassword)) {
       this.userSessionService.loginRequest(this.user).subscribe(
         data => {
           console.log(data);
@@ -41,15 +41,16 @@ export class SignInComponent implements OnInit {
       );
     }
   }
-  validateSubmisson(information): boolean {
-    if (!this.validationService.matchEmail(information.email)) {
+  validateSubmisson(email, password): boolean {
+    if (this.validationService.matchEmail(email)) {
       this.warning = this.validationService.warningEmail();
       return false;
     }
-    if (!this.validationService.matchPassword(information.password)) {
+    if (this.validationService.matchPassword(password)) {
       this.warning = this.validationService.warningPassword();
       return false;
     }
+    this.warning = '';
     return true;
   }
   resetPassword() {

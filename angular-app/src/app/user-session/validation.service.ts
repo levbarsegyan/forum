@@ -8,13 +8,13 @@ export class ValidationService {
   private _passwordRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
   private _emailRegExp: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   public matchUsername(username: string): boolean {
-    return this._usernameRegExp.test(username);
+    return !this._usernameRegExp.test(username);
   }
   public matchPassword(password: string): boolean {
-    return this._passwordRegExp.test(password);
+    return !this._passwordRegExp.test(password);
   }
   public matchEmail(email: string): boolean {
-    return this._emailRegExp.test(email);
+    return !this._emailRegExp.test(email);
   }
   public warningUsername(): string {
     return 'Incorrect username format.' + ' Name must be between 3 and 16 characters.' + 'Please use only the following: ' +

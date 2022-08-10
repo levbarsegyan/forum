@@ -7,10 +7,10 @@ const passport = require( 'passport' );
 const email = require( "../email-service" );
 const validation = require( "../validation-service" );
 const isUserValid = passport.authenticate( 'jwt', { session: false } );
-const isEmailConfirmed = () => {
+const isEmailConfirmed = (req, res, next) => {
     return ( req, res, next ) => {
         if (!req.user.confirmed_email) {
-            res.status(200).json({ message: "You must confirm your email account by clicking the link emailed to you, on the account provided when signing up" });
+            res.status(400).json({ message: "You must confirm your email account by clicking the link emailed to you, on the account provided when signing up" });
         }
         else {
             next();
@@ -56,14 +56,15 @@ router.post( '/register', async ( req, res, next ) => {
         next();
     }
     else {
-        res.status(200).json({ reply: "Information was invalid." });
+        res.status(400).json({ reply: "Information was invalid." });
     }
 } );
-router.post( '/login', isEmailConfirmed, ( req, res, next ) => {
+router.post( '/login', ( req, res, next ) => {
     let userInformation = {
         email: req.body.email,
         password: req.body.password,
     }
+    console.log("Attempted sign in with " + userInformation);
     if (validation.validateSignIn(userInformation.email, userInformation.password)) {
         User.findOne( { email: userInformation.email }, ( error, user ) => {
             if ( error ) return res.status( 400 ).json( { message: 'Error logging in' } );
@@ -94,7 +95,7 @@ router.post( '/user-info', ( req, res, next ) => {
         User.findById( req.body.id, ( error, user ) => {
             if ( !error ) {
                 userInformation = { 
-                    _id: user._id,
+                    _id: req.body.id,
                     username: user.username,
                 };
                 res.status( 200 ).json( { user: userInformation } );
@@ -103,7 +104,9 @@ router.post( '/user-info', ( req, res, next ) => {
                 console.log( "Error getting Username for Id\n" + error );
                 res.status( 400 ).json( { message: "Error finding ID " } );
             }
-        } );
+        }).catch((err) => {
+            res.status(400).json({message: 'User already signed out'});
+        });
     } else {
         res.status( 401 ).json( { message: "No user" } );
     }

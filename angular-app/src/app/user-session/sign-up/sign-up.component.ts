@@ -59,15 +59,15 @@ export class SignUpComponent implements OnInit {
     }
   }
   validateSubmisson(information): boolean {
-    if (!this.validationService.matchUsername(information.username)) {
+    if (this.validationService.matchUsername(information.username)) {
       this.warning = this.validationService.warningUsername();
       return false;
     }
-    if (!this.validationService.matchEmail(information.email)) {
+    if (this.validationService.matchEmail(information.email)) {
       this.warning = this.validationService.warningEmail();
       return false;
     }
-    if (!this.validationService.matchPassword(information.password)) {
+    if (this.validationService.matchPassword(information.password)) {
       this.warning = this.validationService.warningPassword();
       return false;
     }
