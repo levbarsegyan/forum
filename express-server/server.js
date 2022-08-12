@@ -6,6 +6,7 @@ const path = require( 'path' );
 const cors = require( 'cors' );
 const mongoose = require( 'mongoose' );
 const passport = require( 'passport' );
+const helmet = require( 'helmet' );
 const session = require( 'express-session' );
 const MongoStore = require( 'connect-mongo' )( session );
 const cookieparser = require( 'cookie-parser' );
@@ -25,6 +26,7 @@ app.use( cors( {
     ],
     credentials: true,
 } ) );
+app.use( helmet() );
 app.use( express.json() );
 app.use( cookieparser() );
 app.use( express.urlencoded( { extended: false } ) );
