@@ -40,6 +40,7 @@ import { ConfirmEmailComponent } from './user-session/confirm-email/confirm-emai
 import { ResetPasswordComponent } from './user-session/reset-password/reset-password.component';
 import { ConfirmAccountComponent } from './user-session/confirm-account/confirm-account.component';
 import { ResetSubmissionComponent } from './user-session/reset-submission/reset-submission.component';
+import { PathLocationStrategy, LocationStrategy } from '@angular/common';
 const appRoutes: Routes = [
   {
     path: '',
@@ -187,7 +188,7 @@ const appRoutes: Routes = [
       onSameUrlNavigation: 'reload'
     }),
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: PathLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
