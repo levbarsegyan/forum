@@ -5,11 +5,15 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Vote } from '../models/vote.model';
+const dotenv = require('dotenv');
+dotenv.config();
 @Injectable({
   providedIn: 'root'
 })
 export class ForumService {
-  private forumPost: ForumPost;
+  private _interestedPost: ForumPost;
+  private _domain = process.env.BACKEND_DOMAIN;
+  private _port = process.env.BACKEND_PORT;
   private newPostUrl = 'http:
   private editPostUrl = 'http:
   private deletePostUrl = 'http:
@@ -29,7 +33,6 @@ export class ForumService {
     observe: 'body',
     withCredentials: true,
   };
-  private _interestedPost: ForumPost;
   addNewForumPost(forumPost: ForumPost): Observable<any> {
     return this.http.post(this.newPostUrl, forumPost, this.httpOptions);
   }

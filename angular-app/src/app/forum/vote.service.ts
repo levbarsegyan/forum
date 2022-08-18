@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Vote } from '../models/vote.model';
+const dotenv = require('dotenv');
+dotenv.config();
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +17,8 @@ export class VoteService {
     private router: Router,
     private http: HttpClient,
   ) { }
+  private _domain = process.env.BACKEND_DOMAIN;
+  private _port = process.env.BACKEND_PORT;
   private userVoteInfoUrl = 'http:
   private incForumVoteUrl = 'http:
   private decForumVoteUrl = 'http:
