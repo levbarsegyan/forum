@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-const dotenv = require('dotenv');
-dotenv.config();
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AdminSessionService {
   constructor(private http: HttpClient) { }
-  private _domain = process.env.BACKEND_DOMAIN;
-  private _port = process.env.BACKEND_PORT;
+  private _domain = environment.BACKEND_DOMAIN;
+  private _port = environment.BACKEND_PORT;
   signInUrl = 'http:
   signOutUrl = 'http:
   userUrl = 'http:

@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { News } from '../models/news.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-const dotenv = require('dotenv');
-dotenv.config();
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,8 +10,8 @@ export class NewsService {
   constructor(
     private http: HttpClient,
   ) { }
-  private _domain = process.env.BACKEND_DOMAIN;
-  private _port = process.env.BACKEND_PORT;
+  private _domain = environment.BACKEND_DOMAIN;
+  private _port = environment.BACKEND_PORT;
   private getNewsUrl = 'http:
   private getNewsPostUrl = 'http:
   private saveNewsUrl = 'http:

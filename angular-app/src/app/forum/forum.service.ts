@@ -4,16 +4,14 @@ import { ForumComment } from '../models/comment.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Vote } from '../models/vote.model';
-const dotenv = require('dotenv');
-dotenv.config();
+import { environment } from 'src/environments/environment.prod';
 @Injectable({
   providedIn: 'root'
 })
 export class ForumService {
   private _interestedPost: ForumPost;
-  private _domain = process.env.BACKEND_DOMAIN;
-  private _port = process.env.BACKEND_PORT;
+  private _domain = environment.BACKEND_DOMAIN;
+  private _port = environment.BACKEND_PORT;
   private newPostUrl = 'http:
   private editPostUrl = 'http:
   private deletePostUrl = 'http:

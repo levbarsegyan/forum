@@ -2,16 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
-const dotenv = require('dotenv');
-dotenv.config();
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class UserSessionService {
   private _isUserSignedIn = false;
   private _user: User;
-  private _domain = process.env.BACKEND_DOMAIN;
-  private _port = process.env.BACKEND_PORT;
+  private _domain = environment.BACKEND_DOMAIN;
+  private _port = environment.BACKEND_PORT;
   private httpOptions: any = {
     headers: new HttpHeaders().append('Content-Type', 'application/json'),
     observe: 'body',
