@@ -27,7 +27,11 @@ export class ForumService {
     private http: HttpClient,
   ) { }
   private httpOptions: any = {
-    headers: new HttpHeaders().append('Content-Type', 'application/json'),
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }),
     observe: 'body',
     withCredentials: true,
   };

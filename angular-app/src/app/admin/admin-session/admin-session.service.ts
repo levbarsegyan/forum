@@ -25,7 +25,11 @@ export class AdminSessionService {
   private httpOptions: any = {
     observe: 'body',
     withCredentials: true,
-    headers: new HttpHeaders().append('Content-Type', 'application/json')
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }),
   };
   register(): Observable<any> {
     return this.http.post<any>(this.registerUrl, this.httpOptions);

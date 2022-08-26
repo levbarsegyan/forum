@@ -20,7 +20,11 @@ export class NewsService {
   private httpOptions: any = {
     observe: 'body',
     withCredentials: true,
-    headers: new HttpHeaders().append('Content-Type', 'application/json')
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }),
   };
   saveNews(news: News): Observable<any> {
     console.log(news);

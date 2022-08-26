@@ -3,7 +3,7 @@ const randomstring = require( 'randomstring' );
 const dotenv = require( 'dotenv' );
 dotenv.config();
 const User = require( './models/user' );
-const emailHeader = 'Good evening,';
+const emailHeader = 'Hello player,'; 
 const emailFooter = 'Good luck and have fun, PlayDeca Administration'
 const tokenText = 'The link will lead you to a reset password prompt, but you will need to enter the passcode provided. Passcode: '
 const linkStart = 'http:
