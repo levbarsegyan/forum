@@ -1,8 +1,8 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
+import { CanActivate } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AdminSessionService } from './admin-session/admin-session.service';
+import { AdminSessionService } from './admin-session.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +10,6 @@ export class AdminGuardGuard implements CanActivate {
   private _loggedIn = false;
   constructor(
     private adminSession: AdminSessionService,
-    private router: Router,
     private http: HttpClient,
   ) { }
   canActivate(): Observable<boolean> {

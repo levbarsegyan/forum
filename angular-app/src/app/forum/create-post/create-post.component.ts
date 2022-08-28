@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ForumService } from '../forum.service';
+import { ForumService } from '../../services/forum.service';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
-import { ForumPost } from 'src/app/models/forum.model';
 import { Router } from '@angular/router';
-import { UserSessionService } from 'src/app/user-session/user-session.service';
-import { stringify } from 'querystring';
+import { UserSessionService } from 'src/app/services/user-session.service';
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',

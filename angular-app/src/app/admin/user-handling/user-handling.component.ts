@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
-import { UserSessionService } from 'src/app/user-session/user-session.service';
-import { UserHandlingService } from '../user-handling.service';
+import { UserSessionService } from 'src/app/services/user-session.service';
+import { UserHandlingService } from '../../services/user-handling.service';
 import { MatSnackBar } from '@angular/material';
-import { AdminSessionService } from '../admin-session/admin-session.service';
 @Component({
   selector: 'app-user-handling',
   templateUrl: './user-handling.component.html',

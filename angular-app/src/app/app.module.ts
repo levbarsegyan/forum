@@ -24,7 +24,7 @@ import { SignInComponent } from './user-session/sign-in/sign-in.component';
 import { SignUpComponent } from './user-session/sign-up/sign-up.component';
 import { AdminHeaderComponent } from './admin/header/header.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
-import { AdminGuardGuard } from './admin/admin-guard.guard';
+import { AdminGuardGuard } from './services/admin-guard.guard';
 import { ForumComponent } from './forum/forum.component';
 import { CreatePostComponent } from './forum/create-post/create-post.component';
 import { ListPostsComponent } from './forum/list-posts/list-posts.component';

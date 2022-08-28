@@ -1,40 +1,24 @@
 import { Injectable } from '@angular/core';
-import { UserSessionService } from '../user-session/user-session.service';
-import { ForumService } from './forum.service';
-import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserSessionService } from './user-session.service';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Vote } from '../models/vote.model';
-import { environment } from 'src/environments/environment';
+import { BackendConnectionService } from './backend-connection.service';
 @Injectable({
   providedIn: 'root'
 })
 export class VoteService {
   constructor(
     private userService: UserSessionService,
-    private forumService: ForumService,
-    private router: Router,
     private http: HttpClient,
+    private backend: BackendConnectionService,
   ) { }
-  private _domain = environment.BACKEND_DOMAIN;
-  private _port = environment.BACKEND_PORT;
-  private userVoteInfoUrl = 'http:
-  private incForumVoteUrl = 'http:
-  private decForumVoteUrl = 'http:
-  private incCommentVoteUrl = 'http:
-  private decCommentVoteUrl = 'http:
-  private httpOptions: any = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    }),
-    observe: 'body',
-    withCredentials: true,
-  };
+  private userVoteInfoUrl = this.backend.getFullAddress + '/api/forum/user-voting-info';
+  private incForumVoteUrl = this.backend.getFullAddress + '/api/forum/inc-forum-vote';
+  private decForumVoteUrl = this.backend.getFullAddress + '/api/forum/dec-forum-vote';
   private getForumVoteStatusFromBackend(forumId: number): Observable<any> {
     const forum = { _id: forumId }; 
-    return this.http.post<any>(this.userVoteInfoUrl, { forum }, this.httpOptions);
+    return this.http.post<any>(this.userVoteInfoUrl, { forum }, this.backend.getHttpOptions());
   }
   increaseForumVote(forumId: number, alreadyVoted: boolean) {
     return this.sendVote(forumId, alreadyVoted, this.incForumVoteUrl);
@@ -44,7 +28,7 @@ export class VoteService {
   }
   private sendVote(forumId: number, alreadyVoted: boolean, locationUrl: string) {
     const forum = { _id: forumId };
-    return this.http.post(locationUrl, { forum, voted: alreadyVoted }, this.httpOptions);
+    return this.http.post(locationUrl, { forum, voted: alreadyVoted }, this.backend.getHttpOptions());
   }
   getUserForumVoteStatus(forumId: number): Vote {
     let currentVoteStatus: Vote;

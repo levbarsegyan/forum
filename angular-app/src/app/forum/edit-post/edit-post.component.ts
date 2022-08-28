@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ForumService } from '../forum.service';
+import { ForumService } from '../../services/forum.service';
 import { ForumPost } from '../../models/forum.model';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserSessionService } from 'src/app/user-session/user-session.service';
+import { UserSessionService } from 'src/app/services/user-session.service';
 @Component({
   selector: 'app-edit-post',
   templateUrl: './edit-post.component.html',

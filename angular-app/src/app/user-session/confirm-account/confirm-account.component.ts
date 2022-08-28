@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserSessionService } from '../user-session.service';
+import { UserSessionService } from '../../services/user-session.service';
 import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-confirm-account',

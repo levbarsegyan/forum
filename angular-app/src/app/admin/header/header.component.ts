@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserSessionService } from 'src/app/user-session/user-session.service';
+import { UserSessionService } from 'src/app/services/user-session.service';
 @Component({
   selector: 'app-admin-header',
   templateUrl: './header.component.html',

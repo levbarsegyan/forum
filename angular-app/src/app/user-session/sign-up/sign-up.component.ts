@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserSessionService } from '../user-session.service';
-import { ValidationService } from '../validation.service';
+import { UserSessionService } from '../../services/user-session.service';
+import { ValidationService } from '../../services/validation.service';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',

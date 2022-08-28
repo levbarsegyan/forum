@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminSessionService } from '../../admin-session/admin-session.service';
-import { NewsService } from 'src/app/news/news.service';
+import { AdminSessionService } from '../../../services/admin-session.service';
+import { NewsService } from 'src/app/services/news.service';
 import { News } from 'src/app/models/news.model';
 @Component({
   selector: 'app-basic-list',

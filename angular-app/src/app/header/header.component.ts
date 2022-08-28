@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserSessionService } from '../user-session/user-session.service';
+import { UserSessionService } from '../services/user-session.service';
 import { Router } from '@angular/router';
-import { User } from '../models/user.model';
-import { AdminSessionService } from '../admin/admin-session/admin-session.service';
+import { AdminSessionService } from '../services/admin-session.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

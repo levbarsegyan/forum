@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { UserSessionService } from '../user-session.service';
-import { ValidationService } from '../validation.service';
+import { UserSessionService } from '../../services/user-session.service';
+import { ValidationService } from '../../services/validation.service';
 @Component({
   selector: 'app-reset-submission',
   templateUrl: './reset-submission.component.html',
