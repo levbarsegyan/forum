@@ -10,7 +10,7 @@ export class BackendConnectionService {
     return 'http:
   }
   public getAddressWithPort() {
-    return this.getAddress + ':' + this.getPort;
+    return this.getAddress() + ':' + this.getPort();
   }
   public getPort(): string {
     return environment.BACKEND_PORT;

@@ -33,7 +33,7 @@ export class EditPostComponent implements OnInit {
             error => {
               console.log('Error');
             }
-          )
+          );
           this.contentHtml = this.forumPost.content.replace(/<br \/>/gi, '\n');
         },
         error => {
