@@ -20,17 +20,23 @@ const FRONTEND_DOMAIN = "http:
 const BACKEND_DOMAIN = "http:
 const MONGODB_DOMAIN = process.env.DB_CONNECTION;
 app.use( cors( {
-    origin: [
-        'http:
-        'http:
-    ],
+    origin: "*",
     credentials: true,
 } ) );
 app.use( helmet() );
 app.use( express.json() );
 app.use( cookieparser() );
 app.use( express.urlencoded( { extended: false } ) );
-mongoose.connect( MONGODB_DOMAIN, { useNewUrlParser: true, useFindAndModify: false } );
+mongoose.connect(MONGODB_DOMAIN, {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    user: process.env.MONGO_USER,
+    pass: process.env.MONGO_PASS
+}).then(() => {
+    console.log("Successfully connected to DB");
+}).catch(() => {
+    console.log("Failed to connect to DB");
+});
 app.use( session( {
     name: 'decaform.sid',
     resave: false,
