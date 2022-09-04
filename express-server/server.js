@@ -20,7 +20,7 @@ const FRONTEND_DOMAIN = "http:
 const BACKEND_DOMAIN = "http:
 const MONGODB_DOMAIN = process.env.DB_CONNECTION;
 app.use( cors( {
-    origin: "*",
+    origin: [ FRONTEND_DOMAIN, "http:
     credentials: true,
 } ) );
 app.use( helmet() );
