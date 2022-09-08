@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { News } from '../../../models/news.model';
 import { NgForm } from '@angular/forms';
-import { NewsService } from 'src/app/services/news.service';
+import { NewsService } from '../../../services/news.service';
 import { Router } from '@angular/router';
-import { UserSessionService } from 'src/app/services/user-session.service';
+import { UserSessionService } from '../../../services/user-session.service';
 import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-news-create',

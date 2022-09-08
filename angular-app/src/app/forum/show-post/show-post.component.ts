@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ForumPost } from 'src/app/models/forum.model';
+import { ForumPost } from '../../models/forum.model';
 import { ForumService } from '../../services/forum.service';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserSessionService } from 'src/app/services/user-session.service';
-import { Vote } from 'src/app/models/vote.model';
+import { UserSessionService } from '../../services/user-session.service';
+import { Vote } from '../../models/vote.model';
 import { VoteService } from '../../services/vote.service';
-import { AdminSessionService } from 'src/app/services/admin-session.service';
+import { AdminSessionService } from '../../services/admin-session.service';
 @Component({
   selector: 'app-show-post',
   templateUrl: './show-post.component.html',

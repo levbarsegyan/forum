@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ForumService } from '../../services/forum.service';
 import { Router } from '@angular/router';
-import { ForumPost } from 'src/app/models/forum.model';
-import { UserSessionService } from 'src/app/services/user-session.service';
-import { Vote } from 'src/app/models/vote.model';
+import { ForumPost } from '../../models/forum.model';
+import { UserSessionService } from '../../services/user-session.service';
+import { Vote } from '../../models/vote.model';
 import { VoteService } from '../../services/vote.service';
 @Component({
   selector: 'app-list-posts',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
-import { UserSessionService } from 'src/app/services/user-session.service';
+import { UserSessionService } from '../../services/user-session.service';
 import { UserHandlingService } from '../../services/user-handling.service';
 import { MatSnackBar } from '@angular/material';
 @Component({

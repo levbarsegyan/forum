@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ForumService } from '../../services/forum.service';
 import { MatSnackBar } from '@angular/material';
-import { ForumPost } from 'src/app/models/forum.model';
-import { ForumComment } from 'src/app/models/comment.model';
+import { ForumPost } from '../../models/forum.model';
+import { ForumComment } from '../../models/comment.model';
 import { NgForm } from '@angular/forms';
-import { UserSessionService } from 'src/app/services/user-session.service';
-import { AdminSessionService } from 'src/app/services/admin-session.service';
+import { UserSessionService } from '../../services/user-session.service';
+import { AdminSessionService } from '../../services/admin-session.service';
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',

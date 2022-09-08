@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { News } from 'src/app/models/news.model';
-import { NewsService } from 'src/app/services/news.service';
+import { News } from '../../../models/news.model';
+import { NewsService } from '../../../services/news.service';
 @Component({
   selector: 'app-news-update',
   templateUrl: './news-update.component.html',

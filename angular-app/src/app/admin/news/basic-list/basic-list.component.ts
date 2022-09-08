@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminSessionService } from '../../../services/admin-session.service';
-import { NewsService } from 'src/app/services/news.service';
-import { News } from 'src/app/models/news.model';
+import { NewsService } from '../../../services/news.service';
+import { News } from '../../../models/news.model';
 @Component({
   selector: 'app-basic-list',
   templateUrl: './basic-list.component.html',

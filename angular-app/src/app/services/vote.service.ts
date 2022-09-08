@@ -13,9 +13,9 @@ export class VoteService {
     private http: HttpClient,
     private backend: BackendConnectionService,
   ) { }
-  private userVoteInfoUrl = this.backend.getFullAddress + '/api/forum/user-voting-info';
-  private incForumVoteUrl = this.backend.getFullAddress + '/api/forum/inc-forum-vote';
-  private decForumVoteUrl = this.backend.getFullAddress + '/api/forum/dec-forum-vote';
+  private userVoteInfoUrl = this.backend.getFullAddress() + '/api/forum/user-voting-info';
+  private incForumVoteUrl = this.backend.getFullAddress() + '/api/forum/inc-forum-vote';
+  private decForumVoteUrl = this.backend.getFullAddress() + '/api/forum/dec-forum-vote';
   private getForumVoteStatusFromBackend(forumId: number): Observable<any> {
     const forum = { _id: forumId }; 
     return this.http.post<any>(this.userVoteInfoUrl, { forum }, this.backend.getHttpOptions());

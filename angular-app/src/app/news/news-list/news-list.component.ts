@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { News } from 'src/app/models/news.model';
+import { News } from '../../models/news.model';
 import { NewsService } from '../../services/news.service';
-import { AdminSessionService } from 'src/app/services/admin-session.service';
+import { AdminSessionService } from '../../services/admin-session.service';
 @Component({
   selector: 'app-news-list',
   templateUrl: './news-list.component.html',

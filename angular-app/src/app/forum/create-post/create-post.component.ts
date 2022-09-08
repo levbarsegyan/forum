@@ -3,7 +3,7 @@ import { ForumService } from '../../services/forum.service';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-import { UserSessionService } from 'src/app/services/user-session.service';
+import { UserSessionService } from '../../services/user-session.service';
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
