@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserSessionService } from '../../services/user-session.service';
 import { ValidationService } from '../../services/validation.service';
+import { invalid } from '@angular/compiler/src/render3/view/util';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -16,8 +17,6 @@ export class SignUpComponent implements OnInit {
     private router: Router,
     private validationService: ValidationService,
   ) { }
-  username: string;
-  email: string;
   password: string;
   confirmPassword: string;
   warning = '';
@@ -29,8 +28,6 @@ export class SignUpComponent implements OnInit {
   ngOnInit() {
   }
   onSubmit(form: NgForm) {
-    this.username = form.value.enteredUsername;
-    this.username = form.value.enteredEmail;
     this.password = form.value.enteredPassword;
     this.confirmPassword = form.value.enteredPassword2;
     if (this.password !== this.confirmPassword) {
@@ -47,6 +44,7 @@ export class SignUpComponent implements OnInit {
       password: form.value.enteredPassword
     };
     if ( this.validateSubmisson(this.user)) {
+      console.log('Sent as valid');
       this.userSessionService.registerRequest(this.user).subscribe(
         data => {
           this.router.navigate(['/confirm']);
@@ -56,22 +54,26 @@ export class SignUpComponent implements OnInit {
           console.log(error);
         }
       );
+    } else {
+      console.log('Failed Validation');
     }
   }
   validateSubmisson(information): boolean {
-    if (this.validationService.matchUsername(information.username)) {
+    this.warning = '';
+    let valid = true;
+    if (!this.validationService.matchUsername(information.username)) {
       this.warning = this.validationService.warningUsername();
-      return false;
+      valid = false;
     }
-    if (this.validationService.matchEmail(information.email)) {
+    if (!this.validationService.matchEmail(information.email)) {
       this.warning = this.validationService.warningEmail();
-      return false;
+      valid = false;
     }
-    if (this.validationService.matchPassword(information.password)) {
+    if (!this.validationService.matchPassword(information.password)) {
       this.warning = this.validationService.warningPassword();
-      return false;
+      valid = false;
     }
-    return true;
+    return valid;
   }
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {

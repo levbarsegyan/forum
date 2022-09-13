@@ -4,17 +4,20 @@ import { Injectable } from '@angular/core';
 })
 export class ValidationService {
   constructor() { }
-  private _usernameRegExp = /[a-zA-Z0-9_-]{3,16}/ig;
+  private _usernameRegExp = /^[a-zA-Z0-9_-]{3,16}$/i;
   private _passwordRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
   private _emailRegExp: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   public matchUsername(username: string): boolean {
-    return !this._usernameRegExp.test(username);
+    return this.match(this._usernameRegExp, username);
   }
   public matchPassword(password: string): boolean {
-    return !this._passwordRegExp.test(password);
+    return this.match(this._passwordRegExp, password);
   }
   public matchEmail(email: string): boolean {
-    return !this._emailRegExp.test(email);
+    return this.match(this._emailRegExp, email);
+  }
+  private match(regex, testString): boolean {
+    return regex.test(testString);
   }
   public warningUsername(): string {
     return 'Incorrect username format.' + ' Name must be between 3 and 16 characters.' + 'Please use only the following: ' +
