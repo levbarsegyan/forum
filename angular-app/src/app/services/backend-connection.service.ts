@@ -18,6 +18,8 @@ export class BackendConnectionService {
   public getHeaders(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Origin': this.getFullAddress(),
     });
   }
   public getAddress(): string {
