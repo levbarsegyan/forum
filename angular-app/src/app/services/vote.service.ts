@@ -21,14 +21,12 @@ export class VoteService {
     return this.http.post<any>(this.userVoteInfoUrl, { forum }, this.backend.getHttpOptions());
   }
   increaseForumVote(forumId: number, alreadyVoted: boolean) {
-    return this.sendVote(forumId, alreadyVoted, this.incForumVoteUrl);
+    const forum = { _id: forumId };
+    return this.http.post<any>(this.incForumVoteUrl, { forum, voted: alreadyVoted }, this.backend.getHttpOptions());
   }
   decreaseForumVote(forumId: number, alreadyVoted: boolean) {
-    return this.sendVote(forumId, alreadyVoted, this.decForumVoteUrl);
-  }
-  private sendVote(forumId: number, alreadyVoted: boolean, locationUrl: string) {
     const forum = { _id: forumId };
-    return this.http.post(locationUrl, { forum, voted: alreadyVoted }, this.backend.getHttpOptions());
+    return this.http.post<any>(this.decForumVoteUrl, { forum, voted: alreadyVoted }, this.backend.getHttpOptions());
   }
   getUserForumVoteStatus(forumId: number): Vote {
     let currentVoteStatus: Vote;

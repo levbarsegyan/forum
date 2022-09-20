@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.prod';
 @Injectable({
   providedIn: 'root'
 })
 export class BackendConnectionService {
   constructor() { }
-  public getFullAddress() {
+  public getFullAddress(): string {
     return 'http:
   }
-  public getAddressWithPort() {
+  public getAddressWithPort(): string {
     return this.getAddress() + ':' + this.getPort();
   }
   public getPort(): string {
