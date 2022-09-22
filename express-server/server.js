@@ -3,6 +3,9 @@ const dotenv = require( 'dotenv' );
 dotenv.config();
 const app = express();
 const path = require( 'path' );
+const http = require( 'http' );
+const https = require( 'https' );
+const fs = require( 'fs' );
 const cors = require( 'cors' );
 const mongoose = require( 'mongoose' );
 const passport = require( 'passport' );
@@ -57,6 +60,11 @@ app.use( '/api/forum', forumRoute );
 app.use( '/api/users', usersRoute );
 app.use( '/api/admin', adminRoute );
 app.use( '/api/news', newsRoute );
-app.listen( BACKEND_PORT, () => {
+var options = {
+    key: fs.readFileSync('/etc/letsencrypt/live/example.com/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/example.com/cert.pem'),
+    ca: fs.readFileSync('/etc/letsencrypt/live/example.com/chain.pem')
+  };
+http.createServer(options, app).listen( BACKEND_PORT, () => {
     console.log( 'Server started!' );
 } )
