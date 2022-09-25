@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment.prod';
 export class BackendConnectionService {
   constructor() { }
   public getFullAddress(): string {
-    return 'http:
+    return 'https:
   }
   public getAddressWithPort(): string {
     return this.getAddress() + ':' + this.getPort();

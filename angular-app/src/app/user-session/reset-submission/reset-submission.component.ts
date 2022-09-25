@@ -46,13 +46,6 @@ export class ResetSubmissionComponent implements OnInit {
       this.disabled = true;
     }
   }
-  validateSubmisson(information): boolean {
-    if (!this.validationService.matchEmail(information.email)) {
-      this.displayWarning(this.validationService.warningEmail());
-      return false;
-    }
-    return true;
-  }
   displayWarning(message: string) {
     this.warning = message;
   }

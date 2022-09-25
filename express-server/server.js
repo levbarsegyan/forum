@@ -19,11 +19,11 @@ const forumRoute = require( './routes/forum' );
 const newsRoute = require( './routes/news' );
 const BACKEND_PORT = process.env.BACKEND_PORT || 8000;
 const FRONTEND_PORT = process.env.FRONTEND_PORT || 4200;
-const FRONTEND_DOMAIN = "http:
+const FRONTEND_DOMAIN = "https:
 const BACKEND_DOMAIN = "http:
 const MONGODB_DOMAIN = process.env.DB_CONNECTION;
 app.use( cors( {
-    origin: [ FRONTEND_DOMAIN, "http:
+    origin: [FRONTEND_DOMAIN, "https:
     credentials: true,
 } ) );
 app.use( helmet() );
@@ -61,10 +61,10 @@ app.use( '/api/users', usersRoute );
 app.use( '/api/admin', adminRoute );
 app.use( '/api/news', newsRoute );
 var options = {
-    key: fs.readFileSync('/etc/letsencrypt/live/example.com/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/example.com/cert.pem'),
-    ca: fs.readFileSync('/etc/letsencrypt/live/example.com/chain.pem')
+    key: fs.readFileSync('/etc/letsencrypt/live/playdeca.com/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/playdeca.com/cert.pem'),
+    ca: fs.readFileSync('/etc/letsencrypt/live/playdeca.com/chain.pem')
   };
-http.createServer(options, app).listen( BACKEND_PORT, () => {
+https.createServer(options, app).listen( BACKEND_PORT, () => {
     console.log( 'Server started!' );
 } )

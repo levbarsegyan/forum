@@ -34,7 +34,7 @@ export class ResetPasswordComponent implements OnInit {
   }
   sendNewPassword(form: NgForm) {
     if (form.value.enteredPassword1 === form.value.enteredPassword2 && form.value.enteredPassword1 !== '') {
-      if (this.validateSubmisson(form.value.enteredPassword1)) {
+      if (this.validateSubmission(form.value.enteredPassword1)) {
         this.userService.resetPassword(this.id, form.value.enteredTempCode, form.value.enteredPassword1).subscribe(
           data => {
             if (data.accepted) {
@@ -56,7 +56,7 @@ export class ResetPasswordComponent implements OnInit {
       this.displayError('Passwords don\'t match');
     }
   }
-  validateSubmisson(information): boolean {
+  validateSubmission(information): boolean {
     if (!this.validationService.matchPassword(information)) {
       this.displayError(this.validationService.warningPassword());
       return false;
