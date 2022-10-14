@@ -16,7 +16,7 @@
         class="header-link">Profile</button></a>
     <a routerLink="" [hidden]="!getSignedIn()" routerLinkActive="active"><button mat-button class="header-link"
         (click)="logout()">Logout</button></a>
-    <a href="{{this.dynmapLink()}}" routerLinkActive="active"><button mat-button class="header-link">Dynmap</button></a>
+    <a href="91.121.91.94:8123" routerLinkActive="active"><button mat-button class="header-link">Dynmap</button></a>
     <a routerLink="/donate" routerLinkActive="active"><button mat-button class="header-link">Donate</button></a>
     <a routerLink="/admin/dashboard" routerLinkActive="active" [hidden]="!getIsAdmin()"> <button mat-button
         class="header-link">Admin</button></a>
